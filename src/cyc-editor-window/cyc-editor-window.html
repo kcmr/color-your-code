@@ -2,9 +2,9 @@
 <link rel="import" href="../cyc-editor-sidebar/cyc-editor-sidebar.html">
 
 
-<dom-module id="cyc-editor-preview">
+<dom-module id="cyc-editor-window">
   <template>
-    <link rel="stylesheet" href="cyc-editor-preview.css" inline>
+    <link rel="stylesheet" href="cyc-editor-window.css" inline>
 
     <div class="titleBar">
       <div class="titleBar__buttons">
@@ -24,9 +24,9 @@
   </template>
 
   <script>
-    class CycEditorPreview extends Polymer.Element {
+    class CycEditorWindow extends Polymer.Element {
       static get is() {
-        return 'cyc-editor-preview';
+        return 'cyc-editor-window';
       }
 
       static get properties() {
@@ -34,6 +34,6 @@
       }
     }
 
-    window.customElements.define(CycEditorPreview.is, CycEditorPreview);
+    window.customElements.define(CycEditorWindow.is, CycEditorWindow);
   </script>
 </dom-module>
