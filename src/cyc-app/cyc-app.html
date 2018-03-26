@@ -34,6 +34,16 @@
       static get properties() {
         return {};
       }
+
+      ready() {
+        super.ready();
+        setTimeout(() => {
+          this.dispatchEvent(new CustomEvent('shell-loaded', {
+            bubbles: true,
+            composed: true
+          }));
+        }, 3000);
+      }
     }
 
     window.customElements.define(CycApp.is, CycApp);

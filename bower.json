@@ -6,7 +6,8 @@
   "license": "PDTE",
   "dependencies": {
     "polymer": "Polymer/polymer#^2.0.0",
-    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0"
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0",
+    "animejs": "juliangarnier/anime#^2.2.0"
   },
   "resolutions": {
     "polymer": "^2.0.0"

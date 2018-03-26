@@ -26,3 +26,26 @@ body {
 .app {
   flex: 1;
 }
+
+.loader {
+  opacity: 0;
+  transition: opacity 0.5s;
+  display: flex;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  z-index: 2;
+  background-image: linear-gradient(136deg, #27a0b0 0%, #5477d4 52%, #a85dff 100%);
+}
+
+.loading .loader,
+.loading .vscode-logo {
+  opacity: 1;
+}
+
+.vscode-logo {
+  opacity: 0;
+  margin: auto;
+  fill: #fff;
+}
