@@ -1,42 +1,33 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-repeat.html">
 
 <dom-module id="cyc-theme-editor">
   <template>
     <link rel="stylesheet" href="cyc-theme-editor.css" inline>
 
-    <form class="form" method="post" action="theme.json">
+    <form class="form" on-change="_enableSubmit" on-reset="_onFormReset">
       <fieldset>
         <legend>
           <span>Editor Colors</span>
         </legend>
 
-        <div class="group">
-          <div class="color-field">
-            <label for="titlebar-bg">Titlebar background</label>
-            <span class="input-wrapper">
-              <input type="color" id="titlebar-bg" name="titleBar.activeBackground" value="#141820" data-css-var="--bg-titleBar">
-            </span>
-          </div>
-
-          <div class="color-field">
-            <label for="activity-bar-bg">ActivityBar background</label>
-            <span class="input-wrapper">
-              <input type="color" id="activity-bar-bg" name="activityBar.background" value="#1C212E" data-css-var="--bg-activityBar">
-            </span>
-          </div>
-
-          <div class="color-field">
-            <label for="sidebar-bg">Sidebar background</label>
-            <span class="input-wrapper">
-              <input type="color" id="sidebar-bg" name="sideBar.background" value="#1C212E" data-css-var="--bg-sidebar">
-            </span>
-          </div>
-        </div>
+        <ul class="group-list">
+          <template is="dom-repeat" items="[[editorColors]]">
+            <li>
+              <label class="color-field">
+                <span class="label">[[item.name]]</span>
+                <span class="input-wrapper">
+                  <input type="color" name="[[item.prop]]" value="[[item.value]]" data-css-var$="[[item.cssVar]]" on-input="_updateCSSVars">
+                </span>
+              </label>
+            </li>
+          </template>
+        </ul>
       </fieldset>
 
-      <div class="form__actions">
+      <div class="form-actions">
         <button class="btn btn--secondary" type="reset">It's awful!</button>
-        <button class="btn btn--primary" type="submit" disabled>Download theme</button>
+        <button class="btn btn--primary" type="submit" disabled="[[!_formChanged]]">Download theme</button>
       </div>
     </form>
   </template>
@@ -48,7 +39,47 @@
       }
 
       static get properties() {
-        return {};
+        return {
+          editorColors: {
+            type: Array,
+            value: function() {
+              return [{
+                name: 'TitleBar background',
+                prop: 'titleBar.activeBackground',
+                value: '#141820',
+                cssVar: '--bg-titleBar'
+              }, {
+                name: 'Sidebar background',
+                prop: 'sideBar.background',
+                value: '#1C212E',
+                cssVar: '--bg-sidebar'
+              }, {
+                name: 'ActivityBar background',
+                prop: 'activityBar.background',
+                value: '#1C212E',
+                cssVar: '--bg-activityBar'
+              }]
+            }
+          },
+          _formChanged: {
+            type: Boolean,
+            value: false
+          }
+        };
+      }
+
+      _updateCSSVars(e) {
+        const { dataset: { cssVar }, value } = e.target;
+        document.documentElement.style.setProperty(cssVar, value);
+      }
+
+      _onFormReset() {
+        this._formChanged = false;
+        document.documentElement.removeAttribute('style');
+      }
+
+      _enableSubmit() {
+        this._formChanged = true;
       }
     }
 

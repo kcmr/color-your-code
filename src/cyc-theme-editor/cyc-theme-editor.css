@@ -4,7 +4,7 @@
   overflow-y: auto;
 }
 
-.form__actions {
+.form-actions {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -48,13 +48,22 @@ legend span {
   padding: 25px 0;
 }
 
+.group-list {
+  margin: 0;
+  padding: 0 40px;
+  list-style: none;
+}
+
+.group-list li {
+  margin-bottom: 5px;
+  color: #565758;
+}
+
 .color-field {
   display: flex;
   flex-direction: row-reverse;
   justify-content: flex-end;
   align-items: center;
-  margin-bottom: 5px;
-  color: #565758;
 }
 
 .input-wrapper {
@@ -84,10 +93,6 @@ legend span {
 
 .input-wrapper input::-webkit-color-swatch {
   border: none;
-}
-
-.group {
-  padding: 0 40px;
 }
 
 .btn {
