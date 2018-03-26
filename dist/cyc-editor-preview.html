@@ -1,0 +1,26 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+
+<dom-module id="cyc-editor-preview">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <p>editor preview</p>
+  </template>
+  <script>
+    class CycEditorPreview extends Polymer.Element {
+      static get is() {
+        return 'cyc-editor-preview';
+      }
+
+      static get properties() {
+        return {};
+      }
+    }
+
+    window.customElements.define(CycEditorPreview.is, CycEditorPreview);
+  </script>
+</dom-module>

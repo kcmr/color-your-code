@@ -1,15 +1,30 @@
 {
   "name": "color-your-code",
+  "version": "0.0.0",
   "license": "MIT",
   "devDependencies": {
+    "autoprefixer": "^8.2.0",
+    "browser-sync": "^2.23.6",
+    "del": "^3.0.0",
     "eslint": "^3.19.0",
     "eslint-config-google": "^0.7.0",
-    "eslint-plugin-html": "^2.0.0"
+    "eslint-plugin-html": "^2.0.0",
+    "gulp": "^3.9.1",
+    "gulp-changed": "^3.2.0",
+    "gulp-color": "0.0.1",
+    "gulp-html-replace": "^1.6.2",
+    "gulp-inline-source": "^3.1.0",
+    "gulp-postcss": "^7.0.1",
+    "gulp-process-inline": "^0.2.0",
+    "postcss-pixels-to-rem": "^0.8.0"
   },
   "scripts": {
     "lint": "npm run lint:javascript && polymer lint",
     "lint:javascript": "eslint . --ext js,html --ignore-path .gitignore",
     "test": "polymer test",
     "test:integration": "polymer build # test that psk builds without error with the CLI"
-  }
+  },
+  "browserslist": [
+    "last 2 versions"
+  ]
 }
