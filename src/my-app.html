@@ -1,0 +1,23 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+
+<dom-module id="cyc-app">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+  </template>
+
+  <script>
+    class CycApp extends Polymer.Element {
+      static get is() { return 'cyc-app'; }
+
+      static get properties() {
+        return {};
+      }
+    }
+
+    window.customElements.define(CycApp.is, CycApp);
+  </script>
+</dom-module>
