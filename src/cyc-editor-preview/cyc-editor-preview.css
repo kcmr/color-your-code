@@ -1,0 +1,120 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: calc(100% - 73px);
+  box-shadow: 0px 7px 20px 0px rgba(0,0,0,0.2);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   titleBar
+   ========================================================================== */
+.titleBar {
+  height: 22px;
+  background-color: var(--bg-titleBar);
+}
+
+.titleBar__buttons {
+  display: flex;
+  padding: 5px;
+}
+
+/* ==========================================================================
+   window buttons
+   ========================================================================== */
+.winBtn {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-left: 4px;
+  margin-right: 4px;
+}
+
+.winBtn--close {
+  background-color: #FF6258;
+}
+
+.winBtn--minimize {
+  background-color: #FFC12F;
+}
+
+.winBtn--maximize {
+  background-color: #28CA42;
+}
+
+/* ==========================================================================
+   Editor body (activityBar + sidebar + editor)
+   ========================================================================== */
+.body {
+  display: flex;
+  flex: 1;
+}
+
+.activityBar {
+  width: 50px;
+  background-color: var(--bg-activityBar);
+}
+
+.sidebar {
+  width: 265px;
+  background-color: var(--bg-sidebar);
+}
+
+.editor {
+  flex: 1;
+  background-color: var(--bg-editor);
+}
+
+/* ==========================================================================
+   statusBar
+   ========================================================================== */
+.statusBar {
+  height: 22px;
+  background-color: var(--bg-editor);
+  border-top: 1px solid var(--bg-dark);
+}
+
+
+/* ==========================================================================
+   sidebar
+   ========================================================================== */
+.panel-heading {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.sidebar__heading {
+  color: red;
+  padding: 12px 20px;
+}
+
+.sidebar-panel__heading {
+  color: white;
+  padding: 6px 20px;
+  background-color: var(--bg-dark);
+  letter-spacing: 0.2px;
+}
+
+.sidebar-panel__open-files {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: #818CA7;
+  font-size: 13px;
+}
+
+.sidebar-panel__open-files li {
+  padding: 3px 0 3px 35px;
+}
+
+.sidebar-panel__open-files .selected {
+  background: #303A51;
+}
+
+.modified {
+  color: #E4C286;
+}

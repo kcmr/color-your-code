@@ -1,0 +1,28 @@
+html {
+  --bg-dark:   #141820;
+  --bg-medium: #1C212E;
+  --bg-editor: #212837;
+
+  --bg-titleBar: var(--bg-medium);
+  --bg-activityBar: var(--bg-dark);
+  --bg-sidebar: var(--bg-medium);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+  margin: 0;
+  background-image: linear-gradient(136deg, #27a0b0 0%, #5477d4 52%, #a85dff 100%);
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  overflow: hidden;
+}
+
+.app {
+  flex: 1;
+}

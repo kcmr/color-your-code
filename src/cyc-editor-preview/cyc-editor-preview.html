@@ -2,13 +2,35 @@
 
 <dom-module id="cyc-editor-preview">
   <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
+    <link rel="stylesheet" href="cyc-editor-preview.css" inline>
 
-    <p>editor preview</p>
+    <div class="titleBar">
+      <div class="titleBar__buttons">
+        <div class="winBtn winBtn--close"></div>
+        <div class="winBtn winBtn--minimize"></div>
+        <div class="winBtn winBtn--maximize"></div>
+      </div>
+    </div>
+
+    <div class="body">
+      <div class="activityBar"></div>
+
+      <div class="sidebar">
+        <div class="sidebar__heading panel-heading">Explorador</div>
+        <div class="sidebar-panel">
+          <div class="sidebar-panel__heading panel-heading">Editores abiertos</div>
+          <ul class="sidebar-panel__open-files">
+            <li class="modified selected">some-file.html</li>
+            <li>some-file.js</li>
+            <li>some-file.scss</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="editor"></div>
+    </div>
+
+    <div class="statusBar"></div>
   </template>
 
   <script>
