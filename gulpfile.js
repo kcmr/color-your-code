@@ -11,27 +11,26 @@ const pxtorem = require('postcss-pixels-to-rem');
 const changed = require('gulp-changed');
 
 const BUILD_DIRECTORY = 'dist/';
-const pxtoremConfig = {
+const PXTOREM_CONFIG = {
   exclude: [
-    'border', 
-    'box-shadow', 
+    'border',
+    'box-shadow',
     'border-radius'
   ]
 };
 
 gulp.task('clean', () => del([BUILD_DIRECTORY]));
 
-gulp.task('build', () => {
+gulp.task('inline-styles', () => {
   const styles = processInline();
   return gulp.src(['src/**/*.html'])
-    .pipe(changed(BUILD_DIRECTORY))
     .pipe(inlineSource({
       compress: false,
       swallowErrors: true
     }))
     .pipe(styles.extract('style'))
     .pipe(postcss([
-      pxtorem(pxtoremConfig),
+      pxtorem(PXTOREM_CONFIG),
       autoprefixer
     ]))
     .pipe(styles.restore())
@@ -54,7 +53,7 @@ gulp.task('start-browsersync', () => {
 });
 
 gulp.task('watch:sources', () => {
-  gulp.watch(['index.html', 'src/**/*'], ['build']);
+  gulp.watch(['src/**/*'], ['inline-styles']);
 });
 
 gulp.task('watch:dist', () => {
@@ -63,7 +62,6 @@ gulp.task('watch:dist', () => {
 
 gulp.task('serve', [
   'clean',
-  'build',
   'start-browsersync',
   'watch:sources',
   'watch:dist'
