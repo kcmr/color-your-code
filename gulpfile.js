@@ -62,6 +62,7 @@ gulp.task('watch:dist', () => {
 
 gulp.task('serve', [
   'clean',
+  'inline-styles',
   'start-browsersync',
   'watch:sources',
   'watch:dist'
