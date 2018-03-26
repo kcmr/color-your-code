@@ -60,7 +60,9 @@
 
         document.body.addEventListener('shell-loaded', (e) => {
           loader.addEventListener('transitionend', destroyLoader);
-          document.body.classList.remove('loading');
+          setTimeout(() => {
+            document.body.classList.remove('loading');
+          }, 1000);
         });
       }(document));
     </script>

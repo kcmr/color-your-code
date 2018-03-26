@@ -37,12 +37,10 @@
 
       ready() {
         super.ready();
-        setTimeout(() => {
-          this.dispatchEvent(new CustomEvent('shell-loaded', {
-            bubbles: true,
-            composed: true
-          }));
-        }, 3000);
+        this.dispatchEvent(new CustomEvent('shell-loaded', {
+          bubbles: true,
+          composed: true
+        }));
       }
     }
 
