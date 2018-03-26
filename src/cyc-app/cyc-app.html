@@ -4,29 +4,37 @@
 
 <dom-module id="cyc-app">
   <template>
-    <style>
-      :host {
-        display: block;
-      }
+    <link rel="stylesheet" href="cyc-app.css" inline>
 
-      .something {
-        display: flex;
-        width: 200px;
-      }
-    </style>
+    <div class="preview">
+      <h1 class="site-title" role="text">
+        <svg aria-hidden="true" viewBox="0 0 160 160" class="site-title__logo" fill="#fff">
+          <g>
+            <path d="M 3 115 L 112 6 L 148 21 L 16 120 L 3 115 Z"></path>
+            <path d="M 112 6 L 148 21 L 150 136 L 112 152 L 112 6 Z"></path>
+            <path d="M 148 135 L 112 152 L 3 43 L 17 37 L 148 135 Z"></path>
+          </g>
+        </svg>
 
-    <cyc-editor-preview></cyc-editor-preview>
-    <cyc-theme-editor></cyc-theme-editor>
+        <span>Color your patatas</span>
+      </h1>
+
+      <cyc-editor-preview hidden="[[something]]"></cyc-editor-preview>
+    </div>
+
+    <cyc-theme-editor class="panel"></cyc-theme-editor>
   </template>
 
   <script>
     class CycApp extends Polymer.Element {
-      static get is() { 
-        return 'cyc-app'; 
+      static get is() {
+        return 'cyc-app';
       }
 
       static get properties() {
-        return {};
+        return {
+          something: Boolean
+        };
       }
     }
 

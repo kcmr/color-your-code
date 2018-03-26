@@ -1,0 +1,38 @@
+:host([hidden]), [hidden] { display: none !important; }
+
+:host {
+  display: flex;
+}
+
+.preview {
+  width: calc((1000 / 1440) * 100%);
+  padding: 0 60px 60px;
+  box-sizing: border-box;
+}
+
+.panel {
+  flex: 1;
+  height: 100vh;
+  background-color: #fff;
+  position: relative;
+  box-shadow: 12px 8px 80px 10px rgba(0, 0, 0, 0.22);
+}
+
+.site-title {
+  font-family: Courier, monospace;
+  color: #fff;
+  font-size: 20px;
+  font-weight: normal;
+  word-spacing: -1ch;
+  text-transform: lowercase;
+  margin: 0;
+  padding: 25px 0;
+  display: flex;
+  align-items: center;
+}
+
+.site-title__logo {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+}
