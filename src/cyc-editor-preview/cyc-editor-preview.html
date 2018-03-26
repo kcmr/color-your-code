@@ -1,4 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../cyc-editor-sidebar/cyc-editor-sidebar.html">
+
 
 <dom-module id="cyc-editor-preview">
   <template>
@@ -14,19 +16,7 @@
 
     <div class="body">
       <div class="activityBar"></div>
-
-      <div class="sidebar">
-        <div class="sidebar__heading panel-heading">Explorador</div>
-        <div class="sidebar-panel">
-          <div class="sidebar-panel__heading panel-heading">Editores abiertos</div>
-          <ul class="sidebar-panel__open-files">
-            <li class="modified selected">some-file.html</li>
-            <li>some-file.js</li>
-            <li>some-file.scss</li>
-          </ul>
-        </div>
-      </div>
-
+      <cyc-editor-sidebar class="sidebar"></cyc-editor-sidebar>
       <div class="editor"></div>
     </div>
 

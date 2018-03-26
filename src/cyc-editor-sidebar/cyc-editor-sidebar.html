@@ -1,0 +1,30 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+
+<dom-module id="cyc-editor-sidebar">
+  <template>
+    <link rel="stylesheet" href="cyc-editor-sidebar.css" inline>
+
+    <div class="heading panel-heading">Explorador</div>
+    <div class="sidebar-panel">
+      <div class="heading sidebar-heading">Editores abiertos</div>
+      <ul class="open-files">
+        <li class="modified selected">some-file.html</li>
+        <li>some-file.js</li>
+        <li>some-file.scss</li>
+      </ul>
+    </div>
+  </template>
+  <script>
+    class CycEditorSidebar extends Polymer.Element {
+      static get is() {
+        return 'cyc-editor-sidebar';
+      }
+
+      static get properties() {
+        return {};
+      }
+    }
+
+    window.customElements.define(CycEditorSidebar.is, CycEditorSidebar);
+  </script>
+</dom-module>
