@@ -105,6 +105,15 @@
             assert.isFalse(submitBtn.disabled);
           });
 
+          test('clicking the "it\'s awful" button disables the submit button after it has been enabled', () => {
+            const submitBtn = el.shadowRoot.querySelector('button[type="submit"]');
+            const resetBtn = el.shadowRoot.querySelector('button[type="reset"]');
+            const form = el.shadowRoot.querySelector('form');
+            form.dispatchEvent(new Event('change'));
+            resetBtn.click();
+            assert.isTrue(submitBtn.disabled);
+          });
+
           test('clicking the download theme button downloads a JSON file with the generated theme', () => {
             el.editorColors = [{
               name: 'Some color',
