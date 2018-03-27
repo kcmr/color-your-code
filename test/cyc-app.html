@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>cyc-app</title>
+
+    <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../bower_components/web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../dist/cyc-app/cyc-app.html">
+  </head>
+  <body>
+    <test-fixture id="default">
+      <template>
+        <cyc-app></cyc-app>
+      </template>
+    </test-fixture>
+
+    <script>
+      suite('<cyc-app>', () => {
+        test('fires an event "shell-loaded" on ready', () => {
+          const el = fixture('default');
+          const spy = sinon.spy();
+          el.addEventListener('shell-loaded', spy);
+          el.ready(); // force ready
+          assert.isTrue(spy.calledOnce);
+        });
+      });
+    </script>
+  </body>
+</html>
