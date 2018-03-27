@@ -68,7 +68,7 @@
         });
 
         suite('color changing', () => {
-          test('chaging a color sets the value to a document CSS var', (done) => {
+          test('changing a color sets the value to a document CSS var', (done) => {
             el.editorColors = [{
               name: 'Some color',
               prop: 'some-prop',
@@ -82,13 +82,58 @@
 
               input.addEventListener('input', function() {
                 const currentValue = document.documentElement.style.getPropertyValue(el.editorColors[0].cssVar);
-                assert.notEqual(initialValue, currentValue, 'the CSS value has changed')
+                assert.notEqual(initialValue, currentValue, 'the CSS value has changed');
                 assert.equal(currentValue, input.value);
                 done();
               });
 
               input.dispatchEvent(new Event('input'));
             });
+          });
+        });
+
+        suite('form', () => {
+          test('the submit button of the form is disabled until a color is changed', () => {
+            const submitBtn = el.shadowRoot.querySelector('button[type="submit"]');
+            assert.isTrue(submitBtn.disabled, 'submit button is disabled');
+          });
+
+          test('changing the form (change event) enables the form submit button', () => {
+            const submitBtn = el.shadowRoot.querySelector('button[type="submit"]');
+            const form = el.shadowRoot.querySelector('form');
+            form.dispatchEvent(new Event('change'));
+            assert.isFalse(submitBtn.disabled);
+          });
+
+          test('clicking the download theme button downloads a JSON file with the generated theme', () => {
+            el.editorColors = [{
+              name: 'Some color',
+              prop: 'some-prop',
+              value: '#ff0000',
+              cssVar: '--some-var'
+            }];
+
+            const theme = {
+              type: el.themeType,
+              name: el.themeName,
+              colors: {
+                'some-prop': '#ff0000'
+              }
+            };
+
+            const expectedOuput = 'data:text/json;charset=utf-8,' + JSON.stringify(theme, null, 4);
+
+            const submitBtn = el.shadowRoot.querySelector('button[type="submit"]');
+            const downloadLink = el.shadowRoot.querySelector('#downloadLink');
+            const form = el.shadowRoot.querySelector('form');
+            const downloadLinkClickStub = sinon.stub(downloadLink, 'click');
+
+            form.dispatchEvent(new Event('change'));
+            submitBtn.click();
+
+            assert.isTrue(downloadLinkClickStub.calledOnce);
+            assert.equal(downloadLink.getAttribute('href'), expectedOuput);
+            assert.equal(downloadLink.getAttribute('download'), 'theme.json');
           });
         });
       });
