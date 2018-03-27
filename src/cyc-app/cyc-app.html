@@ -1,10 +1,17 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../cyc-editor-window/cyc-editor-window.html">
 <link rel="import" href="../cyc-theme-editor/cyc-theme-editor.html">
 
 <dom-module id="cyc-app">
   <template>
     <link rel="stylesheet" href="cyc-app.css" inline>
+
+    <iron-ajax
+      auto
+      url="[[themeFile]]"
+      handle-as="json"
+      last-response="{{_theme}}"></iron-ajax>
 
     <div class="preview">
       <h1 class="site-title" role="text">
@@ -22,7 +29,7 @@
       <cyc-editor-window></cyc-editor-window>
     </div>
 
-    <cyc-theme-editor class="panel"></cyc-theme-editor>
+    <cyc-theme-editor class="panel" theme="[[_theme]]"></cyc-theme-editor>
   </template>
 
   <script>
@@ -32,7 +39,15 @@
       }
 
       static get properties() {
-        return {};
+        return {
+          /**
+           * Name of the file to be used as base.
+           */
+          themeFile: {
+            type: String,
+            value: 'electron-color-theme.json',
+          },
+        };
       }
 
       ready() {

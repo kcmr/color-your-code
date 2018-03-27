@@ -35,7 +35,7 @@ body {
   position: absolute;
   top: 0;
   width: 100vw;
-  z-index: 2;
+  z-index: 3;
   background-image: linear-gradient(136deg, #27a0b0 0%, #5477d4 52%, #a85dff 100%);
 }
 

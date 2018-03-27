@@ -12,12 +12,12 @@
         </legend>
 
         <ul class="group-list">
-          <template is="dom-repeat" items="[[editorColors]]" id="editorColorsList">
+          <template is="dom-repeat" items="[[_themeColors]]" id="editorColorsList">
             <li>
               <label class="color-field">
                 <span class="label">[[item.name]]</span>
                 <span class="input-wrapper">
-                  <input type="color" name="[[item.prop]]" value="{{item.value::input}}" data-css-var$="[[item.cssVar]]" on-input="_updateCSSVars">
+                  <input type="color" name="[[item.prop]]" value="{{item.value::input}}" data-value$="[[item.value]]" data-css-var$="[[item.cssVar]]" on-input="_updateCSSVars">
                 </span>
               </label>
             </li>
@@ -27,7 +27,7 @@
 
       <div class="form-actions">
         <button class="btn btn--secondary" type="reset">It's awful!</button>
-        <button class="btn btn--primary" type="submit" disabled="[[!_formChanged]]">Download theme</button>
+        <button class="btn btn--primary" type="submit" disabled="[[!_submitEnabled]]">Download theme</button>
         <a download="theme.json" id="downloadLink" hidden></a>
       </div>
     </form>
@@ -49,28 +49,14 @@
             type: String,
             value: 'Your theme name',
           },
-          editorColors: {
-            type: Array,
-            value: function() {
-              return [{
-                name: 'TitleBar background',
-                prop: 'titleBar.activeBackground',
-                value: '#141820',
-                cssVar: '--bg-titleBar',
-              }, {
-                name: 'ActivityBar background',
-                prop: 'activityBar.background',
-                value: '#1C212E',
-                cssVar: '--bg-activityBar',
-              }, {
-                name: 'Sidebar background',
-                prop: 'sideBar.background',
-                value: '#1C212E',
-                cssVar: '--bg-sidebar',
-              }];
-            },
+          theme: {
+            type: Object,
           },
-          _formChanged: {
+          _themeColors: {
+            type: Array,
+            computed: '_computeThemeColors(theme)',
+          },
+          _submitEnabled: {
             type: Boolean,
             value: false,
           },
@@ -82,11 +68,29 @@
         const name = this.themeName;
         const colors = {};
 
-        for (const color of this.editorColors) {
+        for (const color of this._themeColors) {
           colors[color.prop] = color.value;
         }
 
         return {type, name, colors};
+      }
+
+      _computeThemeColors(theme) {
+        if (!theme.colors) {
+          return;
+        }
+
+        const colors = Object.entries(theme.colors);
+        return colors.map(([key, value]) => ({
+          name: key,
+          prop: key,
+          value: value,
+          cssVar: this._toCSSVar(key),
+        }));
+      }
+
+      _toCSSVar(value) {
+        return `--${value.replace('.', '-')}`;
       }
 
       _updateCSSVars(e) {
@@ -94,9 +98,23 @@
         document.documentElement.style.setProperty(cssVar, value);
       }
 
-      _onFormReset() {
-        this._formChanged = false;
+      _onFormReset(e) {
+        e.preventDefault();
+        this._submitEnabled = false;
+        this._removeDocumentStyles();
+        this._restoreOriginalTheme();
+      }
+
+      _removeDocumentStyles() {
         document.documentElement.removeAttribute('style');
+      }
+
+      _restoreOriginalTheme() {
+        this.theme = Object.assign({}, this.theme);
+      }
+
+      _enableSubmit() {
+        this._submitEnabled = true;
       }
 
       _onFormSubmit(e) {
@@ -108,10 +126,6 @@
         const output = 'data:text/json;charset=utf-8,' + JSON.stringify(this._theme, null, 4);
         this.$.downloadLink.href = output;
         this.$.downloadLink.click();
-      }
-
-      _enableSubmit() {
-        this._formChanged = true;
       }
     }
 
