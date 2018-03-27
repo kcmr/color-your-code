@@ -28,6 +28,7 @@
       <div class="form-actions">
         <button class="btn btn--secondary" type="reset">It's awful!</button>
         <button class="btn btn--primary" type="submit" disabled="[[!_formChanged]]">Download theme</button>
+        <a download="theme.json" id="downloadLink" hidden></a>
       </div>
     </form>
   </template>
@@ -40,6 +41,14 @@
 
       static get properties() {
         return {
+          themeType: {
+            type: String,
+            value: 'dark'
+          },
+          themeName: {
+            type: String,
+            value: 'Your theme name'
+          },
           editorColors: {
             type: Array,
             value: function() {
@@ -68,6 +77,18 @@
         };
       }
 
+      get _theme() {
+        const type = this.themeType;
+        const name = this.themeName;
+        const colors = {};
+
+        for (const color of this.editorColors) {
+          colors[color.prop] = color.value;
+        }
+
+        return { type, name, colors };
+      }
+
       _updateCSSVars(e) {
         const { dataset: { cssVar }, value } = e.target;
         document.documentElement.style.setProperty(cssVar, value);
@@ -80,7 +101,12 @@
 
       _onFormSubmit(e) {
         e.preventDefault();
-        console.log(this.editorColors);
+        this._downloadTheme();
+      }
+
+      _downloadTheme() {
+        this.$.downloadLink.href = 'data:text/json;charset=utf-8,' + JSON.stringify(this._theme, null, 4);
+        this.$.downloadLink.click();
       }
 
       _enableSubmit() {
