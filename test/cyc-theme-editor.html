@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>cyc-theme-editor</title>
+
+    <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../bower_components/web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../dist/cyc-theme-editor/cyc-theme-editor.html">
+  </head>
+  <body>
+    <test-fixture id="default">
+      <template>
+        <cyc-theme-editor></cyc-theme-editor>
+      </template>
+    </test-fixture>
+
+    <script>
+      suite('<cyc-theme-editor>', () => {
+        let el;
+
+        setup(() => {
+          el = fixture('default');
+        });
+
+        suite('editor colors list', () => {
+          let colorList;
+          let input;
+
+          setup((done) => {
+            el.editorColors = [{
+              name: 'Some color',
+              prop: 'some-prop',
+              value: '#ff0000',
+              cssVar: '--some-var'
+            }];
+
+            flush(() => {
+              colorList = el.shadowRoot.querySelector('#editorColorsList');
+              input = el.shadowRoot.querySelector('input[type="color"]');
+              done();
+            });
+          });
+
+          test('renders the list of editorColors', () => {
+            assert.equal(colorList.items.length, el.editorColors.length);
+          });
+
+          test('each item of the list displays the name of the editor color', () => {
+            const label = el.shadowRoot.querySelector('label');
+            assert.equal(label.innerText.trim(), el.editorColors[0].name, 'displays the name of the editor color');
+          });
+
+          test('each input of the list has the value passed in editorColors[i].value', () => {
+            assert.equal(input.value, el.editorColors[0].value, 'input value is correct');
+          });
+
+          test('each input of the list has a data-css-var attribute with the name of the CSS var passed in editorColors[i].cssVar', () => {
+            assert.equal(input.dataset.cssVar, el.editorColors[0].cssVar, 'input data-css-var is correct');
+          });
+
+          test('each item of the list has the name attribute with the value passed in editorColors[i].prop', () => {
+            assert.equal(input.name, el.editorColors[0].prop, 'input name is correct');
+          });
+        });
+
+        suite('color changing', () => {
+          test('chaging a color sets the value to a document CSS var', (done) => {
+            el.editorColors = [{
+              name: 'Some color',
+              prop: 'some-prop',
+              value: '#ff0000',
+              cssVar: '--some-var'
+            }];
+
+            flush(() => {
+              const input = el.shadowRoot.querySelector('input[type="color"]');
+              const initialValue = document.documentElement.style.getPropertyValue(el.editorColors[0].cssVar);
+
+              input.addEventListener('input', function() {
+                const currentValue = document.documentElement.style.getPropertyValue(el.editorColors[0].cssVar);
+                assert.notEqual(initialValue, currentValue, 'the CSS value has changed')
+                assert.equal(currentValue, input.value);
+                done();
+              });
+
+              input.dispatchEvent(new Event('input'));
+            });
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
