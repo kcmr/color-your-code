@@ -76,10 +76,6 @@
       }
 
       _computeThemeColors(theme) {
-        if (!theme.colors) {
-          return;
-        }
-
         const colors = Object.entries(theme.colors);
         return colors.map(([key, value]) => ({
           name: key,
