@@ -16,13 +16,16 @@
     "gulp-inline-source": "^3.1.0",
     "gulp-postcss": "^7.0.1",
     "gulp-process-inline": "^0.2.0",
-    "postcss-pixels-to-rem": "^0.8.0"
+    "postcss-pixels-to-rem": "^0.8.0",
+    "web-component-tester": "^6.5.0",
+    "web-component-tester-istanbulcoverage": "^1.0.2"
   },
   "scripts": {
     "lint": "npm run lint:javascript && polymer lint",
     "lint:javascript": "eslint . --ext js,html --ignore-path .gitignore",
-    "test": "polymer test",
-    "test:integration": "polymer build # test that psk builds without error with the CLI"
+    "test": "./node_modules/web-component-tester/bin/wct",
+    "test:integration": "polymer build # test that psk builds without error with the CLI",
+    "serve:dev": "gulp serve"
   },
   "browserslist": [
     "last 2 versions"
