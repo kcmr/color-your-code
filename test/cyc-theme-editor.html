@@ -35,7 +35,7 @@
               name: 'Some color',
               prop: 'some-prop',
               value: '#ff0000',
-              cssVar: '--some-var'
+              cssVar: '--some-var',
             }];
 
             flush(() => {
@@ -73,7 +73,7 @@
               name: 'Some color',
               prop: 'some-prop',
               value: '#ff0000',
-              cssVar: '--some-var'
+              cssVar: '--some-var',
             }];
 
             flush(() => {
@@ -119,15 +119,15 @@
               name: 'Some color',
               prop: 'some-prop',
               value: '#ff0000',
-              cssVar: '--some-var'
+              cssVar: '--some-var',
             }];
 
             const theme = {
               type: el.themeType,
               name: el.themeName,
               colors: {
-                'some-prop': '#ff0000'
-              }
+                'some-prop': '#ff0000',
+              },
             };
 
             const expectedOuput = 'data:text/json;charset=utf-8,' + JSON.stringify(theme, null, 4);

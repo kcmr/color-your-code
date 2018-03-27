@@ -4,7 +4,8 @@
     "ecmaVersion": 6
   },
   "env": {
-    "browser": true
+    "browser": true,
+    "node": true
   },
   "plugins": [
     "html"
@@ -13,9 +14,11 @@
     "brace-style": "off",
     "new-cap": ["error", { "capIsNewExceptions": ["Polymer"] }],
     "no-var": "off",
-    "require-jsdoc": "off"
+    "require-jsdoc": "off",
+    "max-len": 0
   },
   "globals": {
-    "Polymer": true
+    "Polymer": true,
+    "anime": true
   }
 }

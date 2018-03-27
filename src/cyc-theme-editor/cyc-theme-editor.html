@@ -43,11 +43,11 @@
         return {
           themeType: {
             type: String,
-            value: 'dark'
+            value: 'dark',
           },
           themeName: {
             type: String,
-            value: 'Your theme name'
+            value: 'Your theme name',
           },
           editorColors: {
             type: Array,
@@ -56,24 +56,24 @@
                 name: 'TitleBar background',
                 prop: 'titleBar.activeBackground',
                 value: '#141820',
-                cssVar: '--bg-titleBar'
+                cssVar: '--bg-titleBar',
               }, {
                 name: 'ActivityBar background',
                 prop: 'activityBar.background',
                 value: '#1C212E',
-                cssVar: '--bg-activityBar'
+                cssVar: '--bg-activityBar',
               }, {
                 name: 'Sidebar background',
                 prop: 'sideBar.background',
                 value: '#1C212E',
-                cssVar: '--bg-sidebar'
-              }]
-            }
+                cssVar: '--bg-sidebar',
+              }];
+            },
           },
           _formChanged: {
             type: Boolean,
-            value: false
-          }
+            value: false,
+          },
         };
       }
 
@@ -86,11 +86,11 @@
           colors[color.prop] = color.value;
         }
 
-        return { type, name, colors };
+        return {type, name, colors};
       }
 
       _updateCSSVars(e) {
-        const { dataset: { cssVar }, value } = e.target;
+        const {dataset: {cssVar}, value} = e.target;
         document.documentElement.style.setProperty(cssVar, value);
       }
 
@@ -105,7 +105,8 @@
       }
 
       _downloadTheme() {
-        this.$.downloadLink.href = 'data:text/json;charset=utf-8,' + JSON.stringify(this._theme, null, 4);
+        const output = 'data:text/json;charset=utf-8,' + JSON.stringify(this._theme, null, 4);
+        this.$.downloadLink.href = output;
         this.$.downloadLink.click();
       }
 
