@@ -5,7 +5,7 @@
   <template>
     <link rel="stylesheet" href="cyc-theme-editor.css" inline>
 
-    <form class="form" on-change="_enableSubmit" on-reset="_onFormReset">
+    <form class="form" on-change="_enableSubmit" on-reset="_onFormReset" on-submit="_onFormSubmit">
       <fieldset>
         <legend>
           <span>Editor Colors</span>
@@ -17,7 +17,7 @@
               <label class="color-field">
                 <span class="label">[[item.name]]</span>
                 <span class="input-wrapper">
-                  <input type="color" name="[[item.prop]]" value="[[item.value]]" data-css-var$="[[item.cssVar]]" on-input="_updateCSSVars">
+                  <input type="color" name="[[item.prop]]" value="{{item.value::input}}" data-css-var$="[[item.cssVar]]" on-input="_updateCSSVars">
                 </span>
               </label>
             </li>
@@ -76,6 +76,11 @@
       _onFormReset() {
         this._formChanged = false;
         document.documentElement.removeAttribute('style');
+      }
+
+      _onFormSubmit(e) {
+        e.preventDefault();
+        console.log(this.editorColors);
       }
 
       _enableSubmit() {
