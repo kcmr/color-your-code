@@ -30,7 +30,9 @@ gulp.task('inline-styles', () => {
     .pipe(styles.extract('style'))
     .pipe(postcss([
       pxtorem(PXTOREM_CONFIG),
-      autoprefixer,
+      autoprefixer({
+        flexbox: 'no-2009',
+      }),
     ]))
     .pipe(styles.restore())
     .pipe(gulp.dest(BUILD_DIRECTORY));
