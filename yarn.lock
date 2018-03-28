@@ -5821,6 +5821,12 @@ pre-commit@^1.2.2:
     spawn-sync "^1.0.15"
     which "1.2.x"
 
+pre-push@^0.1.1:
+  version "0.1.1"
+  resolved "https://globaldevtools.bbva.com:443/artifactory/api/npm/npm-repo/pre-push/-/pre-push-0.1.1.tgz#2a2a79827d243a76c91089897ac707f45e716aac"
+  dependencies:
+    shelljs "0.3.x"
+
 prelude-ls@~1.1.0, prelude-ls@~1.1.1, prelude-ls@~1.1.2:
   version "1.1.2"
   resolved "https://globaldevtools.bbva.com:443/artifactory/api/npm/npm-repo/prelude-ls/-/prelude-ls-1.1.2.tgz#21932a549f5e52ffd9a827f570e04be62a97da54"
@@ -6534,6 +6540,10 @@ shebang-command@^1.2.0:
 shebang-regex@^1.0.0:
   version "1.0.0"
   resolved "https://globaldevtools.bbva.com:443/artifactory/api/npm/npm-repo/shebang-regex/-/shebang-regex-1.0.0.tgz#da42f49740c0b42db2ca9728571cb190c98efea3"
+
+shelljs@0.3.x:
+  version "0.3.0"
+  resolved "https://globaldevtools.bbva.com:443/artifactory/api/npm/npm-repo/shelljs/-/shelljs-0.3.0.tgz#3596e6307a781544f591f37da618360f31db57b1"
 
 shelljs@^0.7.5:
   version "0.7.8"

@@ -17,7 +17,7 @@
     "gulp-postcss": "^7.0.1",
     "gulp-process-inline": "^0.2.0",
     "postcss-pixels-to-rem": "^0.8.0",
-    "pre-commit": "^1.2.2",
+    "pre-push": "^0.1.1",
     "web-component-tester": "^6.5.0",
     "web-component-tester-istanbulcoverage": "^1.0.2"
   },
@@ -32,7 +32,7 @@
     "last 2 versions",
     "not dead"
   ],
-  "pre-commit": [
+  "pre-push": [
     "lint"
   ]
 }
