@@ -1,0 +1,26 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+
+<dom-module id="cyc-editor-titlebar">
+  <template>
+    <link rel="stylesheet" href="cyc-editor-titlebar.css" inline>
+
+    <div class="buttons">
+      <div class="winBtn winBtn--close"></div>
+      <div class="winBtn winBtn--minimize"></div>
+      <div class="winBtn winBtn--maximize"></div>
+    </div>
+  </template>
+  <script>
+    class CycEditorTitlebar extends Polymer.Element {
+      static get is() {
+        return 'cyc-editor-titlebar';
+      }
+
+      static get properties() {
+        return {};
+      }
+    }
+
+    customElements.define(CycEditorTitlebar.is, CycEditorTitlebar);
+  </script>
+</dom-module>

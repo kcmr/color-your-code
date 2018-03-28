@@ -1,0 +1,30 @@
+:host {
+  display: block;
+  height: 22px;
+  background-color: var(--bg-titleBar);
+}
+
+.buttons {
+  display: flex;
+  padding: 5px;
+}
+
+.winBtn {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-left: 4px;
+  margin-right: 4px;
+}
+
+.winBtn--close {
+  background-color: #FF6258;
+}
+
+.winBtn--minimize {
+  background-color: #FFC12F;
+}
+
+.winBtn--maximize {
+  background-color: #28CA42;
+}

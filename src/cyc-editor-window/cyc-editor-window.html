@@ -1,18 +1,13 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../cyc-editor-sidebar/cyc-editor-sidebar.html">
+<link rel="import" href="../cyc-editor-titlebar/cyc-editor-titlebar.html">
 
 
 <dom-module id="cyc-editor-window">
   <template>
     <link rel="stylesheet" href="cyc-editor-window.css" inline>
 
-    <div class="titleBar">
-      <div class="titleBar__buttons">
-        <div class="winBtn winBtn--close"></div>
-        <div class="winBtn winBtn--minimize"></div>
-        <div class="winBtn winBtn--maximize"></div>
-      </div>
-    </div>
+    <cyc-editor-titlebar></cyc-editor-titlebar>
 
     <div class="body">
       <div class="activityBar"></div>
