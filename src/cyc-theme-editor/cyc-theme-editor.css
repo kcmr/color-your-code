@@ -17,24 +17,17 @@
   background-color: #fff;
 }
 
-fieldset {
-  border: 0;
-  padding: 0;
-  margin: 0;
-}
-
-legend,
 label {
   font-family: Courier, monospace;
 }
 
-legend {
+.legend {
+  font-family: Courier, monospace;
   font-size: 18px;
-  margin-bottom: 20px;
   font-weight: normal;
   color: #282829;
   width: 100%;
-  margin-bottom: 20px;
+  margin: 0 0 20px;
   padding: 0 40px;
   box-sizing: border-box;
   position: sticky;
@@ -43,7 +36,7 @@ legend {
   z-index: 2;
 }
 
-legend span {
+.legend span {
   display: block;
   border-bottom: 1px solid #E9E9E9;
   padding: 25px 0;
@@ -61,10 +54,16 @@ legend span {
 }
 
 .color-field {
-  display: flex;
+  display: inline-flex;
+  max-width: 100%;
   flex-direction: row-reverse;
   justify-content: flex-end;
   align-items: center;
+}
+
+.label {
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .input-wrapper {
@@ -75,6 +74,7 @@ legend span {
   overflow: hidden;
   position: relative;
   box-shadow: 0 1px 0px rgba(0,0,0,0.3);
+  flex-shrink: 0;
 }
 
 .input-wrapper::before {
