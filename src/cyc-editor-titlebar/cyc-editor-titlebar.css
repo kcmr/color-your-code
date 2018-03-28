@@ -1,12 +1,16 @@
 :host {
-  display: block;
+  display: flex;
+  align-items: center;
   height: 22px;
   background-color: var(--bg-titleBar);
+  position: relative;
 }
 
 .buttons {
   display: flex;
   padding: 5px;
+  position: absolute;
+  left: 0;
 }
 
 .winBtn {
@@ -27,4 +31,14 @@
 
 .winBtn--maximize {
   background-color: #28CA42;
+}
+
+.title {
+  flex: 1;
+  font-size: 12px;
+  font-weight: 500;
+  color: #818CA7;
+  text-align: center;
+  line-height: 22px;
+  cursor: default;
 }

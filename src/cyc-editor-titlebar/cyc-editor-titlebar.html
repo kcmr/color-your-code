@@ -4,11 +4,13 @@
   <template>
     <link rel="stylesheet" href="cyc-editor-titlebar.css" inline>
 
-    <div class="buttons">
+    <div class="buttons" aria-hidden="true">
       <div class="winBtn winBtn--close"></div>
       <div class="winBtn winBtn--minimize"></div>
       <div class="winBtn winBtn--maximize"></div>
     </div>
+
+    <div class="title">[[themeName]] &mdash; Color Your Code</div>
   </template>
   <script>
     class CycEditorTitlebar extends Polymer.Element {
@@ -17,7 +19,15 @@
       }
 
       static get properties() {
-        return {};
+        return {
+          /**
+          * Name of the theme.
+          */
+          themeName: {
+            type: String,
+            value: 'Your Theme Name',
+          },
+        };
       }
     }
 
