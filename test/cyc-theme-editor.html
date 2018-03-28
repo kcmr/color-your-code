@@ -21,6 +21,12 @@
     <script>
       suite('<cyc-theme-editor>', () => {
         let el;
+        const theme = {
+          colors: {
+            'activityBar.background': '#141820',
+            'activityBarBadge.background': '#4B76CF',
+          },
+        };
 
         setup(() => {
           el = fixture('default');
@@ -31,12 +37,7 @@
           let input;
 
           setup((done) => {
-            el.editorColors = [{
-              name: 'Some color',
-              prop: 'some-prop',
-              value: '#ff0000',
-              cssVar: '--some-var',
-            }];
+            el.theme = theme;
 
             flush(() => {
               colorList = el.shadowRoot.querySelector('#editorColorsList');
@@ -45,43 +46,38 @@
             });
           });
 
-          test('renders the list of editorColors', () => {
-            assert.equal(colorList.items.length, el.editorColors.length);
+          test('setting theme renders the list of editorColors', () => {
+            assert.equal(colorList.items.length, Object.keys(el.theme.colors).length);
           });
 
           test('each item of the list displays the name of the editor color', () => {
             const label = el.shadowRoot.querySelector('label');
-            assert.equal(label.innerText.trim(), el.editorColors[0].name, 'displays the name of the editor color');
+            assert.equal(label.innerText.trim(), 'activityBar.background', 'displays the name of the editor color');
           });
 
-          test('each input of the list has the value passed in editorColors[i].value', () => {
-            assert.equal(input.value, el.editorColors[0].value, 'input value is correct');
+          test('each input of the list has the value of the corresponding editor theme key', () => {
+            assert.equal(input.value, '#141820', 'input value is correct');
           });
 
-          test('each input of the list has a data-css-var attribute with the name of the CSS var passed in editorColors[i].cssVar', () => {
-            assert.equal(input.dataset.cssVar, el.editorColors[0].cssVar, 'input data-css-var is correct');
+          test('each input of the list has a "data-css-var" attribute with the a valid CSS var value', () => {
+            assert.equal(input.dataset.cssVar, '--activityBar-background', 'input data-css-var is correct');
           });
 
-          test('each item of the list has the name attribute with the value passed in editorColors[i].prop', () => {
-            assert.equal(input.name, el.editorColors[0].prop, 'input name is correct');
+          test('each item of the list has the "name" attribute with the name of the editor color', () => {
+            assert.equal(input.name, 'activityBar.background', 'input name is correct');
           });
         });
 
         suite('color changing', () => {
           test('changing a color sets the value to a document CSS var', (done) => {
-            el.editorColors = [{
-              name: 'Some color',
-              prop: 'some-prop',
-              value: '#ff0000',
-              cssVar: '--some-var',
-            }];
+            el.theme = theme;
 
             flush(() => {
               const input = el.shadowRoot.querySelector('input[type="color"]');
-              const initialValue = document.documentElement.style.getPropertyValue(el.editorColors[0].cssVar);
+              const initialValue = document.documentElement.style.getPropertyValue('--activityBar-background');
 
               input.addEventListener('input', function() {
-                const currentValue = document.documentElement.style.getPropertyValue(el.editorColors[0].cssVar);
+                const currentValue = document.documentElement.style.getPropertyValue('--activityBar-background');
                 assert.notEqual(initialValue, currentValue, 'the CSS value has changed');
                 assert.equal(currentValue, input.value);
                 done();
@@ -93,6 +89,10 @@
         });
 
         suite('form', () => {
+          setup(() => {
+            el.theme = theme;
+          });
+
           test('the submit button of the form is disabled until a color is changed', () => {
             const submitBtn = el.shadowRoot.querySelector('button[type="submit"]');
             assert.isTrue(submitBtn.disabled, 'submit button is disabled');
@@ -115,22 +115,15 @@
           });
 
           test('clicking the download theme button downloads a JSON file with the generated theme', () => {
-            el.editorColors = [{
-              name: 'Some color',
-              prop: 'some-prop',
-              value: '#ff0000',
-              cssVar: '--some-var',
-            }];
+            el.theme = theme;
 
-            const theme = {
+            const generatedTheme = {
               type: el.themeType,
               name: el.themeName,
-              colors: {
-                'some-prop': '#ff0000',
-              },
+              colors: theme.colors,
             };
 
-            const expectedOuput = 'data:text/json;charset=utf-8,' + JSON.stringify(theme, null, 4);
+            const expectedOuput = 'data:text/json;charset=utf-8,' + JSON.stringify(generatedTheme, null, 4);
 
             const submitBtn = el.shadowRoot.querySelector('button[type="submit"]');
             const downloadLink = el.shadowRoot.querySelector('#downloadLink');
