@@ -29,7 +29,8 @@
     "serve:dev": "gulp serve"
   },
   "browserslist": [
-    "last 2 versions"
+    "last 2 versions",
+    "not dead"
   ],
   "pre-commit": [
     "lint"
