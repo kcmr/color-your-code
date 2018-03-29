@@ -1,0 +1,29 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../cyc-mixins/cyc-highlight-mixin.html">
+<link rel="import" href="../cyc-styles/cyc-shared-styles.html">
+
+<dom-module id="cyc-editor-statusbar">
+  <template>
+    <link rel="stylesheet" href="cyc-editor-statusbar.css" include="cyc-shared-styles" inline>
+  </template>
+
+  <script>
+    /**
+     * CYC Editor statusBar
+     * @customElement
+     * @polymer
+     * @appliesMixin ColorYourCode.HighlightMixin
+     */
+    class CycEditorStatusbar extends ColorYourCode.HighlightMixin(Polymer.Element) {
+      static get is() {
+        return 'cyc-editor-statusbar';
+      }
+
+      static get properties() {
+        return {};
+      }
+    }
+
+    window.customElements.define(CycEditorStatusbar.is, CycEditorStatusbar);
+  </script>
+</dom-module>

@@ -2,6 +2,7 @@
 <link rel="import" href="../cyc-editor-sidebar/cyc-editor-sidebar.html">
 <link rel="import" href="../cyc-editor-titlebar/cyc-editor-titlebar.html">
 <link rel="import" href="../cyc-editor-activitybar/cyc-editor-activitybar.html">
+<link rel="import" href="../cyc-editor-statusbar/cyc-editor-statusbar.html">
 <link rel="import" href="../cyc-mixins/cyc-highlight-mixin.html">
 <link rel="import" href="../cyc-styles/cyc-shared-styles.html">
 
@@ -27,7 +28,9 @@
         data-prop="editor.background"></div>
     </div>
 
-    <div class="statusBar"></div>
+    <cyc-editor-statusbar
+      class="statusBar"
+      data-prop="statusBar.background"></cyc-editor-statusbar>
   </template>
 
   <script>
