@@ -2,12 +2,16 @@
 <link rel="import" href="../cyc-editor-sidebar/cyc-editor-sidebar.html">
 <link rel="import" href="../cyc-editor-titlebar/cyc-editor-titlebar.html">
 <link rel="import" href="../cyc-mixins/cyc-highlight-mixin.html">
+<link rel="import" href="../cyc-styles/cyc-shared-styles.html">
 
 <dom-module id="cyc-editor-window">
   <template>
-    <link rel="stylesheet" href="cyc-editor-window.css" inline>
+    <link rel="stylesheet" href="cyc-editor-window.css" include="cyc-shared-styles" inline>
 
-    <cyc-editor-titlebar></cyc-editor-titlebar>
+    <cyc-editor-titlebar
+      highlight="[[highlight]]"
+      class="titleBar"
+      data-prop="titleBar.activeBackground"></cyc-editor-titlebar>
 
     <div class="body">
       <div class="activityBar" data-prop="activityBar.background"></div>
