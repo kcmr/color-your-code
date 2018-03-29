@@ -12,13 +12,15 @@
   ],
   "rules": {
     "brace-style": "off",
-    "new-cap": ["error", { "capIsNewExceptions": ["Polymer"] }],
+    "new-cap": ["error", { "capIsNewExceptions": ["Polymer", "HighlightMixin"] }],
     "no-var": "off",
     "require-jsdoc": "off",
     "max-len": 0
   },
   "globals": {
     "Polymer": true,
-    "anime": true
+    "anime": true,
+    "ColorYourCode": true,
+    "tinycolor": true
   }
 }

@@ -131,12 +131,12 @@
         this.$.downloadLink.click();
       }
 
-      /**
-       * @event color-hover
-       * Fired after mouseenter/mouseleave a color field
-       * @param {String} detail property name or ''
-       */
       _onColorHover(e) {
+        /**
+         * @event color-hover
+         * Fired after mouseenter/mouseleave a color field
+         * @param {String} detail property name or ''
+         */
         this._fireEvent('color-hover', e.model.item.prop);
       }
 

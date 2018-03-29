@@ -1,7 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../cyc-editor-sidebar/cyc-editor-sidebar.html">
 <link rel="import" href="../cyc-editor-titlebar/cyc-editor-titlebar.html">
-
+<link rel="import" href="../cyc-mixins/cyc-highlight-mixin.html">
 
 <dom-module id="cyc-editor-window">
   <template>
@@ -19,30 +19,13 @@
   </template>
 
   <script>
-    class CycEditorWindow extends Polymer.Element {
+    class CycEditorWindow extends ColorYourCode.HighlightMixin(Polymer.Element) {
       static get is() {
         return 'cyc-editor-window';
       }
 
       static get properties() {
-        return {
-          /**
-           * Name of the UI item to highlight.
-           */
-          highlight: {
-            type: String,
-            observer: '_highlightSection',
-          }
-        };
-      }
-
-      _highlightSection(prop) {
-        if (!this._uis) {
-          this._uis = this.shadowRoot.querySelectorAll('[data-prop]');
-        }
-        for (const ui of this._uis) {
-          ui.classList.toggle('highlight', ui.dataset.prop === prop);
-        }
+        return {};
       }
     }
 
