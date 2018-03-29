@@ -18,9 +18,10 @@
   </template>
   <script>
     /**
-     * CYC Editor TitleBar
+     * `<cyc-editor-titlebar>` displays the editor title bar.
      * @polymer
      * @customElement
+     * @memberof ColorYourCode
      * @appliesMixin ColorYourCode.HighlightMixin
      */
     class CycEditorTitlebar extends ColorYourCode.HighlightMixin(Polymer.Element) {
@@ -30,7 +31,7 @@
 
       static get properties() {
         return {
-          /** Name of the theme. */
+          // Name of the theme.
           themeName: {
             type: String,
             value: 'Your Theme Name',

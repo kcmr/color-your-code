@@ -31,6 +31,12 @@
 
   <script src="../../bower_components/tinycolor/tinycolor.js"></script>
   <script>
+    /**
+     * `<cyc-theme-editor>` displays the full list of editor colors and
+     * allows to change them and download the modified theme.
+     * @polymer
+     * @customElement
+     */
     class CycThemeEditor extends Polymer.Element {
       static get is() {
         return 'cyc-theme-editor';
@@ -38,23 +44,17 @@
 
       static get properties() {
         return {
-          /**
-           * Type of the theme (dark|light).
-           */
+          // Type of the theme (dark|light).
           themeType: {
             type: String,
             value: 'dark',
           },
-          /**
-           * Name of the theme.
-           */
+          // Name of the theme.
           themeName: {
             type: String,
             value: 'Your theme name',
           },
-          /**
-           * Object with the full theme configuration.
-           */
+          // Object with the full theme configuration.
           theme: {
             type: Object,
           },
@@ -133,8 +133,8 @@
 
       _onColorHover(e) {
         /**
-         * @event color-hover
          * Fired after mouseenter/mouseleave a color field
+         * @event color-hover
          * @param {String} detail property name or ''
          */
         this._fireEvent('color-hover', e.model.item.prop);
