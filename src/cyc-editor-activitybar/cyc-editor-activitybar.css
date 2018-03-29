@@ -17,13 +17,14 @@
 .icon {
   display: block;
   margin: auto;
-  fill: var(--foreground);
+  fill: var(--activityBar-foreground);
+  opacity: 0.5;
 }
 
 .stroke {
-  stroke: var(--foreground);
+  stroke: var(--activityBar-foreground);
 }
 
 .active {
-  fill: var(--list-activeSelectionForeground);
+  opacity: 1;
 }

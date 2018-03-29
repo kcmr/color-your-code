@@ -1,5 +1,6 @@
 html {
   --activityBar-background: #141820;
+  --activityBar-foreground: #fff;
   --activityBarBadge-background: #4B76CF;
   --activityBarBadge-foreground: #ffffff;
   --diffEditor-insertedTextBackground: #66f0c213;
