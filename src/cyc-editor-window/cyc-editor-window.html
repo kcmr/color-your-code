@@ -1,6 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../cyc-editor-sidebar/cyc-editor-sidebar.html">
 <link rel="import" href="../cyc-editor-titlebar/cyc-editor-titlebar.html">
+<link rel="import" href="../cyc-editor-activitybar/cyc-editor-activitybar.html">
 <link rel="import" href="../cyc-mixins/cyc-highlight-mixin.html">
 <link rel="import" href="../cyc-styles/cyc-shared-styles.html">
 
@@ -14,7 +15,7 @@
       data-prop="titleBar.activeBackground"></cyc-editor-titlebar>
 
     <div class="body">
-      <div class="activityBar" data-prop="activityBar.background"></div>
+      <cyc-editor-activitybar class="activityBar" data-prop="activityBar.background"></cyc-editor-activitybar>
       <cyc-editor-sidebar class="sidebar" data-prop="sideBar.background"></cyc-editor-sidebar>
       <div class="editor" data-prop="editor.background"></div>
     </div>

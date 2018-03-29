@@ -1,0 +1,29 @@
+:host {
+  display: block;
+}
+
+.icons {
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.icons li {
+  text-align: center;
+  min-height: 26px;
+  margin-bottom: 24px;
+}
+
+.icon {
+  display: block;
+  margin: auto;
+  fill: var(--foreground);
+}
+
+.stroke {
+  stroke: var(--foreground);
+}
+
+.active {
+  fill: var(--list-activeSelectionForeground);
+}
