@@ -6,12 +6,6 @@
   box-shadow: 0px 7px 20px 0px rgba(0,0,0,0.2);
 }
 
-.highlight {
-  outline: 1px solid #00dfee;
-  box-shadow: 0 0 4px 1px rgba(0, 223, 238, 0.6);
-  z-index: 1;
-}
-
 /* ==========================================================================
    Editor body (activityBar + sidebar + editor)
    ========================================================================== */
@@ -22,17 +16,22 @@
 
 .activityBar {
   width: 50px;
-  background-color: var(--bg-activityBar);
+  background-color: var(--activityBar-background);
 }
 
 .sidebar {
   width: 265px;
-  background-color: var(--bg-sidebar);
+  background-color: var(--sideBar-background);
 }
 
 .editor {
   flex: 1;
-  background-color: var(--bg-editor);
+  background-color: var(--editor-background);
+}
+
+.titleBar {
+  background-color: var(--titleBar-activeBackground);
+  color: var(--titleBar-activeForeground);
 }
 
 /* ==========================================================================
@@ -40,7 +39,7 @@
    ========================================================================== */
 .statusBar {
   height: 22px;
-  background-color: var(--bg-editor);
-  border-top: 1px solid var(--bg-dark);
+  background-color: var(--statusBar-background);
+  border-top: 1px solid var(--statusBar-border);
   border-radius: 0 0 5px 5px;
 }
