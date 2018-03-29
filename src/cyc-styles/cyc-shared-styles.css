@@ -1,0 +1,5 @@
+.highlight {
+  outline: 1px solid #00dfee;
+  box-shadow: 0 0 4px 1px rgba(0, 223, 238, 0.6);
+  z-index: 1;
+}
