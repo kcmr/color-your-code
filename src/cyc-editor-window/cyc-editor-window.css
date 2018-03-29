@@ -4,11 +4,13 @@
   width: 100%;
   height: calc(100% - 73px);
   box-shadow: 0px 7px 20px 0px rgba(0,0,0,0.2);
-  border-radius: 5px;
-  overflow: hidden;
 }
 
-
+.highlight {
+  outline: 1px solid #00dfee;
+  box-shadow: 0 0 4px 1px rgba(0, 223, 238, 0.6);
+  z-index: 1;
+}
 
 /* ==========================================================================
    Editor body (activityBar + sidebar + editor)
@@ -40,4 +42,5 @@
   height: 22px;
   background-color: var(--bg-editor);
   border-top: 1px solid var(--bg-dark);
+  border-radius: 0 0 5px 5px;
 }

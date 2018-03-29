@@ -10,9 +10,9 @@
     <cyc-editor-titlebar></cyc-editor-titlebar>
 
     <div class="body">
-      <div class="activityBar"></div>
-      <cyc-editor-sidebar class="sidebar"></cyc-editor-sidebar>
-      <div class="editor"></div>
+      <div class="activityBar" data-prop="activityBar.background"></div>
+      <cyc-editor-sidebar class="sidebar" data-prop="sideBar.background"></cyc-editor-sidebar>
+      <div class="editor" data-prop="editor.background"></div>
     </div>
 
     <div class="statusBar"></div>
@@ -25,7 +25,24 @@
       }
 
       static get properties() {
-        return {};
+        return {
+          /**
+           * Name of the UI item to highlight.
+           */
+          highlight: {
+            type: String,
+            observer: '_highlightSection',
+          }
+        };
+      }
+
+      _highlightSection(prop) {
+        if (!this._uis) {
+          this._uis = this.shadowRoot.querySelectorAll('[data-prop]');
+        }
+        for (const ui of this._uis) {
+          ui.classList.toggle('highlight', ui.dataset.prop === prop);
+        }
       }
     }
 

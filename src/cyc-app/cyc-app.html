@@ -26,10 +26,10 @@
         <span>Color your Code</span>
       </h1>
 
-      <cyc-editor-window></cyc-editor-window>
+      <cyc-editor-window highlight="[[_highlightSection]]"></cyc-editor-window>
     </div>
 
-    <cyc-theme-editor class="panel" theme="[[_theme]]"></cyc-theme-editor>
+    <cyc-theme-editor class="panel" theme="[[_theme]]" on-color-hover="_setHighlight"></cyc-theme-editor>
   </template>
 
   <script>
@@ -47,6 +47,9 @@
             type: String,
             value: 'electron-color-theme.json',
           },
+          _highlightSection: {
+            type: String,
+          },
         };
       }
 
@@ -56,6 +59,10 @@
           bubbles: true,
           composed: true,
         }));
+      }
+
+      _setHighlight(e) {
+        this._highlightSection = e.detail;
       }
     }
 

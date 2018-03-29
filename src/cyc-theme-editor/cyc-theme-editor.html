@@ -8,13 +8,13 @@
     <form class="form" on-change="_enableSubmit" on-reset="_onFormReset" on-submit="_onFormSubmit">
       <h2 class="legend"><span>Editor Colors</span></h2>
 
-      <ul class="group-list">
+      <ul class="group-list" on-mouseleave="_onListMouseleave">
         <template is="dom-repeat" items="[[_themeColors]]" id="editorColorsList">
           <li>
-            <label class="color-field">
+            <label class="color-field" on-mouseenter="_onColorHover">
               <span class="label">[[item.name]]</span>
               <span class="input-wrapper">
-                <input type="color" name="[[item.prop]]" value="{{item.value::input}}" data-value$="[[item.value]]" data-css-var$="[[item.cssVar]]" on-input="_updateCSSVars">
+                <input type="color" name="[[item.prop]]" value="{{item.value::input}}" data-css-var$="[[item.cssVar]]" on-input="_updateCSSVars">
               </span>
             </label>
           </li>
@@ -128,6 +128,27 @@
         const output = `data:text/json;charset=utf-8,${formattedTheme}`;
         this.$.downloadLink.href = output;
         this.$.downloadLink.click();
+      }
+
+      /**
+       * @event color-hover
+       * Fired after mouseenter/mouseleave a color field
+       * @param {String} detail property name or ''
+       */
+      _onColorHover(e) {
+        this._fireEvent('color-hover', e.model.item.prop);
+      }
+
+      _onListMouseleave(e) {
+        this._fireEvent('color-hover', '');
+      }
+
+      _fireEvent(event, detail) {
+        this.dispatchEvent(new CustomEvent(event, {
+          bubbles: true,
+          composed: true,
+          detail,
+        }));
       }
     }
 

@@ -4,6 +4,7 @@
   height: 22px;
   background-color: var(--bg-titleBar);
   position: relative;
+  border-radius: 5px 5px 0 0;
 }
 
 .buttons {
