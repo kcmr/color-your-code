@@ -86,7 +86,7 @@
         return colors.map(([key, value]) => ({
           name: key,
           prop: key,
-          value: tinycolor(value).toString(),
+          value: value,
           cssVar: this._toCSSVar(key),
         }));
       }

@@ -138,6 +138,33 @@
             assert.equal(downloadLink.getAttribute('download'), 'theme.json');
           });
         });
+
+        suite('color hovering', () => {
+          let firstColorLabel;
+
+          setup((done) => {
+            el.theme = theme;
+            flush(() => {
+              firstColorLabel = el.shadowRoot.querySelector('label');
+              done();
+            });
+          });
+
+          test('hovering a color field fires an event "color-hover" with the name of the hovered color', () => {
+            const spy = sinon.spy();
+            el.addEventListener('color-hover', spy);
+            firstColorLabel.dispatchEvent(new Event('mouseenter'));
+            assert.equal(spy.getCall(0).args[0].detail, 'activityBar.background');
+          });
+
+          test('hovering outside the color list fires an event "color-hover" with an empty detail', () => {
+            const colorList = el.shadowRoot.querySelector('.group-list');
+            const spy = sinon.spy();
+            el.addEventListener('color-hover', spy);
+            colorList.dispatchEvent(new Event('mouseleave'));
+            assert.equal(spy.getCall(0).args[0].detail, '');
+          });
+        });
       });
     </script>
   </body>
