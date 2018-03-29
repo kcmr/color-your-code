@@ -60,6 +60,7 @@ gulp.task('watch:sources', () => {
 gulp.task('watch:dist', () => {
   gulp.watch([
     'index.html',
+    'styles.css',
     'dist/**/*',
     'test/**/*',
   ]).on('change', browserSync.reload);
