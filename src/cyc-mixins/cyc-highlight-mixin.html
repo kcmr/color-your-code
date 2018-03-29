@@ -3,12 +3,15 @@
 <script>
   window.ColorYourCode = window.ColorYourCode || {};
 
+  /**
+   * Mixin to highlight elements with the current `highlight` property as `data-prop` attribute value.
+   * @polymer
+   * @mixinFunction
+   */
   ColorYourCode.HighlightMixin = Polymer.dedupingMixin((superClass) => class extends superClass {
     static get properties() {
       return {
-        /**
-         * Name of the UI item to highlight.
-         */
+        /** Name of the UI item to highlight. */
         highlight: {
           type: String,
           observer: '_highlightSection',

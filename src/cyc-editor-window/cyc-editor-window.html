@@ -31,6 +31,12 @@
   </template>
 
   <script>
+    /**
+     * CYC Editor Window
+     * @polymer
+     * @customElement
+     * @appliesMixin ColorYourCode.HighlightMixin
+     */
     class CycEditorWindow extends ColorYourCode.HighlightMixin(Polymer.Element) {
       static get is() {
         return 'cyc-editor-window';
