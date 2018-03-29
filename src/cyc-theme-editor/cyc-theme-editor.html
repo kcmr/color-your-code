@@ -29,6 +29,7 @@
     </form>
   </template>
 
+  <script src="../../bower_components/tinycolor/tinycolor.js"></script>
   <script>
     class CycThemeEditor extends Polymer.Element {
       static get is() {
@@ -85,7 +86,7 @@
         return colors.map(([key, value]) => ({
           name: key,
           prop: key,
-          value: value,
+          value: tinycolor(value).toString(),
           cssVar: this._toCSSVar(key),
         }));
       }
