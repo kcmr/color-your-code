@@ -20,12 +20,27 @@
 
     <script>
       suite('<cyc-app>', () => {
+        let el;
+
+        setup(() => {
+          el = fixture('default');
+        });
+
         test('fires an event "shell-loaded" on ready', () => {
-          const el = fixture('default');
           const spy = sinon.spy();
           el.addEventListener('shell-loaded', spy);
           el.ready(); // force ready
           assert.isTrue(spy.calledOnce);
+        });
+
+        test('sets highlight property on cyc-editor-window when cyc-theme-editor fires "color-hover"', () => {
+          const themeEditor = el.shadowRoot.querySelector('cyc-theme-editor');
+          const editorWindow = el.shadowRoot.querySelector('cyc-editor-window');
+          themeEditor.dispatchEvent(new CustomEvent('color-hover', {detail: 'property-name'}));
+          assert.equal(editorWindow.highlight, 'property-name');
+          // test memoizing this._uis in cyc-highlight-mixin
+          themeEditor.dispatchEvent(new CustomEvent('color-hover', {detail: 'second-name'}));
+          assert.equal(editorWindow.highlight, 'second-name');
         });
       });
     </script>
