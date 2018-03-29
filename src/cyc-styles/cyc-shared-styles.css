@@ -1,5 +1,12 @@
 .highlight {
-  outline: 1px solid #00dfee;
-  box-shadow: 0 0 4px 1px rgba(0, 223, 238, 0.6);
+  outline: 1px solid #a85dff;
+  box-shadow: 0 0 2px 4px rgba(168, 93, 255, 0.4);
   z-index: 1;
+}
+
+.highlight.highlight-text {
+  outline: none;
+  box-shadow: none;
+  color: #a85dff;
+  transition: color 0.2s;
 }
