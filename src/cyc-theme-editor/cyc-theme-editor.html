@@ -1,5 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/polymer/lib/elements/dom-repeat.html">
+<link rel="import" href="../../bower_components/kolor-picker/kolor-picker.html">
 
 <dom-module id="cyc-theme-editor">
   <template>
@@ -13,9 +14,12 @@
           <li>
             <label class="color-field" on-mouseenter="_onColorHover">
               <span class="label">[[item.name]]</span>
-              <span class="input-wrapper">
-                <input type="color" name="[[item.prop]]" value="{{item.value::input}}" data-css-var$="[[item.cssVar]]" on-input="_updateCSSVars">
-              </span>
+              <kolor-picker
+                alpha
+                color="{{item.value}}"
+                data-css-var$="[[item.cssVar]]"
+                on-color-changed="_updateCSSVars"
+                on-show="_setPickerOpened"></kolor-picker>
             </label>
           </li>
         </template>
@@ -95,9 +99,15 @@
         return `--${value.replace('.', '-')}`;
       }
 
+      _setPickerOpened() {
+        this._pickerOpened = true;
+      }
+
       _updateCSSVars(e) {
-        const {dataset: {cssVar}, value} = e.target;
-        document.documentElement.style.setProperty(cssVar, value);
+        if (this._pickerOpened) {
+          const {dataset: {cssVar}, color} = e.target;
+          document.documentElement.style.setProperty(cssVar, color);
+        }
       }
 
       _onFormReset(e) {
