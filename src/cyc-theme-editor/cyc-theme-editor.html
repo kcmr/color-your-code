@@ -1,6 +1,5 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/polymer/lib/elements/dom-repeat.html">
-<link rel="import" href="../../bower_components/kolor-picker/kolor-picker.html">
 <link rel="import" href="../cyc-mixins/cyc-utils-mixin.html">
 
 <dom-module id="cyc-theme-editor">
@@ -15,12 +14,9 @@
           <li>
             <label class="color-field" on-mouseenter="_onColorHover">
               <span class="label">[[item.name]]</span>
-              <kolor-picker
-                alpha
-                color="{{item.value}}"
-                data-css-var$="[[item.cssVar]]"
-                on-color-changed="_updateCSSVars"
-                on-show="_setPickerOpened"></kolor-picker>
+              <span class="input-wrapper">
+                <input type="color" name="[[item.prop]]" value="{{item.value::input}}" data-css-var$="[[item.cssVar]]" on-input="_updateCSSVars">
+              </span>
             </label>
           </li>
         </template>
@@ -34,7 +30,6 @@
     </form>
   </template>
 
-  <script src="../../bower_components/tinycolor/tinycolor.js"></script>
   <script>
     {
       const { Element } = Polymer;
@@ -106,15 +101,9 @@
           return `--${value.replace('.', '-')}`;
         }
 
-        _setPickerOpened() {
-          this._pickerOpened = true;
-        }
-
         _updateCSSVars(e) {
-          if (this._pickerOpened) {
-            const {dataset: {cssVar}, color} = e.target;
-            document.documentElement.style.setProperty(cssVar, color);
-          }
+          const {dataset: {cssVar}, value} = e.target;
+          document.documentElement.style.setProperty(cssVar, value);
         }
 
         _onFormReset(e) {

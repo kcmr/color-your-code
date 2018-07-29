@@ -90,7 +90,8 @@ label {
   border-radius: 50%;
 }
 
-.input-wrapper .picker {
+.input-wrapper input {
+  -webkit-appearance: none;
   width: 19px;
   height: 19px;
   position: absolute;
