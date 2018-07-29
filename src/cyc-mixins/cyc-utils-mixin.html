@@ -20,9 +20,9 @@
       */
       _emit(eventName, detail, bubbles = true) {
         this.dispatchEvent(new CustomEvent(eventName, {
-          composed: true, bubbles, detail
+          composed: true, bubbles, detail,
         }));
       }
-    }
+    };
   });
 </script>
