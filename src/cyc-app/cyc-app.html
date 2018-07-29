@@ -2,6 +2,7 @@
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../cyc-editor-window/cyc-editor-window.html">
 <link rel="import" href="../cyc-theme-editor/cyc-theme-editor.html">
+<link rel="import" href="../cyc-mixins/cyc-utils-mixin.html">
 
 <dom-module id="cyc-app">
   <template>
@@ -33,42 +34,45 @@
   </template>
 
   <script>
-    /**
-     * CYC App
-     * @polymer
-     * @customElement
-     */
-    class CycApp extends Polymer.Element {
-      static get is() {
-        return 'cyc-app';
+    {
+      const { Element } = Polymer;
+      const { UtilsMixin } = ColorYourCode;
+
+      /**
+       * CYC App
+       * @polymer
+       * @customElement
+       */
+      class CycApp extends UtilsMixin(Element) {
+        static get is() {
+          return 'cyc-app';
+        }
+
+        static get properties() {
+          return {
+            // Name of the file to be used as base theme.
+            themeFile: {
+              type: String,
+              value: 'electron-color-theme.json',
+            },
+            _highlightSection: {
+              type: String,
+            },
+          };
+        }
+
+        ready() {
+          super.ready();
+          this._emit('shell-loaded');
+        }
+
+        _setHighlight(e) {
+          this._highlightSection = e.detail;
+        }
       }
 
-      static get properties() {
-        return {
-          // Name of the file to be used as base theme.
-          themeFile: {
-            type: String,
-            value: 'electron-color-theme.json',
-          },
-          _highlightSection: {
-            type: String,
-          },
-        };
-      }
-
-      ready() {
-        super.ready();
-        this.dispatchEvent(new CustomEvent('shell-loaded', {
-          bubbles: true,
-          composed: true,
-        }));
-      }
-
-      _setHighlight(e) {
-        this._highlightSection = e.detail;
-      }
+      window.customElements.define(CycApp.is, CycApp);
     }
 
-    window.customElements.define(CycApp.is, CycApp);
   </script>
 </dom-module>

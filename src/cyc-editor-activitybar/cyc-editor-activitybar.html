@@ -15,26 +15,30 @@
     </ul>
   </template>
   <script>
-    /**
-     * `<cyc-editor-activitybar>` displays the editor activity bar.
-     * @polymer
-     * @customElement
-     * @memberof ColorYourCode
-     * @appliesMixin ColorYourCode.HighlightMixin
-     */
-    class CycEditorActivitybar extends
-      ColorYourCode.HighlightMixin(
-        Polymer.Element) {
+    {
+      const { Element } = Polymer;
+      const { HighlightMixin } = ColorYourCode;
 
-      static get is() {
-        return 'cyc-editor-activitybar';
+     /**
+      * `<cyc-editor-activitybar>` displays the editor activity bar.
+      * @polymer
+      * @customElement
+      * @memberof ColorYourCode
+      * @appliesMixin ColorYourCode.HighlightMixin
+      */
+      class CycEditorActivitybar extends HighlightMixin(Element) {
+        static get is() {
+          return 'cyc-editor-activitybar';
+        }
+
+        static get properties() {
+          return {
+
+          }
+        }
       }
 
-      static get properties() {
-        return {};
-      }
+      window.customElements.define(CycEditorActivitybar.is, CycEditorActivitybar);
     }
-
-    window.customElements.define(CycEditorActivitybar.is, CycEditorActivitybar);
   </script>
 </dom-module>

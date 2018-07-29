@@ -15,21 +15,27 @@
     </div>
   </template>
   <script>
-    /**
-     * `<cyc-editor-sidebar>` displays the editor sidebar.
-     * @polymer
-     * @customElement
-     */
-    class CycEditorSidebar extends Polymer.Element {
-      static get is() {
-        return 'cyc-editor-sidebar';
+    {
+      const { Element } = Polymer;
+
+      /**
+      * `<cyc-editor-sidebar>` displays the editor sidebar.
+      * @polymer
+      * @customElement
+      */
+      class CycEditorSidebar extends Element {
+        static get is() {
+          return 'cyc-editor-sidebar';
+        }
+
+        static get properties() {
+          return {
+
+          }
+        }
       }
 
-      static get properties() {
-        return {};
-      }
+      window.customElements.define(CycEditorSidebar.is, CycEditorSidebar);
     }
-
-    window.customElements.define(CycEditorSidebar.is, CycEditorSidebar);
   </script>
 </dom-module>

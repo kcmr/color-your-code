@@ -1,0 +1,28 @@
+<link rel="import" href="../../bower_components/polymer/lib/utils/mixin.html">
+
+<script>
+  // @namespace ColorYourCode
+  window.ColorYourCode = window.ColorYourCode || {};
+
+  /**
+   * Mixin to highlight elements with the current `highlight` property as `data-prop` attribute value.
+   * @memberof ColorYourCode
+   * @polymer
+   * @mixinFunction
+   */
+  ColorYourCode.UtilsMixin = Polymer.dedupingMixin((superClass) => {
+    return class extends superClass {
+      /**
+      * Fires an event.
+      * @param {String} eventName
+      * @param {String | Number | Object} detail
+      * @param {Boolean} bubbles true
+      */
+      _emit(eventName, detail, bubbles = true) {
+        this.dispatchEvent(new CustomEvent(eventName, {
+          composed: true, bubbles, detail
+        }));
+      }
+    }
+  });
+</script>

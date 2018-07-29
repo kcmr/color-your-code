@@ -35,26 +35,30 @@
   </template>
 
   <script>
-    /**
-     * `<cyc-editor-window>` displays the editor window preview.
-     * @polymer
-     * @customElement
-     * @memberof ColorYourCode
-     * @appliesMixin ColorYourCode.HighlightMixin
-     */
-    class CycEditorWindow extends
-      ColorYourCode.HighlightMixin(
-        Polymer.Element) {
+    {
+      const { Element } = Polymer;
+      const { HighlightMixin } = ColorYourCode;
 
-      static get is() {
-        return 'cyc-editor-window';
+      /**
+      * `<cyc-editor-window>` displays the editor window preview.
+      * @polymer
+      * @customElement
+      * @memberof ColorYourCode
+      * @appliesMixin ColorYourCode.HighlightMixin
+      */
+      class CycEditorWindow extends HighlightMixin(Element) {
+        static get is() {
+          return 'cyc-editor-window';
+        }
+
+        static get properties() {
+          return {
+
+          }
+        }
       }
 
-      static get properties() {
-        return {};
-      }
+      window.customElements.define(CycEditorWindow.is, CycEditorWindow);
     }
-
-    window.customElements.define(CycEditorWindow.is, CycEditorWindow);
   </script>
 </dom-module>

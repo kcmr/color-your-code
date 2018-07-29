@@ -16,26 +16,30 @@
   </template>
 
   <script>
-    /**
-     * `<cyc-editor-statusbar>` displays the editor status bar.
-     * @customElement
-     * @polymer
-     * @memberof ColorYourCode
-     * @appliesMixin ColorYourCode.HighlightMixin
-     */
-    class CycEditorStatusbar extends
-      ColorYourCode.HighlightMixin(
-        Polymer.Element) {
+    {
+      const { Element } = Polymer;
+      const { HighlightMixin } = ColorYourCode;
 
-      static get is() {
-        return 'cyc-editor-statusbar';
+      /**
+      * `<cyc-editor-statusbar>` displays the editor status bar.
+      * @customElement
+      * @polymer
+      * @memberof ColorYourCode
+      * @appliesMixin ColorYourCode.HighlightMixin
+      */
+      class CycEditorStatusbar extends HighlightMixin(Element) {
+        static get is() {
+          return 'cyc-editor-statusbar';
+        }
+
+        static get properties() {
+          return {
+
+          }
+        }
       }
 
-      static get properties() {
-        return {};
-      }
+      window.customElements.define(CycEditorStatusbar.is, CycEditorStatusbar);
     }
-
-    window.customElements.define(CycEditorStatusbar.is, CycEditorStatusbar);
   </script>
 </dom-module>

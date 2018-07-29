@@ -10,23 +10,25 @@
    * @polymer
    * @mixinFunction
    */
-  ColorYourCode.HighlightMixin = Polymer.dedupingMixin((superClass) => class extends superClass {
-    static get properties() {
-      return {
-        // Name of the UI item to highlight.
-        highlight: {
-          type: String,
-          observer: '_highlightSection',
-        },
-      };
-    }
-
-    _highlightSection(prop) {
-      if (!this._uis) {
-        this._uis = this.shadowRoot.querySelectorAll('[data-prop]');
+  ColorYourCode.HighlightMixin = Polymer.dedupingMixin((superClass) => {
+    return class extends superClass {
+      static get properties() {
+        return {
+          // Name of the UI item to highlight.
+          highlight: {
+            type: String,
+            observer: '_highlightSection',
+          },
+        };
       }
-      for (const ui of this._uis) {
-        ui.classList.toggle('highlight', ui.dataset.prop === prop);
+
+      _highlightSection(prop) {
+        if (!this._uis) {
+          this._uis = this.shadowRoot.querySelectorAll('[data-prop]');
+        }
+        for (const ui of this._uis) {
+          ui.classList.toggle('highlight', ui.dataset.prop === prop);
+        }
       }
     }
   });
