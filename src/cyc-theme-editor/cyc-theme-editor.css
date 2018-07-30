@@ -43,12 +43,13 @@ label {
 }
 
 .group-list {
-  margin: 0 40px;
+  margin: 0 40px 0 36px;
   padding: 0;
   list-style: none;
 }
 
 .group-list li {
+  padding: 1px 0 2px 4px;
   margin-bottom: 5px;
   color: #565758;
 }
@@ -139,4 +140,10 @@ label {
   background-color: #D8D8D8;
   color: #565758;
   opacity: 0.5;
+}
+
+.highlight {
+  box-shadow: 0 0 13px 3px rgba(168, 93, 255, 0.4);
+  border-radius: 25px;
+  box-sizing: border-box;
 }

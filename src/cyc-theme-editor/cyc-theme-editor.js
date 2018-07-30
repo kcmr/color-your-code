@@ -38,6 +38,10 @@
           type: Boolean,
           value: false,
         },
+        highlightColor: {
+          type: String,
+          observer: '_scrollToColor',
+        },
       };
     }
 
@@ -109,6 +113,17 @@
 
     _onListMouseleave(e) {
       this._emit('color-hover', '');
+    }
+
+    _computeHighlighted(prop, highlightColor) {
+      return (prop === highlightColor) ? 'highlight' : '';
+    }
+
+    _scrollToColor(color) {
+      if (color) {
+        const targetInput = this.shadowRoot.querySelector(`[name="${color}"]`);
+        targetInput.scrollIntoView({behavior: 'smooth', block: 'center'});
+      }
     }
 
    /**

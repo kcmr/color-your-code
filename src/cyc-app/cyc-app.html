@@ -27,10 +27,10 @@
         <span>Color your Code</span>
       </h1>
 
-      <cyc-editor-window highlight="[[_highlightSection]]"></cyc-editor-window>
+      <cyc-editor-window highlight="[[_highlightSection]]" on-editor-part-hover="_setFoundColor"></cyc-editor-window>
     </div>
 
-    <cyc-theme-editor class="panel" theme="[[_theme]]" on-color-hover="_setHighlight"></cyc-theme-editor>
+    <cyc-theme-editor class="panel" theme="[[_theme]]" on-color-hover="_setHighlight" highlight-color="[[_foundColor]]"></cyc-theme-editor>
   </template>
 
   <script src="cyc-app.js"></script>

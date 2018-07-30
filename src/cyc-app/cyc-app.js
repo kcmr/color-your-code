@@ -25,6 +25,9 @@
         _highlightSection: {
           type: String,
         },
+        _foundColor: {
+          type: String,
+        },
       };
     }
 
@@ -33,8 +36,12 @@
       this._emit('shell-loaded');
     }
 
-    _setHighlight(e) {
-      this._highlightSection = e.detail;
+    _setHighlight(event) {
+      this._highlightSection = event.detail;
+    }
+
+    _setFoundColor(event) {
+      this._foundColor = event.detail;
     }
   }
 
