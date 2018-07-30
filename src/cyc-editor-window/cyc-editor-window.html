@@ -13,26 +13,36 @@
     <cyc-editor-titlebar
       highlight-section="[[highlightSection]]"
       class="titleBar"
-      data-prop="titleBar.activeBackground"></cyc-editor-titlebar>
+      data-prop="titleBar.activeBackground"
+      on-mouseenter="_onSectionMouseenter"
+      on-mouseleave="_onSectionMouseleave"></cyc-editor-titlebar>
 
     <div class="body">
       <cyc-editor-activitybar
         highlight-section="[[highlightSection]]"
         class="activityBar"
-        data-prop="activityBar.background"></cyc-editor-activitybar>
+        data-prop="activityBar.background"
+        on-mouseenter="_onSectionMouseenter"
+        on-mouseleave="_onSectionMouseleave"></cyc-editor-activitybar>
       <cyc-editor-sidebar
         highlight-section="[[highlightSection]]"
         class="sidebar"
-        data-prop="sideBar.background"></cyc-editor-sidebar>
+        data-prop="sideBar.background"
+        on-mouseenter="_onSectionMouseenter"
+        on-mouseleave="_onSectionMouseleave"></cyc-editor-sidebar>
       <div
         class="editor"
-        data-prop="editor.background"></div>
+        data-prop="editor.background"
+        on-mouseenter="_onSectionMouseenter"
+        on-mouseleave="_onSectionMouseleave"></div>
     </div>
 
     <cyc-editor-statusbar
       highlight-section="[[highlightSection]]"
       class="statusBar"
-      data-prop="statusBar.background"></cyc-editor-statusbar>
+      data-prop="statusBar.background"
+      on-mouseenter="_onSectionMouseenter"
+      on-mouseleave="_onSectionMouseleave"></cyc-editor-statusbar>
   </template>
 
   <script src="cyc-editor-window.js"></script>
