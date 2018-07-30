@@ -22,7 +22,7 @@
         themeName: {
           type: String,
           value: 'Your Theme Name',
-        }
+        },
       };
     }
   }

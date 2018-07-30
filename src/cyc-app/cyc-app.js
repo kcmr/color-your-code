@@ -37,6 +37,29 @@
         _highlightedEditorColor: {
           type: String,
         },
+
+        /**
+         * Name of the theme.
+         */
+        _themeName: {
+          type: String,
+        },
+
+        /**
+         * Theme type (dark | light).
+         */
+        _themeType: {
+          type: String,
+          value: 'dark',
+        },
+
+        /**
+         * List of theme CSS properties and color values.
+         * @type {Array}
+         */
+        _colors: {
+          type: Array,
+        },
       };
     }
 
