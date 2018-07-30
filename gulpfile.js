@@ -22,7 +22,7 @@ gulp.task('clean', () => del([BUILD_DIRECTORY]));
 
 gulp.task('inline-styles', () => {
   const styles = processInline();
-  return gulp.src(['src/**/*.html'])
+  return gulp.src(['src/**/*.{html,js}'])
     .pipe(inlineSource({
       compress: false,
       swallowErrors: true,
