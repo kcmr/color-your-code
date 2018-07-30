@@ -8,6 +8,7 @@
    * @polymer
    * @customElement
    * @memberof ColorYourCode
+   * @appliesMixin ColorYourCode.UtilsMixin
    */
   class CycThemeEditor extends UtilsMixin(Element) {
     static get is() {

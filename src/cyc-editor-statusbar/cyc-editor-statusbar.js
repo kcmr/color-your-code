@@ -6,7 +6,8 @@
    * `<cyc-editor-statusbar>` displays the editor status bar.
    * @polymer
    * @customElement
-   * @memberOf ColorYourCode
+   * @memberof ColorYourCode
+   * @appliesMixin ColorYourCode.HighlightMixin
    */
   class CycEditorStatusbar extends HighlightMixin(Element) {
     static get is() {

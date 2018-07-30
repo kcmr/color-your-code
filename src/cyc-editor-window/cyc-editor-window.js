@@ -7,6 +7,7 @@
    * @polymer
    * @customElement
    * @memberof ColorYourCode
+   * @appliesMixin ColorYourCode.HighlightMixin
    */
   class CycEditorWindow extends HighlightMixin(Element) {
     static get is() {
