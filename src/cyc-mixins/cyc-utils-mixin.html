@@ -13,11 +13,11 @@
   ColorYourCode.UtilsMixin = Polymer.dedupingMixin((superClass) => {
     return class extends superClass {
       /**
-      * Fires an event.
-      * @param {String} eventName
-      * @param {String | Number | Object} detail
-      * @param {Boolean} bubbles true
-      */
+       * Fires an event.
+       * @param {String} eventName
+       * @param {String | Number | Object} detail
+       * @param {Boolean} bubbles true
+       */
       _emit(eventName, detail, bubbles = true) {
         this.dispatchEvent(new CustomEvent(eventName, {
           composed: true, bubbles, detail,

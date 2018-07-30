@@ -16,14 +16,18 @@
 
     static get properties() {
       return {
-        // Name of the file to be used as base theme.
+        /**
+         * Name of the file to be used as base theme.
+         */
         themeFile: {
           type: String,
           value: 'electron-color-theme.json',
         },
+
         _highlightSection: {
           type: String,
         },
+
         _foundColor: {
           type: String,
         },

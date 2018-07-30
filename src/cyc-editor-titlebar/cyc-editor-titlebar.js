@@ -18,7 +18,9 @@
 
     static get properties() {
       return {
-        // Name of the theme.
+        /**
+         * Name of the theme.
+         */
         themeName: {
           type: String,
           value: 'Your Theme Name',

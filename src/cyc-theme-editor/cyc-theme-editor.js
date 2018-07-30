@@ -16,31 +16,46 @@
 
     static get properties() {
       return {
-        // Type of the theme (dark|light).
+        /**
+         * Type of the theme (dark | light)
+         */
         themeType: {
           type: String,
           value: 'dark',
         },
-        // Name of the theme.
+
+        /**
+         * Name of the theme.
+         */
         themeName: {
           type: String,
           value: 'Your theme name',
         },
-        // Object with the full theme configuration.
+
+        /**
+         * Object with the full theme configuration.
+         * @type {Object}
+         */
         theme: {
           type: Object,
         },
+
+        /**
+         * Color to highlight in the color list.
+         */
+        highlightColor: {
+          type: String,
+          observer: '_scrollToColor',
+        },
+
         _themeColors: {
           type: Array,
           computed: '_computeThemeColors(theme)',
         },
+
         _submitEnabled: {
           type: Boolean,
           value: false,
-        },
-        highlightColor: {
-          type: String,
-          observer: '_scrollToColor',
         },
       };
     }
