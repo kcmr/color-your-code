@@ -66,6 +66,11 @@ gulp.task('watch:dist', () => {
   ]).on('change', browserSync.reload);
 });
 
+gulp.task('build', [
+  'clean',
+  'inline-styles',
+]);
+
 gulp.task('serve', [
   'clean',
   'inline-styles',

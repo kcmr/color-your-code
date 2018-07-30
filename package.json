@@ -21,8 +21,8 @@
   },
   "scripts": {
     "lint": "npm run lint:javascript && polymer lint",
-    "lint:javascript": "eslint . --ext js,html --ignore-path .gitignore",
-    "test": "./node_modules/web-component-tester/bin/wct",
+    "lint:javascript": "gulp build && eslint . --ext js,html --ignore-path .gitignore",
+    "test": "gulp build && ./node_modules/web-component-tester/bin/wct",
     "test:integration": "polymer build # test that psk builds without error with the CLI",
     "serve:dev": "gulp serve"
   },
