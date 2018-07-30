@@ -6,7 +6,7 @@
 }
 
 .panel-heading {
-  color: red;
+  color: var(--sideBarTitle-foreground);
   padding: 12px 20px;
 }
 
