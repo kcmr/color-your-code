@@ -9,7 +9,6 @@
    * @memberof ColorYourCode
    * @appliesMixin ColorYourCode.UtilsMixin
    */
-
   class CycApp extends UtilsMixin(Element) {
     static get is() {
       return 'cyc-app';
