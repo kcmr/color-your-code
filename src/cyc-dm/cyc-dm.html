@@ -1,0 +1,16 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../cyc-mixins/cyc-utils-mixin.html">
+
+<dom-module id="cyc-dm">
+  <template>
+    <iron-ajax
+      auto
+      url="[[url]]"
+      handle-as="json"
+      last-response="{{_responseData}}">
+    </iron-ajax>
+  </template>
+
+  <script src="cyc-dm.js"></script>
+</dom-module>

@@ -10,7 +10,7 @@
       <h2 class="legend"><span>Editor Colors</span></h2>
 
       <ul class="group-list" on-mouseleave="_onListMouseleave">
-        <template is="dom-repeat" items="[[_themeColors]]" id="editorColorsList">
+        <template is="dom-repeat" items="[[colors]]" id="editorColorsList">
           <li class$="[[_computeHighlighted(item.prop, highlightColor)]]">
             <label class="color-field" on-mouseenter="_onColorHover">
               <span class="label">[[item.prop]]</span>

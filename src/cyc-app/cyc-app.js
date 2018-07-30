@@ -63,6 +63,14 @@
       const hasDatasetProp = (element) => (element.dataset || {}).prop;
       return path.filter(hasDatasetProp)[0].dataset.prop;
     }
+
+    _onDmResponseSuccess(event) {
+      const {name, type, colors} = event.detail;
+
+      this._themeName = name;
+      this._themeType = type;
+      this._colors = colors;
+    }
   }
 
   window.customElements.define(CycApp.is, CycApp);

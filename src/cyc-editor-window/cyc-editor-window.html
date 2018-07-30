@@ -10,9 +10,9 @@
   <template>
     <link rel="stylesheet" href="cyc-editor-window.css" include="cyc-shared-styles" inline>
 
-    <cyc-editor-titlebar
+    <cyc-editor-titlebar class="titleBar"
       highlight-section="[[highlightSection]]"
-      class="titleBar"
+      theme-name="[[themeName]]"
       data-prop="titleBar.activeBackground"
       on-mouseenter="_onSectionMouseenter"
       on-mouseleave="_onSectionMouseleave"></cyc-editor-titlebar>

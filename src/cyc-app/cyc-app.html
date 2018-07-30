@@ -1,19 +1,14 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
-<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../cyc-editor-window/cyc-editor-window.html">
 <link rel="import" href="../cyc-theme-editor/cyc-theme-editor.html">
 <link rel="import" href="../cyc-mixins/cyc-utils-mixin.html">
+<link rel="import" href="../cyc-dm/cyc-dm.html">
 
 <dom-module id="cyc-app">
   <template>
     <link rel="stylesheet" href="cyc-app.css" inline>
 
-    <iron-ajax
-      auto
-      url="[[themeFile]]"
-      handle-as="json"
-      last-response="{{_theme}}">
-    </iron-ajax>
+    <cyc-dm hidden url="[[themeFile]]" on-response-success="_onDmResponseSuccess"></cyc-dm>
 
     <div class="preview">
       <h1 class="site-title" role="text">
@@ -27,6 +22,7 @@
       </h1>
 
       <cyc-editor-window
+        theme-name="[[_themeName]]"
         highlight-section="[[_highlightedEditorSection]]"
         on-editor-section-hover="_onEditorWindowSectionHover"
         on-click="_onEditorWindowClick">
@@ -34,7 +30,7 @@
     </div>
 
     <cyc-theme-editor class="panel" id="panel"
-      theme="[[_theme]]"
+      colors="[[_colors]]"
       highlight-color="[[_highlightedEditorColor]]"
       on-color-hover="_onThemeEditorColorHover">
     </cyc-theme-editor>

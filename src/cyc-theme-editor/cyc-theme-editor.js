@@ -49,9 +49,12 @@
           observer: '_scrollToColor',
         },
 
-        _themeColors: {
+        /**
+         * Theme colors.
+         * @type {Array}
+         */
+        colors: {
           type: Array,
-          computed: '_computeThemeColors(theme)',
         },
 
         _submitEnabled: {
@@ -66,26 +69,11 @@
       const name = this.themeName;
       const colors = {};
 
-      for (const color of this._themeColors) {
+      for (const color of this.colors) {
         colors[color.prop] = color.value;
       }
 
       return {type, name, colors};
-    }
-
-    _computeThemeColors(theme) {
-      const colors = Object.entries(theme.colors);
-
-      const isSolidColor = (color) => color.value.length === 7;
-      const formatColor = ([key, value]) => ({
-        prop: key, value: value, cssVar: this._toCSSVar(key),
-      });
-
-      return colors.map(formatColor).filter(isSolidColor);
-    }
-
-    _toCSSVar(value) {
-      return `--${value.replace('.', '-')}`;
     }
 
     _updateCSSVars(event) {
