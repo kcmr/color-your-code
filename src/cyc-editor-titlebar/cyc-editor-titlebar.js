@@ -30,12 +30,12 @@
 
     _onEditorPartMouseenter(event) {
       const editorPart = event.currentTarget.dataset.prop;
-      this._emit('editor-part-hover', editorPart);
+      this._emit('editor-section-hover', editorPart);
     }
 
     _onEditorPartMouseleave() {
       setTimeout(() => {
-        this._emit('editor-part-hover');
+        this._emit('editor-section-hover');
       }, 100);
     }
   }

@@ -24,11 +24,17 @@
           value: 'electron-color-theme.json',
         },
 
-        _highlightSection: {
+        /**
+         * Highlighted section on the editor window.
+         */
+        _highlightedEditorSection: {
           type: String,
         },
 
-        _foundColor: {
+        /**
+         * Highlighted color on the theme editor (sidebar).
+         */
+        _highlightedEditorColor: {
           type: String,
         },
       };
@@ -39,20 +45,20 @@
       this._emit('shell-loaded');
     }
 
-    _setHighlight(event) {
-      this._highlightSection = event.detail;
+    _onEditorWindowSectionHover(event) {
+      this._highlightedEditorColor = event.detail;
     }
 
-    _setFoundColor(event) {
-      this._foundColor = event.detail;
+    _onThemeEditorColorHover(event) {
+      this._highlightedEditorSection = event.detail;
     }
 
-    _onEditorClick(event) {
-      const part = this._getEditorPart(event);
+    _onEditorWindowClick(event) {
+      const part = this._getEditorSection(event);
       this.$.panel.openColorPicker(part);
     }
 
-    _getEditorPart(event) {
+    _getEditorSection(event) {
       const path = event.composedPath();
       const hasDatasetProp = (element) => (element.dataset || {}).prop;
       return path.filter(hasDatasetProp)[0].dataset.prop;

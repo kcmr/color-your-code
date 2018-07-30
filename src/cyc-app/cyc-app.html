@@ -27,16 +27,16 @@
       </h1>
 
       <cyc-editor-window
-        highlight="[[_highlightSection]]"
-        on-editor-part-hover="_setFoundColor"
-        on-click="_onEditorClick">
+        highlight-section="[[_highlightedEditorSection]]"
+        on-editor-section-hover="_onEditorWindowSectionHover"
+        on-click="_onEditorWindowClick">
       </cyc-editor-window>
     </div>
 
     <cyc-theme-editor class="panel" id="panel"
       theme="[[_theme]]"
-      on-color-hover="_setHighlight"
-      highlight-color="[[_foundColor]]">
+      highlight-color="[[_highlightedEditorColor]]"
+      on-color-hover="_onThemeEditorColorHover">
     </cyc-theme-editor>
   </template>
 
