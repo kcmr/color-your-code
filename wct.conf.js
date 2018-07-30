@@ -16,7 +16,7 @@ module.exports = {
         'json',
       ],
       include: [
-        'dist/**/*.html',
+        'dist/**/*',
       ],
       exclude: [],
       thresholds: {
