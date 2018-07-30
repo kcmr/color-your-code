@@ -34,14 +34,6 @@
         },
 
         /**
-         * Object with the full theme configuration.
-         * @type {Object}
-         */
-        theme: {
-          type: Object,
-        },
-
-        /**
          * Color to highlight in the color list.
          */
         highlightColor: {
@@ -57,6 +49,14 @@
           type: Array,
         },
 
+        /**
+         * Copy of the original colors to be modified.
+         */
+        _colors: {
+          type: Array,
+          computed: '_computeColors(colors)',
+        },
+
         _submitEnabled: {
           type: Boolean,
           value: false,
@@ -69,11 +69,15 @@
       const name = this.themeName;
       const colors = {};
 
-      for (const color of this.colors) {
+      for (const color of this._colors) {
         colors[color.prop] = color.value;
       }
 
       return {type, name, colors};
+    }
+
+    _computeColors(colors) {
+      return JSON.parse(JSON.stringify(colors));
     }
 
     _updateCSSVars(event) {
@@ -93,7 +97,7 @@
     }
 
     _restoreOriginalTheme() {
-      this.theme = Object.assign({}, this.theme);
+      this.colors = [...this.colors];
     }
 
     _enableSubmit() {
