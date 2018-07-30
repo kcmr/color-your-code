@@ -34,31 +34,5 @@
       data-prop="statusBar.background"></cyc-editor-statusbar>
   </template>
 
-  <script>
-    {
-      const {Element} = Polymer;
-      const {HighlightMixin} = ColorYourCode;
-
-      /**
-      * `<cyc-editor-window>` displays the editor window preview.
-      * @polymer
-      * @customElement
-      * @memberof ColorYourCode
-      * @appliesMixin ColorYourCode.HighlightMixin
-      */
-      class CycEditorWindow extends HighlightMixin(Element) {
-        static get is() {
-          return 'cyc-editor-window';
-        }
-
-        static get properties() {
-          return {
-
-          };
-        }
-      }
-
-      window.customElements.define(CycEditorWindow.is, CycEditorWindow);
-    }
-  </script>
+  <script src="cyc-editor-window.js"></script>
 </dom-module>
