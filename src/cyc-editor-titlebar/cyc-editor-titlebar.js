@@ -27,17 +27,6 @@
         },
       };
     }
-
-    _onEditorPartMouseenter(event) {
-      const editorPart = event.currentTarget.dataset.prop;
-      this._emit('editor-section-hover', editorPart);
-    }
-
-    _onEditorPartMouseleave() {
-      setTimeout(() => {
-        this._emit('editor-section-hover');
-      }, 100);
-    }
   }
 
   window.customElements.define(CycEditorTitlebar.is, CycEditorTitlebar);
