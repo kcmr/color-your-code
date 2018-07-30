@@ -1,0 +1,5 @@
+:host([hidden]), [hidden] { display: none !important; }
+
+:host {
+  display: block;
+}
