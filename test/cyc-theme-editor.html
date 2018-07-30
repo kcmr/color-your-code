@@ -157,12 +157,12 @@
             assert.equal(spy.getCall(0).args[0].detail, 'activityBar.background');
           });
 
-          test('hovering outside the color list fires an event "color-hover" with an empty detail', () => {
+          test('hovering outside the color list fires an event "color-hover" without detail', () => {
             const colorList = el.shadowRoot.querySelector('.group-list');
             const spy = sinon.spy();
             el.addEventListener('color-hover', spy);
             colorList.dispatchEvent(new Event('mouseleave'));
-            assert.equal(spy.getCall(0).args[0].detail, '');
+            assert.isNull(spy.getCall(0).args[0].detail);
           });
         });
       });
