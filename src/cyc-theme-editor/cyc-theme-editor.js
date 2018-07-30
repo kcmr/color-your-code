@@ -121,9 +121,25 @@
 
     _scrollToColor(color) {
       if (color) {
-        const targetInput = this.shadowRoot.querySelector(`[name="${color}"]`);
-        targetInput.scrollIntoView({behavior: 'smooth', block: 'center'});
+        this._getInputByName(color).scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+        });
       }
+    }
+
+    /**
+     * Opens the color picker to edit the specified theme property.
+     * @param {String} themeProperty Theme property.
+     */
+    openColorPicker(themeProperty) {
+      if (themeProperty) {
+        this._getInputByName(themeProperty).click();
+      }
+    }
+
+    _getInputByName(name) {
+      return this.shadowRoot.querySelector(`[name="${name}"]`);
     }
 
    /**

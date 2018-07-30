@@ -12,7 +12,8 @@
       auto
       url="[[themeFile]]"
       handle-as="json"
-      last-response="{{_theme}}"></iron-ajax>
+      last-response="{{_theme}}">
+    </iron-ajax>
 
     <div class="preview">
       <h1 class="site-title" role="text">
@@ -25,10 +26,18 @@
         <span>Color your Code</span>
       </h1>
 
-      <cyc-editor-window highlight="[[_highlightSection]]" on-editor-part-hover="_setFoundColor"></cyc-editor-window>
+      <cyc-editor-window
+        highlight="[[_highlightSection]]"
+        on-editor-part-hover="_setFoundColor"
+        on-click="_onEditorClick">
+      </cyc-editor-window>
     </div>
 
-    <cyc-theme-editor class="panel" theme="[[_theme]]" on-color-hover="_setHighlight" highlight-color="[[_foundColor]]"></cyc-theme-editor>
+    <cyc-theme-editor class="panel" id="panel"
+      theme="[[_theme]]"
+      on-color-hover="_setHighlight"
+      highlight-color="[[_foundColor]]">
+    </cyc-theme-editor>
   </template>
 
   <script src="cyc-app.js"></script>

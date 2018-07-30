@@ -43,6 +43,17 @@
     _setFoundColor(event) {
       this._foundColor = event.detail;
     }
+
+    _onEditorClick(event) {
+      const part = this._getEditorPart(event);
+      this.$.panel.openColorPicker(part);
+    }
+
+    _getEditorPart(event) {
+      const path = event.composedPath();
+      const hasDatasetProp = (element) => (element.dataset || {}).prop;
+      return path.filter(hasDatasetProp)[0].dataset.prop;
+    }
   }
 
   window.customElements.define(CycApp.is, CycApp);
