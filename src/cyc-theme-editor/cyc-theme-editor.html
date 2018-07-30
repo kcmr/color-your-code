@@ -13,7 +13,7 @@
         <template is="dom-repeat" items="[[_themeColors]]" id="editorColorsList">
           <li class$="[[_computeHighlighted(item.prop, highlightColor)]]">
             <label class="color-field" on-mouseenter="_onColorHover">
-              <span class="label">[[item.name]]</span>
+              <span class="label">[[item.prop]]</span>
               <span class="input-wrapper">
                 <input type="color" name="[[item.prop]]" value="{{item.value::input}}" data-css-var$="[[item.cssVar]]" on-input="_updateCSSVars">
               </span>

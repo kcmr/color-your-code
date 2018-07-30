@@ -74,12 +74,13 @@
 
     _computeThemeColors(theme) {
       const colors = Object.entries(theme.colors);
-      return colors.map(([key, value]) => ({
-        name: key,
-        prop: key,
-        value: value,
-        cssVar: this._toCSSVar(key),
-      }));
+
+      const isSolidColor = (color) => color.value.length === 7;
+      const formatColor = ([key, value]) => ({
+        prop: key, value: value, cssVar: this._toCSSVar(key),
+      });
+
+      return colors.map(formatColor).filter(isSolidColor);
     }
 
     _toCSSVar(value) {
