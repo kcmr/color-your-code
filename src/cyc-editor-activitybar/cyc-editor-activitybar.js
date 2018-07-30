@@ -1,17 +1,15 @@
 {
   const {Element} = Polymer;
-  const {HighlightMixin, UtilsMixin} = ColorYourCode;
+  const {HighlightMixin} = ColorYourCode;
 
   /**
    * `<cyc-editor-activitybar>` displays the editor activity bar.
    * @polymer
    * @customElement
-   * @memberOf ColorYourCode
+   * @memberof ColorYourCode
+   * @appliesMixin ColorYourCode.HighlightMixin
    */
-  class CycEditorActivitybar extends UtilsMixin(
-    HighlightMixin(
-      Element)) {
-
+  class CycEditorActivitybar extends HighlightMixin(Element) {
     static get is() {
       return 'cyc-editor-activitybar';
     }

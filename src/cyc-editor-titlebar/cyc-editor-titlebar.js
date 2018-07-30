@@ -1,17 +1,15 @@
 {
   const {Element} = Polymer;
-  const {HighlightMixin, UtilsMixin} = ColorYourCode;
+  const {HighlightMixin} = ColorYourCode;
 
   /**
    * `<cyc-editor-titlebar>` displays the editor title bar.
    * @polymer
    * @customElement
    * @memberof ColorYourCode
+   * @appliesMixin ColorYourCode.HighlightMixin
    */
-  class CycEditorTitlebar extends UtilsMixin(
-    HighlightMixin(
-      Element)) {
-
+  class CycEditorTitlebar extends HighlightMixin(Element) {
     static get is() {
       return 'cyc-editor-titlebar';
     }

@@ -1,4 +1,5 @@
 <link rel="import" href="../../bower_components/polymer/lib/utils/mixin.html">
+<link rel="import" href="cyc-utils-mixin.html">
 
 <script>
   // @namespace ColorYourCode
@@ -6,12 +7,13 @@
 
   /**
    * Mixin to highlight elements with the current `highlight` property as `data-prop` attribute value.
-   * @memberof ColorYourCode
    * @polymer
    * @mixinFunction
+   * @memberof ColorYourCode
+   * @appliesMixin ColorYourCode.UtilsMixin
    */
   ColorYourCode.HighlightMixin = Polymer.dedupingMixin((superClass) => {
-    return class extends superClass {
+    return class extends ColorYourCode.UtilsMixin(superClass) {
       static get properties() {
         return {
           /**
