@@ -11,7 +11,9 @@
     }
 
     static get properties() {
+      return {
 
+      };
     }
   }
 
