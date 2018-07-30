@@ -31,6 +31,6 @@
     "not dead"
   ],
   "pre-push": [
-    "lint:javascript"
+    "lint"
   ]
 }
