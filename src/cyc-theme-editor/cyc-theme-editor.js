@@ -71,13 +71,13 @@
       return `--${value.replace('.', '-')}`;
     }
 
-    _updateCSSVars(e) {
-      const {dataset: {cssVar}, value} = e.target;
+    _updateCSSVars(event) {
+      const {dataset: {cssVar}, value} = event.target;
       document.documentElement.style.setProperty(cssVar, value);
     }
 
-    _onFormReset(e) {
-      e.preventDefault();
+    _onFormReset(event) {
+      event.preventDefault();
       this._submitEnabled = false;
       this._removeDocumentStyles();
       this._restoreOriginalTheme();
@@ -95,8 +95,8 @@
       this._submitEnabled = true;
     }
 
-    _onFormSubmit(e) {
-      e.preventDefault();
+    _onFormSubmit(event) {
+      event.preventDefault();
       this._downloadTheme();
     }
 
@@ -107,12 +107,12 @@
       this.$.downloadLink.click();
     }
 
-    _onColorHover(e) {
-      this._emit('color-hover', e.model.item.prop);
+    _onColorHover(event) {
+      this._emit('color-hover', event.model.item.prop);
     }
 
-    _onListMouseleave(e) {
-      this._emit('color-hover', '');
+    _onListMouseleave() {
+      this._emit('color-hover');
     }
 
     _computeHighlighted(prop, highlightColor) {
