@@ -8,7 +8,9 @@
     "polymer": "Polymer/polymer#^2.0.0",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0",
     "animejs": "juliangarnier/anime#^2.2.0",
-    "iron-ajax": "^2.1.3"
+    "iron-ajax": "^2.1.3",
+    "iron-icon": "^2.1.0",
+    "iron-iconset-svg": "^2.2.1"
   },
   "resolutions": {
     "polymer": "^2.0.0"

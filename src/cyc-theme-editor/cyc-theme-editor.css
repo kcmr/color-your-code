@@ -2,48 +2,30 @@
   height: calc(100% - 100px);
   padding-bottom: 100px;
   overflow-y: auto;
+  text-align: center;
 }
 
 .form-actions {
-  position: absolute;
-  z-index: 1;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 20px 40px;
-  border-top: 1px solid #E9E9E9;
-  display: flex;
-  justify-content: flex-end;
-  background-color: #fff;
+  padding: 15px 0 20px;
+  text-align: center;
 }
 
 .btn {
-  font-family: Courier, monospace;
-  font-weight: normal;
-  font-size: 16px;
-  padding: 0 25px;
-  margin: 0;
+  padding: 0;
+  margin: 0 0 10px;
+  width: 40px;
   height: 40px;
   border: none;
   transition: background-color 0.2s;
-}
-
-.btn:not(:first-of-type) {
-  margin-left: 18px;
-}
-
-.btn--primary {
-  background-color: #7255C5;
+  background-color: transparent;
   color: #fff;
 }
 
-.btn--secondary {
-  background-color: #D8D8D8;
-  color: #565758;
+.btn:disabled {
+  opacity: 0.5;
 }
 
-.btn:disabled {
-  background-color: #D8D8D8;
-  color: #565758;
-  opacity: 0.5;
+.icon-site-logo {
+  fill: #fff;
+  margin: 20px auto 10px;
 }

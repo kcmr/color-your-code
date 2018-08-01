@@ -2,6 +2,7 @@
 <link rel="import" href="../../bower_components/polymer/lib/elements/dom-repeat.html">
 <link rel="import" href="../cyc-mixins/cyc-utils-mixin.html">
 <link rel="import" href="../cyc-styles/cyc-shared-styles.html">
+<link rel="import" href="../cyc-icons/cyc-icons.html">
 
 <dom-module id="cyc-theme-editor">
   <template>
@@ -14,8 +15,12 @@
         on-input="_updateCSSVars">
 
       <div class="form-actions">
-        <button class="btn btn--secondary" type="reset">It's awful!</button>
-        <button class="btn btn--primary" type="submit" disabled="[[!_submitEnabled]]">Download theme</button>
+        <button class="btn" type="reset" title="Discard all changes">
+          <iron-icon icon="cyc:trash"></iron-icon>
+        </button>
+        <button class="btn" type="submit" disabled="[[!_submitEnabled]]" title="Download theme">
+          <iron-icon icon="cyc:download"></iron-icon>
+        </button>
         <a download="theme.json" id="downloadLink" hidden></a>
       </div>
     </form>
