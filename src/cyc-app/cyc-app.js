@@ -7,7 +7,7 @@
    * @polymer
    * @customElement
    * @memberof ColorYourCode
-   * @appliesMixin ColorYourCode.UtilsMixin
+   * @extends {ColorYourCode.UtilsMixin}
    */
   class CycApp extends UtilsMixin(Element) {
     static get is() {

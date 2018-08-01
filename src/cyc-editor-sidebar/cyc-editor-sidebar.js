@@ -7,7 +7,7 @@
    * @polymer
    * @customElement
    * @memberof ColorYourCode
-   * @appliesMixin ColorYourCode.HighlightMixin
+   * @extends {ColorYourCode.HighlightMixin}
    */
   class CycEditorSidebar extends HighlightMixin(Element) {
     static get is() {
