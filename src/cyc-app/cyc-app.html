@@ -24,11 +24,16 @@
       <cyc-editor-window
         theme-name="[[_themeName]]"
         on-editor-section-hover="_onEditorWindowSectionHover"
+        on-mouseleave="_onEditorWindowSectionMouseleave"
         on-click="_onEditorWindowClick">
       </cyc-editor-window>
+
+      <div class="hover-info">
+        [[_hoveredEditorSection]]
+      </div>
     </div>
 
-    <cyc-theme-editor id="panel"
+    <cyc-theme-editor class="panel" id="panel"
       edit-property="[[_selectedEditorSection]]"
       colors="[[_colors]]"></cyc-theme-editor>
   </template>

@@ -25,16 +25,9 @@
         },
 
         /**
-         * Highlighted section on the editor window.
+         * Hovered section on the editor window.
          */
-        _highlightedEditorSection: {
-          type: String,
-        },
-
-        /**
-         * Highlighted color on the theme editor (sidebar).
-         */
-        _highlightedEditorColor: {
+        _hoveredEditorSection: {
           type: String,
         },
 
@@ -76,7 +69,13 @@
     }
 
     _onEditorWindowSectionHover(event) {
-      this._highlightedEditorColor = event.detail;
+      this._hoveredEditorSection = event.detail;
+    }
+
+    _onEditorWindowSectionMouseleave() {
+      setTimeout(() => {
+        this._hoveredEditorSection = '';
+      }, 100);
     }
 
     _onEditorWindowClick(event) {
