@@ -46,7 +46,7 @@
               200,
               {'Content-Type': 'application/json'},
               JSON.stringify(mockTheme),
-            ],
+            ]
           );
         });
 
@@ -76,9 +76,7 @@
           ];
 
           const {type, name} = mockTheme;
-          const expectedData = {
-            type, name, colors
-          };
+          const expectedData = {type, name, colors};
 
           el.addEventListener('response-success', (event) => {
             assert.deepEqual(event.detail, expectedData);
