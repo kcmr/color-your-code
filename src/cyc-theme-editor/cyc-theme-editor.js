@@ -2,8 +2,8 @@
   const {Element} = Polymer;
 
   /**
-   * `<cyc-theme-editor>` displays the full list of editor colors and
-   * allows to change them and download the modified theme.
+   * `<cyc-theme-editor>` allows to edit the theme color values and
+   * download the modified theme.
    * @polymer
    * @customElement
    * @extends {Polymer.Element}
@@ -123,7 +123,7 @@
     }
 
     /**
-     * Opens the color picker to edit the specified editProperty.
+     * Opens the color picker to edit the the current `editProperty`.
      */
     openColorPicker() {
       this.$.inputColor.click();
