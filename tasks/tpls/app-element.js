@@ -4,6 +4,7 @@
   /**
    * @polymer
    * @customElement
+   * @extends {Polymer.Element}
    */
   class {{titleCase(name)}} extends Element {
     static get is() {

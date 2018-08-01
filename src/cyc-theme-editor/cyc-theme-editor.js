@@ -6,6 +6,7 @@
    * allows to change them and download the modified theme.
    * @polymer
    * @customElement
+   * @extends {Polymer.Element}
    */
   class CycThemeEditor extends Element {
     static get is() {
@@ -28,14 +29,6 @@
         themeName: {
           type: String,
           value: 'Your theme name',
-        },
-
-        /**
-         * Color to highlight in the color list.
-         */
-        highlightColor: {
-          type: String,
-          observer: '_scrollToColor',
         },
 
         /**
@@ -65,6 +58,13 @@
         editProperty: {
           type: Object,
           observer: '_editPropertyChanged',
+        },
+
+        /**
+         * Current property edited from _colors.
+         */
+        _currentThemeProperty: {
+          type: Object,
         },
       };
     }
