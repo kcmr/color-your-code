@@ -22,14 +22,6 @@
           type: String,
         },
 
-        /**
-         * How to handle the response (json | text | xml).
-         */
-        handleAs: {
-          type: String,
-          value: 'json',
-        },
-
         _responseData: {
           type: Object,
           observer: '_responseDataChanged',

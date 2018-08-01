@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>cyc-app</title>
+
+    <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../bower_components/web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../dist/cyc-dm/cyc-dm.html">
+  </head>
+  <body>
+    <test-fixture id="default">
+      <template>
+        <cyc-dm></cyc-dm>
+      </template>
+    </test-fixture>
+
+    <script>
+      suite('<cyc-dm>', () => {
+        let el;
+        let $ironAjax;
+        let server;
+
+        const mockTheme = {
+          'type': 'dark',
+          'name': 'My Theme',
+          'colors': {
+            'activityBar.background': '#141820',
+            'activityBar.foreground': '#ffffff',
+            'activityBarBadge.background': '#4B76CF',
+            'activityBarBadge.foreground': '#ffffff',
+            'diffEditor.insertedTextBackground': '#66f0c213',
+          },
+        };
+
+        setup(() => {
+          el = fixture('default');
+          $ironAjax = el.shadowRoot.querySelector('iron-ajax');
+
+          server = sinon.fakeServer.create();
+          server.respondWith('GET', '/theme.json',
+            [
+              200,
+              {'Content-Type': 'application/json'},
+              JSON.stringify(mockTheme),
+            ],
+          );
+        });
+
+        teardown(() => {
+          server.restore();
+        });
+
+        test('iron-ajax is properly configured', () => {
+          el.url = 'any';
+
+          assert.isTrue($ironAjax.auto);
+          assert.equal($ironAjax.url, el.url);
+          assert.equal($ironAjax.handleAs, 'json');
+        });
+
+        test('fires "response-success" event with the theme data formatted as expected', (done) => {
+          $ironAjax.auto = false;
+          el.url = '/theme.json';
+          $ironAjax.generateRequest();
+          server.respond();
+
+          const colors = [
+            {prop: 'activityBar.background', value: '#141820', cssVar: '--activityBar-background'},
+            {prop: 'activityBar.foreground', value: '#ffffff', cssVar: '--activityBar-foreground'},
+            {prop: 'activityBarBadge.background', value: '#4B76CF', cssVar: '--activityBarBadge-background'},
+            {prop: 'activityBarBadge.foreground', value: '#ffffff', cssVar: '--activityBarBadge-foreground'},
+          ];
+
+          const {type, name} = mockTheme;
+          const expectedData = {
+            type, name, colors
+          };
+
+          el.addEventListener('response-success', (event) => {
+            assert.deepEqual(event.detail, expectedData);
+            done();
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
