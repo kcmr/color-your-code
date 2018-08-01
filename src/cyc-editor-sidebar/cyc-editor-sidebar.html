@@ -1,12 +1,11 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../cyc-mixins/cyc-highlight-mixin.html">
-<link rel="import" href="../cyc-styles/cyc-shared-styles.html">
 
 <dom-module id="cyc-editor-sidebar">
   <template>
-    <link rel="stylesheet" href="cyc-editor-sidebar.css" include="cyc-shared-styles" inline>
+    <link rel="stylesheet" href="cyc-editor-sidebar.css" inline>
 
-    <div class="heading panel-heading highlight-text" data-prop="sideBarTitle.foreground" on-mouseenter="_onSectionMouseenter" on-mouseleave="_onSectionMouseleave">Explorador</div>
+    <div class="heading panel-heading" data-prop="sideBarTitle.foreground" on-mouseenter="_onSectionMouseenter" on-mouseleave="_onSectionMouseleave">Explorador</div>
     <div class="sidebar-panel">
       <div class="heading sidebar-heading">Editores abiertos</div>
       <ul class="open-files">

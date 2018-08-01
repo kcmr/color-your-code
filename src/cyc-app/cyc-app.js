@@ -72,10 +72,6 @@
       this._highlightedEditorColor = event.detail;
     }
 
-    _onThemeEditorColorHover(event) {
-      this._highlightedEditorSection = event.detail;
-    }
-
     _onEditorWindowClick(event) {
       const part = this._getEditorSection(event);
       this.$.panel.openColorPicker(part);

@@ -4,14 +4,12 @@
 <link rel="import" href="../cyc-editor-activitybar/cyc-editor-activitybar.html">
 <link rel="import" href="../cyc-editor-statusbar/cyc-editor-statusbar.html">
 <link rel="import" href="../cyc-mixins/cyc-highlight-mixin.html">
-<link rel="import" href="../cyc-styles/cyc-shared-styles.html">
 
 <dom-module id="cyc-editor-window">
   <template>
-    <link rel="stylesheet" href="cyc-editor-window.css" include="cyc-shared-styles" inline>
+    <link rel="stylesheet" href="cyc-editor-window.css" inline>
 
     <cyc-editor-titlebar class="titleBar"
-      highlight-section="[[highlightSection]]"
       theme-name="[[themeName]]"
       data-prop="titleBar.activeBackground"
       on-mouseenter="_onSectionMouseenter"
@@ -19,13 +17,11 @@
 
     <div class="body">
       <cyc-editor-activitybar
-        highlight-section="[[highlightSection]]"
         class="activityBar"
         data-prop="activityBar.background"
         on-mouseenter="_onSectionMouseenter"
         on-mouseleave="_onSectionMouseleave"></cyc-editor-activitybar>
       <cyc-editor-sidebar
-        highlight-section="[[highlightSection]]"
         class="sidebar"
         data-prop="sideBar.background"
         on-mouseenter="_onSectionMouseenter"
@@ -38,7 +34,6 @@
     </div>
 
     <cyc-editor-statusbar
-      highlight-section="[[highlightSection]]"
       class="statusBar"
       data-prop="statusBar.background"
       on-mouseenter="_onSectionMouseenter"
