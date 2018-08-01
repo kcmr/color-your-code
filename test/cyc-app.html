@@ -69,6 +69,24 @@
           });
         });
 
+        suite('clicking an editor section', () => {
+          setup(() => {
+            $editorWindow.dataset.prop = 'activityBar.background';
+            $themeEditor.colors = [{prop: "activityBar.background", value: "#141820", cssVar: "--activityBar-background"}]  ;
+          });
+
+          test('clicking an editor section in the editor window sets editProperty in theme-editor', () => {
+            $editorWindow.dispatchEvent(new Event('click'));
+            assert.equal($themeEditor.editProperty, 'activityBar.background');
+          });
+
+          test('clicking an editor section calls openColorPicker() method of theme-editor', () => {
+            const openColorPickerStub = sinon.stub($themeEditor, 'openColorPicker');
+            $editorWindow.dispatchEvent(new Event('click'));
+            assert.isTrue(openColorPickerStub.called);
+          });
+        });
+
         suite('theme data', () => {
           let $dm;
 

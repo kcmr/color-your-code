@@ -80,7 +80,7 @@
 
     _onEditorWindowClick(event) {
       this._selectedEditorSection = this._getEditorSection(event);
-      this.$.panel.openColorPicker();
+      this.$.themeEditor.openColorPicker();
     }
 
     _getEditorSection(event) {
