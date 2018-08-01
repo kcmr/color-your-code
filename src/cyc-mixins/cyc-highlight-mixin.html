@@ -19,12 +19,6 @@
         const editorSection = dataset.prop || dataset.targetProp;
         this._emit('editor-section-hover', editorSection);
       }
-
-      _onSectionMouseleave() {
-        setTimeout(() => {
-          this._emit('editor-section-hover');
-        }, 100);
-      }
     };
   });
 </script>
