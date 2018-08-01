@@ -60,6 +60,13 @@
         _colors: {
           type: Array,
         },
+
+        /**
+         * Clicked theme section.
+         */
+        _selectedEditorSection: {
+          type: String,
+        },
       };
     }
 
@@ -73,8 +80,8 @@
     }
 
     _onEditorWindowClick(event) {
-      const part = this._getEditorSection(event);
-      this.$.panel.openColorPicker(part);
+      this._selectedEditorSection = this._getEditorSection(event);
+      this.$.panel.openColorPicker();
     }
 
     _getEditorSection(event) {

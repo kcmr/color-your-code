@@ -1,26 +1,17 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/polymer/lib/elements/dom-repeat.html">
 <link rel="import" href="../cyc-mixins/cyc-utils-mixin.html">
+<link rel="import" href="../cyc-styles/cyc-shared-styles.html">
 
 <dom-module id="cyc-theme-editor">
   <template>
-    <link rel="stylesheet" href="cyc-theme-editor.css" inline>
+    <link rel="stylesheet" href="cyc-theme-editor.css" include="cyc-shared-styles" inline>
 
     <form class="form" on-change="_enableSubmit" on-reset="_onFormReset" on-submit="_onFormSubmit">
-      <h2 class="legend"><span>Editor Colors</span></h2>
-
-      <ul class="group-list" on-mouseleave="_onListMouseleave">
-        <template is="dom-repeat" items="[[_colors]]" id="editorColorsList">
-          <li class$="[[_computeHighlighted(item.prop, highlightColor)]]">
-            <label class="color-field" on-mouseenter="_onColorHover">
-              <span class="label">[[item.prop]]</span>
-              <span class="input-wrapper">
-                <input type="color" name="[[item.prop]]" value="{{item.value::input}}" data-css-var$="[[item.cssVar]]" on-input="_updateCSSVars">
-              </span>
-            </label>
-          </li>
-        </template>
-      </ul>
+      <input class="sr-only" id="inputColor"
+        type="color"
+        value="{{_currentThemeProperty.value::input}}"
+        on-input="_updateCSSVars">
 
       <div class="form-actions">
         <button class="btn btn--secondary" type="reset">It's awful!</button>

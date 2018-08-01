@@ -1,16 +1,13 @@
 {
   const {Element} = Polymer;
-  const {UtilsMixin} = ColorYourCode;
 
   /**
    * `<cyc-theme-editor>` displays the full list of editor colors and
    * allows to change them and download the modified theme.
    * @polymer
    * @customElement
-   * @memberof ColorYourCode
-   * @appliesMixin ColorYourCode.UtilsMixin
    */
-  class CycThemeEditor extends UtilsMixin(Element) {
+  class CycThemeEditor extends Element {
     static get is() {
       return 'cyc-theme-editor';
     }
@@ -61,6 +58,14 @@
           type: Boolean,
           value: false,
         },
+
+        /**
+         * Theme property to be edited.
+         */
+        editProperty: {
+          type: Object,
+          observer: '_editPropertyChanged',
+        },
       };
     }
 
@@ -81,7 +86,8 @@
     }
 
     _updateCSSVars(event) {
-      const {dataset: {cssVar}, value} = event.target;
+      const value = event.target.value;
+      const cssVar = this._currentThemeProperty.cssVar;
       document.documentElement.style.setProperty(cssVar, value);
     }
 
@@ -116,46 +122,20 @@
       this.$.downloadLink.click();
     }
 
-    _onColorHover(event) {
-      this._emit('color-hover', event.model.item.prop);
-    }
-
-    _onListMouseleave() {
-      this._emit('color-hover');
-    }
-
-    _computeHighlighted(prop, highlightColor) {
-      return (prop === highlightColor) ? 'highlight' : '';
-    }
-
-    _scrollToColor(color) {
-      if (color) {
-        this._getInputByName(color).scrollIntoView({
-          behavior: 'smooth',
-          block: 'center',
-        });
-      }
-    }
-
     /**
-     * Opens the color picker to edit the specified theme property.
-     * @param {String} themeProperty Theme property.
+     * Opens the color picker to edit the specified editProperty.
      */
-    openColorPicker(themeProperty) {
-      if (themeProperty) {
-        this._getInputByName(themeProperty).click();
-      }
+    openColorPicker() {
+      this.$.inputColor.click();
     }
 
-    _getInputByName(name) {
-      return this.shadowRoot.querySelector(`[name="${name}"]`);
+    _editPropertyChanged(editProperty) {
+      this._currentThemeProperty = this._getThemeProperty(editProperty);
     }
 
-   /**
-    * Fired after mouseenter/mouseleave a color field
-    * @event color-hover
-    * @param {String} detail property name or ''
-    */
+    _getThemeProperty(property) {
+      return this._colors.find((color) => color.prop === property);
+    }
   }
 
   window.customElements.define(CycThemeEditor.is, CycThemeEditor);
