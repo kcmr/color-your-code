@@ -72,7 +72,7 @@
         suite('clicking an editor section', () => {
           setup(() => {
             $editorWindow.dataset.prop = 'activityBar.background';
-            $themeEditor.colors = [{prop: "activityBar.background", value: "#141820", cssVar: "--activityBar-background"}]  ;
+            $themeEditor.colors = [{prop: 'activityBar.background', value: '#141820', cssVar: '--activityBar-background'}];
           });
 
           test('clicking an editor section in the editor window sets editProperty in theme-editor', () => {
@@ -116,7 +116,6 @@
             assert.equal($editorWindow.themeName, mockPayloadDM.name);
           });
         });
-
       });
     </script>
   </body>
