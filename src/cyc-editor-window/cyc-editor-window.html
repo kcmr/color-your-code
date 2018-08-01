@@ -4,10 +4,11 @@
 <link rel="import" href="../cyc-editor-activitybar/cyc-editor-activitybar.html">
 <link rel="import" href="../cyc-editor-statusbar/cyc-editor-statusbar.html">
 <link rel="import" href="../cyc-mixins/cyc-highlight-mixin.html">
+<link rel="import" href="../cyc-styles/cyc-shared-styles.html">
 
 <dom-module id="cyc-editor-window">
   <template>
-    <link rel="stylesheet" href="cyc-editor-window.css" inline>
+    <link rel="stylesheet" href="cyc-editor-window.css" include="cyc-shared-styles" inline>
 
     <cyc-editor-titlebar class="titleBar"
       theme-name="[[themeName]]"
