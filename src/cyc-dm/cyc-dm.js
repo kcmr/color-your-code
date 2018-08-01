@@ -3,6 +3,7 @@
   const {UtilsMixin} = ColorYourCode;
 
   /**
+   * Formats the theme editor file according to the data expected by the UIs.
    * @polymer
    * @customElement
    * @memberof ColorYourCode
@@ -16,7 +17,7 @@
     static get properties() {
       return {
         /**
-         * URL for `<iron-ajax>` element.
+         * URL of the theme file (json).
          */
         url: {
           type: String,
@@ -33,6 +34,14 @@
       const {type, name, colors} = data;
       const filteredColors = this._getFilteredColors(colors);
 
+      /**
+       * Fired after receiving data from the specified `url`.
+       * @event response-success
+       * @param {Object} detail Theme data.
+       * @param {String} type Theme type (dark | light).
+       * @param {String} name Theme name.
+       * @param {Array} colors List of theme properties, colors and custom CSS properties.
+       */
       this._emit('response-success', {
         type, name, colors: filteredColors,
       });
