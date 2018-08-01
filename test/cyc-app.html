@@ -37,34 +37,36 @@
           assert.isTrue(spy.calledOnce);
         });
 
-        test('displays the editor section hovered', () => {
-          let hoveredSection;
+        suite('hover editor window', () => {
+          test('displays the editor section hovered', () => {
+            let hoveredSection;
 
-          $editorWindow.addEventListener('editor-section-hover', (event) => {
-            hoveredSection = event.detail;
+            $editorWindow.addEventListener('editor-section-hover', (event) => {
+              hoveredSection = event.detail;
+            });
+
+            $editorWindow.dispatchEvent(new CustomEvent('editor-section-hover', {
+              detail: 'any',
+            }));
+
+            const $sectionInfo = el.shadowRoot.querySelector('.hover-info');
+            assert.equal($sectionInfo.innerText, hoveredSection);
           });
 
-          $editorWindow.dispatchEvent(new CustomEvent('editor-section-hover', {
-            detail: 'any',
-          }));
+          test('hover info is empty (hidden) when the editor window is not hovered after 100ms', () => {
+            const $sectionInfo = el.shadowRoot.querySelector('.hover-info');
+            const timeoutStub = sinon.stub(window, 'setTimeout', function(cb) {
+              cb.call(el);
+            });
 
-          const $sectionInfo = el.shadowRoot.querySelector('.hover-info');
-          assert.equal($sectionInfo.innerText, hoveredSection);
-        });
+            $editorWindow.dispatchEvent(new CustomEvent('editor-section-hover', {
+              detail: 'any',
+            }));
 
-        test('hover info is empty (hidden) when the editor window is not hovered after 100ms', () => {
-          const $sectionInfo = el.shadowRoot.querySelector('.hover-info');
-          const timeoutStub = sinon.stub(window, 'setTimeout', function(cb) {
-            cb.call(el);
+            $editorWindow.dispatchEvent(new MouseEvent('mouseleave'));
+            assert.equal($sectionInfo.innerText, '');
+            timeoutStub.restore();
           });
-
-          $editorWindow.dispatchEvent(new CustomEvent('editor-section-hover', {
-            detail: 'any',
-          }));
-
-          $editorWindow.dispatchEvent(new MouseEvent('mouseleave'));
-          assert.equal($sectionInfo.innerText, '');
-          timeoutStub.restore();
         });
 
         suite('theme data', () => {
