@@ -21,9 +21,13 @@
     <script>
       suite('<cyc-app>', () => {
         let el;
+        let $editorWindow;
+        let $themeEditor;
 
         setup(() => {
           el = fixture('default');
+          $editorWindow = el.$.editorWindow;
+          $themeEditor = el.$.themeEditor;
         });
 
         test('fires an event "shell-loaded" on ready', () => {
@@ -33,15 +37,66 @@
           assert.isTrue(spy.calledOnce);
         });
 
-        test('sets "highlightSection" property on cyc-editor-window when cyc-theme-editor fires "color-hover"', () => {
-          const themeEditor = el.shadowRoot.querySelector('cyc-theme-editor');
-          const editorWindow = el.shadowRoot.querySelector('cyc-editor-window');
-          themeEditor.dispatchEvent(new CustomEvent('color-hover', {detail: 'property-name'}));
-          assert.equal(editorWindow.highlightSection, 'property-name');
-          // test memoizing this._uis in cyc-highlight-mixin
-          themeEditor.dispatchEvent(new CustomEvent('color-hover', {detail: 'second-name'}));
-          assert.equal(editorWindow.highlightSection, 'second-name');
+        test('displays the editor section hovered', () => {
+          let hoveredSection;
+
+          $editorWindow.addEventListener('editor-section-hover', (event) => {
+            hoveredSection = event.detail;
+          });
+
+          $editorWindow.dispatchEvent(new CustomEvent('editor-section-hover', {
+            detail: 'any',
+          }));
+
+          const $sectionInfo = el.shadowRoot.querySelector('.hover-info');
+          assert.equal($sectionInfo.innerText, hoveredSection);
         });
+
+        test('hover info is empty (hidden) when the editor window is not hovered after 100ms', () => {
+          const $sectionInfo = el.shadowRoot.querySelector('.hover-info');
+          const timeoutStub = sinon.stub(window, 'setTimeout', function(cb) {
+            cb.call(el);
+          });
+
+          $editorWindow.dispatchEvent(new CustomEvent('editor-section-hover', {
+            detail: 'any',
+          }));
+
+          $editorWindow.dispatchEvent(new MouseEvent('mouseleave'));
+          assert.equal($sectionInfo.innerText, '');
+          timeoutStub.restore();
+        });
+
+        suite('theme data', () => {
+          let $dm;
+
+          const mockPayloadDM = {
+            name: 'some theme',
+            type: 'dark',
+            colors: [{
+              prop: 'activitybar.background',
+              value: '#000000',
+              cssVar: '--activityBar-background',
+            }],
+          };
+
+          setup(() => {
+            $dm = el.$.dmTheme;
+
+            $dm.dispatchEvent(new CustomEvent('response-success', {
+              detail: mockPayloadDM,
+            }));
+          });
+
+          test('sets colors in theme-editor when the DM fires "response-success"', () => {
+            assert.deepEqual($themeEditor.colors, mockPayloadDM.colors);
+          });
+
+          test('sets theme-name in editor-window when the DM fires "response-success"', () => {
+            assert.equal($editorWindow.themeName, mockPayloadDM.name);
+          });
+        });
+
       });
     </script>
   </body>

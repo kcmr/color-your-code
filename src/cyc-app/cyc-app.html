@@ -8,7 +8,7 @@
   <template>
     <link rel="stylesheet" href="cyc-app.css" inline>
 
-    <cyc-dm hidden url="[[themeFile]]" on-response-success="_onDmResponseSuccess"></cyc-dm>
+    <cyc-dm id="dmTheme" hidden url="[[themeFile]]" on-response-success="_onDmResponseSuccess"></cyc-dm>
 
     <div class="preview">
       <h1 class="site-title" role="text">
@@ -16,7 +16,7 @@
         <span>Color your Code</span>
       </h1>
 
-      <cyc-editor-window
+      <cyc-editor-window id="editorWindow"
         theme-name="[[_themeName]]"
         on-editor-section-hover="_onEditorWindowSectionHover"
         on-mouseleave="_onEditorWindowSectionMouseleave"
@@ -28,7 +28,7 @@
       </div>
     </div>
 
-    <cyc-theme-editor class="panel" id="panel"
+    <cyc-theme-editor class="panel" id="themeEditor"
       edit-property="[[_selectedEditorSection]]"
       colors="[[_colors]]"></cyc-theme-editor>
   </template>
