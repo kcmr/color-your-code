@@ -53,17 +53,20 @@
           .add({targets: '.p1', d: {value: 'M 3 115 L 3 115 L 16 120 L 16 120 L 3 115 Z'}});
 
         const loader = document.querySelector('.loader');
+
         const destroyLoader = () => {
           loader.removeEventListener('transitionend', destroyLoader);
           document.body.removeChild(loader);
         };
 
-        document.body.addEventListener('shell-loaded', (e) => {
+        const onShellLoaded = () => {
           loader.addEventListener('transitionend', destroyLoader);
           setTimeout(() => {
             document.body.classList.remove('loading');
           }, 1800);
-        });
+        };
+
+        document.body.addEventListener('shell-loaded', onShellLoaded);
       }(document));
     </script>
     <link rel="import" href="dist/cyc-app/cyc-app.html">
