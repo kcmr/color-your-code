@@ -38,9 +38,9 @@
        * Fired after receiving data from the specified `url`.
        * @event response-success
        * @param {Object} detail Theme data.
-       * @param {String} type Theme type (dark | light).
-       * @param {String} name Theme name.
-       * @param {Array} colors List of theme properties, colors and custom CSS properties.
+       * @param {String} detail.type Theme type (dark | light).
+       * @param {String} detail.name Theme name.
+       * @param {Array} detail.colors List of theme properties, colors and custom CSS properties.
        */
       this._emit('response-success', {
         type, name, colors: filteredColors,
