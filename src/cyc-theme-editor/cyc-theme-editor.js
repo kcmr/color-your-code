@@ -130,7 +130,7 @@
 
     _onFormChange() {
       this._submitEnabled = true;
-      this._addLastEditedThemePropertyToHistory();
+      this._addLastEditedPropertyToHistory();
     }
 
     _onFormSubmit(event) {
@@ -165,7 +165,7 @@
       return this._colors.find((color) => color.prop === property);
     }
 
-    _addLastEditedThemePropertyToHistory() {
+    _addLastEditedPropertyToHistory() {
       if (this._editHistory.length === this.historyLimit) {
         this.shift('_editHistory');
       }
