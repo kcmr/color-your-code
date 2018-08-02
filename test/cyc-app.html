@@ -53,7 +53,7 @@
             assert.equal($sectionInfo.innerText, hoveredSection);
           });
 
-          test('hover info is empty (hidden) when the editor window is not hovered after 100ms', () => {
+          test('hover info is empty after 100ms when the editor window is not hovered', () => {
             const $sectionInfo = el.shadowRoot.querySelector('.hover-info');
             const timeoutStub = sinon.stub(window, 'setTimeout', function(cb) {
               cb.call(el);
@@ -65,6 +65,7 @@
 
             $editorWindow.dispatchEvent(new MouseEvent('mouseleave'));
             assert.equal($sectionInfo.innerText, '');
+            assert.equal(timeoutStub.getCall(0).args[1], 100);
             timeoutStub.restore();
           });
         });

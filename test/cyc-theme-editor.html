@@ -21,78 +21,46 @@
     <script>
       suite('<cyc-theme-editor>', () => {
         let el;
-        const theme = {
-          colors: {
-            'activityBar.background': '#141820',
-            'activityBarBadge.background': '#4B76CF',
-          },
-        };
+        let $inputColor;
+        let changeFirstProperty;
+
+        const colors = [
+          {prop: 'activityBar.background', value: '#141820', cssVar: '--activityBar-background'},
+          {prop: 'activityBar.foreground', value: '#ffffff', cssVar: '--activityBar-foreground'},
+          {prop: 'activityBarBadge.background', value: '#4B76CF', cssVar: '--activityBarBadge-background'},
+          {prop: 'activityBarBadge.foreground', value: '#ffffff', cssVar: '--activityBarBadge-foreground'},
+        ];
 
         setup(() => {
           el = fixture('default');
+          el.colors = colors;
+          $inputColor = el.$.inputColor;
+
+          changeFirstProperty = () => {
+            // set the property to edit and change a color
+            el.editProperty = el.colors[0].prop;
+            $inputColor.value = '#f0f0f0';
+            $inputColor.dispatchEvent(new Event('input'));
+          };
         });
 
-        suite('editor colors list', () => {
-          let colorList;
-          let input;
-
-          setup((done) => {
-            el.theme = theme;
-
-            flush(() => {
-              colorList = el.shadowRoot.querySelector('#editorColorsList');
-              input = el.shadowRoot.querySelector('input[type="color"]');
-              done();
-            });
-          });
-
-          test('setting theme renders the list of editorColors', () => {
-            assert.equal(colorList.items.length, Object.keys(el.theme.colors).length);
-          });
-
-          test('each item of the list displays the name of the editor color', () => {
-            const label = el.shadowRoot.querySelector('label');
-            assert.equal(label.innerText.trim(), 'activityBar.background', 'displays the name of the editor color');
-          });
-
-          test('each input of the list has the value of the corresponding editor theme key', () => {
-            assert.equal(input.value, '#141820', 'input value is correct');
-          });
-
-          test('each input of the list has a "data-css-var" attribute with the a valid CSS var value', () => {
-            assert.equal(input.dataset.cssVar, '--activityBar-background', 'input data-css-var is correct');
-          });
-
-          test('each item of the list has the "name" attribute with the name of the editor color', () => {
-            assert.equal(input.name, 'activityBar.background', 'input name is correct');
-          });
+        test('setting editProperty sets the corresponding color value to edit of the input[type="color"]', () => {
+          el.editProperty = el.colors[0].prop;
+          assert.equal($inputColor.value, el.colors[0].value);
         });
 
-        suite('color changing', () => {
-          test('changing a color sets the value to a document CSS var', (done) => {
-            el.theme = theme;
+        test('changing a color sets the resulting value of the corresponding CSS var', () => {
+          changeFirstProperty();
+          assert.equal(document.documentElement.style.getPropertyValue(el.colors[0].cssVar), $inputColor.value);
+        });
 
-            flush(() => {
-              const input = el.shadowRoot.querySelector('input[type="color"]');
-              const initialValue = document.documentElement.style.getPropertyValue('--activityBar-background');
-
-              input.addEventListener('input', function() {
-                const currentValue = document.documentElement.style.getPropertyValue('--activityBar-background');
-                assert.notEqual(initialValue, currentValue, 'the CSS value has changed');
-                assert.equal(currentValue, input.value);
-                done();
-              });
-
-              input.dispatchEvent(new Event('input'));
-            });
-          });
+        test('calling openColorPicker() method shows the OS native color picker', () => {
+          const inputColorClickStub = sinon.stub($inputColor, 'click');
+          el.openColorPicker();
+          assert.isTrue(inputColorClickStub.called);
         });
 
         suite('form', () => {
-          setup(() => {
-            el.theme = theme;
-          });
-
           test('the submit button of the form is disabled until a color is changed', () => {
             const submitBtn = el.shadowRoot.querySelector('button[type="submit"]');
             assert.isTrue(submitBtn.disabled, 'submit button is disabled');
@@ -105,25 +73,51 @@
             assert.isFalse(submitBtn.disabled);
           });
 
-          test('clicking the "it\'s awful" button disables the submit button after it has been enabled', () => {
-            const submitBtn = el.shadowRoot.querySelector('button[type="submit"]');
-            const resetBtn = el.shadowRoot.querySelector('button[type="reset"]');
-            const form = el.shadowRoot.querySelector('form');
-            form.dispatchEvent(new Event('change'));
-            resetBtn.click();
-            assert.isTrue(submitBtn.disabled);
+          suite('Clicking the trash button', () => {
+            let $submitBtn;
+            let $resetBtn;
+            let $form;
+
+            setup(() => {
+              $submitBtn = el.shadowRoot.querySelector('button[type="submit"]');
+              $resetBtn = el.shadowRoot.querySelector('button[type="reset"]');
+              $form = el.shadowRoot.querySelector('form');
+              $form.dispatchEvent(new Event('change'));
+            });
+
+            test('disables the submit button after it has been enabled', () => {
+              $resetBtn.click();
+              assert.isTrue($submitBtn.disabled);
+            });
+
+            test('removes the values applied to CSS vars', () => {
+              $resetBtn.click();
+              assert.equal(document.documentElement.style.getPropertyValue('--activityBar-background'), '');
+            });
+
+            test('restores the original theme', () => {
+              changeFirstProperty();
+              assert.notEqual(el._theme.colors['activityBar.background'], colors[0].value);
+              $resetBtn.click();
+              assert.equal(el._theme.colors['activityBar.background'], colors[0].value);
+            });
           });
 
           test('clicking the download theme button downloads a JSON file with the generated theme', () => {
-            el.theme = theme;
-
             const generatedTheme = {
               type: el.themeType,
               name: el.themeName,
-              colors: theme.colors,
+              colors: {
+                'activityBar.background': '#f0f0f0',
+                'activityBar.foreground': '#ffffff',
+                'activityBarBadge.background': '#4B76CF',
+                'activityBarBadge.foreground': '#ffffff',
+              },
             };
 
             const expectedOuput = 'data:text/json;charset=utf-8,' + JSON.stringify(generatedTheme, null, 4);
+
+            changeFirstProperty();
 
             const submitBtn = el.shadowRoot.querySelector('button[type="submit"]');
             const downloadLink = el.shadowRoot.querySelector('#downloadLink');
@@ -136,33 +130,6 @@
             assert.isTrue(downloadLinkClickStub.calledOnce);
             assert.equal(downloadLink.getAttribute('href'), expectedOuput);
             assert.equal(downloadLink.getAttribute('download'), 'theme.json');
-          });
-        });
-
-        suite('color hovering', () => {
-          let firstColorLabel;
-
-          setup((done) => {
-            el.theme = theme;
-            flush(() => {
-              firstColorLabel = el.shadowRoot.querySelector('label');
-              done();
-            });
-          });
-
-          test('hovering a color field fires an event "color-hover" with the name of the hovered color', () => {
-            const spy = sinon.spy();
-            el.addEventListener('color-hover', spy);
-            firstColorLabel.dispatchEvent(new Event('mouseenter'));
-            assert.equal(spy.getCall(0).args[0].detail, 'activityBar.background');
-          });
-
-          test('hovering outside the color list fires an event "color-hover" without detail', () => {
-            const colorList = el.shadowRoot.querySelector('.group-list');
-            const spy = sinon.spy();
-            el.addEventListener('color-hover', spy);
-            colorList.dispatchEvent(new Event('mouseleave'));
-            assert.isNull(spy.getCall(0).args[0].detail);
           });
         });
       });
