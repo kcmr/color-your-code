@@ -19,10 +19,12 @@
   transition: background-color 0.2s;
   background-color: transparent;
   color: #fff;
+  cursor: pointer;
 }
 
 .btn:disabled {
   opacity: 0.5;
+  cursor: default;
 }
 
 .icon-site-logo {
