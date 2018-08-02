@@ -159,11 +159,20 @@
     }
 
     _addLastEditedPropertyToHistory() {
+      if (!this._valueHasChanged()) {
+        return;
+      }
+
       if (this._editHistory.length === this.historyLimit) {
         this.shift('_editHistory');
       }
 
       this.push('_editHistory', this._lastEditedProperty);
+    }
+
+    _valueHasChanged() {
+      const lastHistoryEntry = this._editHistory[this._editHistory.length - 1];
+      return JSON.stringify(lastHistoryEntry) !== JSON.stringify(this._lastEditedProperty);
     }
 
     _undo() {
