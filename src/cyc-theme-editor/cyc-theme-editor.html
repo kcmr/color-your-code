@@ -8,7 +8,7 @@
   <template>
     <link rel="stylesheet" href="cyc-theme-editor.css" include="cyc-shared-styles" inline>
 
-    <form class="form" on-change="_enableSubmit" on-reset="_onFormReset" on-submit="_onFormSubmit">
+    <form class="form" on-change="_onFormChange" on-reset="_onFormReset" on-submit="_onFormSubmit">
       <input class="sr-only" id="inputColor"
         type="color"
         value="{{_currentThemeProperty.value::input}}"

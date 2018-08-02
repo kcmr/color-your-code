@@ -128,8 +128,9 @@
       this._editHistory = [];
     }
 
-    _enableSubmit() {
+    _onFormChange() {
       this._submitEnabled = true;
+      this._addLastEditedThemePropertyToHistory();
     }
 
     _onFormSubmit(event) {
@@ -149,7 +150,11 @@
      */
     openColorPicker() {
       this.$.inputColor.click();
-      this._addLastEditedThemePropertyToHistory();
+      this._setLastEditedProperty();
+    }
+
+    _setLastEditedProperty() {
+      this._lastEditedProperty = this._clone(this._currentThemeProperty);
     }
 
     _editPropertyChanged(editProperty) {
@@ -165,7 +170,7 @@
         this.shift('_editHistory');
       }
 
-      this.push('_editHistory', this._clone(this._currentThemeProperty));
+      this.push('_editHistory', this._lastEditedProperty);
     }
 
     _undo() {
