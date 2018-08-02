@@ -49,11 +49,6 @@
           computed: '_computeColors(colors)',
         },
 
-        _submitEnabled: {
-          type: Boolean,
-          value: false,
-        },
-
         /**
          * Theme property to be edited.
          */
@@ -110,7 +105,6 @@
 
     _onFormReset(event) {
       event.preventDefault();
-      this._submitEnabled = false;
       this._removeDocumentStyles();
       this._restoreOriginalTheme();
       this._clearEditHistory();
@@ -129,7 +123,6 @@
     }
 
     _onFormChange() {
-      this._submitEnabled = true;
       this._addLastEditedPropertyToHistory();
     }
 
