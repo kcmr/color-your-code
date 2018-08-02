@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>cyc-editor-sidebar</title>
+
+    <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../bower_components/web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../dist/cyc-editor-sidebar/cyc-editor-sidebar.html">
+  </head>
+  <body>
+    <test-fixture id="default">
+      <template>
+        <cyc-editor-sidebar></cyc-editor-sidebar>
+      </template>
+    </test-fixture>
+
+    <script>
+      suite('<cyc-editor-sidebar>', () => {
+        let el;
+
+        setup(() => {
+          el = fixture('default');
+        });
+
+        suite('an element extending HighlightMixin', () => {
+          test('fires an event "editor-section-hover" when an editor section is hovered with the editor section as payload', () => {
+            const $heading = el.shadowRoot.querySelector('.heading');
+
+            const eventSpy = sinon.spy();
+            el.addEventListener('editor-section-hover', eventSpy);
+
+            $heading.dispatchEvent(new MouseEvent('mouseenter'));
+            assert.equal(eventSpy.getCall(0).args[0].detail, $heading.dataset.prop, 'the event detail contains the "data-prop" attribute');
+
+            $heading.removeAttribute('data-prop');
+            $heading.dataset.targetProp = 'any';
+            $heading.dispatchEvent(new MouseEvent('mouseenter'));
+            assert.equal(eventSpy.getCall(1).args[0].detail, $heading.dataset.targetProp, 'the event detail contains "data-target-prop" attribute if it does not have "data-prop"');
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
