@@ -21,10 +21,6 @@
   opacity: 0.5;
 }
 
-.stroke {
-  stroke: var(--activityBar-foreground);
-}
-
 .active {
   opacity: 1;
 }
