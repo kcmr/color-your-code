@@ -1,5 +1,6 @@
 {
   const {Element} = Polymer;
+  const {UtilsMixin} = ColorYourCode;
 
   /**
    * `<cyc-theme-editor>` allows to edit the theme color values and
@@ -7,8 +8,9 @@
    * @polymer
    * @customElement
    * @extends {Polymer.Element}
+   * @extends {ColorYourCode.UtilsMixin}
    */
-  class CycThemeEditor extends Element {
+  class CycThemeEditor extends UtilsMixin(Element) {
     static get is() {
       return 'cyc-theme-editor';
     }
@@ -66,6 +68,22 @@
         _currentThemeProperty: {
           type: Object,
         },
+
+        /**
+         * History of edited colors for undoing changes.
+         */
+        _editHistory: {
+          type: Array,
+          value: () => [],
+        },
+
+        /**
+         * Number of entries in edit history.
+         */
+        historyLimit: {
+          type: Number,
+          value: 20,
+        },
       };
     }
 
@@ -82,12 +100,11 @@
     }
 
     _computeColors(colors) {
-      return JSON.parse(JSON.stringify(colors));
+      return this._clone(colors);
     }
 
-    _updateCSSVars(event) {
-      const value = event.target.value;
-      const cssVar = this._currentThemeProperty.cssVar;
+    _updateCSSVars() {
+      const {cssVar, value} = this._currentThemeProperty;
       document.documentElement.style.setProperty(cssVar, value);
     }
 
@@ -96,6 +113,7 @@
       this._submitEnabled = false;
       this._removeDocumentStyles();
       this._restoreOriginalTheme();
+      this._clearEditHistory();
     }
 
     _removeDocumentStyles() {
@@ -104,6 +122,10 @@
 
     _restoreOriginalTheme() {
       this.colors = [...this.colors];
+    }
+
+    _clearEditHistory() {
+      this._editHistory = [];
     }
 
     _enableSubmit() {
@@ -127,6 +149,7 @@
      */
     openColorPicker() {
       this.$.inputColor.click();
+      this._addLastEditedThemePropertyToHistory();
     }
 
     _editPropertyChanged(editProperty) {
@@ -135,6 +158,19 @@
 
     _getThemeProperty(property) {
       return this._colors.find((color) => color.prop === property);
+    }
+
+    _addLastEditedThemePropertyToHistory() {
+      if (this._editHistory.length === this.historyLimit) {
+        this.shift('_editHistory');
+      }
+
+      this.push('_editHistory', this._clone(this._currentThemeProperty));
+    }
+
+    _undo() {
+      this._currentThemeProperty = this.pop('_editHistory');
+      this._updateCSSVars();
     }
   }
 

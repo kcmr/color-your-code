@@ -23,6 +23,14 @@
           composed: true, bubbles, detail,
         }));
       }
+
+      /**
+       * Deep clone an object or array using JSON.parse and JSON.stringify.
+       * @param {Array | Object} item Element to clone.
+       */
+      _clone(item) {
+        return JSON.parse(JSON.stringify(item));
+      }
     };
   });
 </script>

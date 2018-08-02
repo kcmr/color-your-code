@@ -12,11 +12,15 @@
       <input class="sr-only" id="inputColor"
         type="color"
         value="{{_currentThemeProperty.value::input}}"
-        on-input="_updateCSSVars">
+        on-input="_updateCSSVars"
+        on-change="_updateCSSVars">
 
       <div class="form-actions">
         <button class="btn" type="reset" title="Discard all changes">
           <iron-icon icon="cyc:trash"></iron-icon>
+        </button>
+        <button class="btn" type="button" title="Undo" on-click="_undo" disabled="[[!_editHistory.length]]">
+          <iron-icon icon="cyc:undo"></iron-icon>
         </button>
         <button class="btn" type="submit" disabled="[[!_submitEnabled]]" title="Download theme">
           <iron-icon icon="cyc:download"></iron-icon>
