@@ -73,7 +73,7 @@
         },
 
         /**
-         * Number of entries in edit history.
+         * Number of allowed entries in edit history.
          */
         historyLimit: {
           type: Number,
@@ -98,7 +98,7 @@
       return this._clone(colors);
     }
 
-    _updateCSSVars() {
+    _updateDocumentStyles() {
       const {cssVar, value} = this._currentThemeProperty;
       document.documentElement.style.setProperty(cssVar, value);
     }
@@ -126,6 +126,23 @@
       this._addLastEditedPropertyToHistory();
     }
 
+    _addLastEditedPropertyToHistory() {
+      if (!this._valueHasChanged()) {
+        return;
+      }
+
+      if (this._editHistory.length === this.historyLimit) {
+        this.shift('_editHistory');
+      }
+
+      this.push('_editHistory', this._lastEditedProperty);
+    }
+
+    _valueHasChanged() {
+      const lastHistoryEntry = this._editHistory[this._editHistory.length - 1];
+      return !this._deepEqual(lastHistoryEntry, this._lastEditedProperty);
+    }
+
     _onFormSubmit(event) {
       event.preventDefault();
       this._downloadTheme();
@@ -151,33 +168,14 @@
     }
 
     _editPropertyChanged(editProperty) {
-      this._currentThemeProperty = this._getThemeProperty(editProperty);
-    }
-
-    _getThemeProperty(property) {
-      return this._colors.find((color) => color.prop === property);
-    }
-
-    _addLastEditedPropertyToHistory() {
-      if (!this._valueHasChanged()) {
-        return;
-      }
-
-      if (this._editHistory.length === this.historyLimit) {
-        this.shift('_editHistory');
-      }
-
-      this.push('_editHistory', this._lastEditedProperty);
-    }
-
-    _valueHasChanged() {
-      const lastHistoryEntry = this._editHistory[this._editHistory.length - 1];
-      return JSON.stringify(lastHistoryEntry) !== JSON.stringify(this._lastEditedProperty);
+      this._currentThemeProperty = this._colors.find((color) => {
+        return color.prop === editProperty;
+      });
     }
 
     _undo() {
       this._currentThemeProperty = this.pop('_editHistory');
-      this._updateCSSVars();
+      this._updateDocumentStyles();
     }
   }
 

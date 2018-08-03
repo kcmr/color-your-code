@@ -31,6 +31,15 @@
       _clone(item) {
         return JSON.parse(JSON.stringify(item));
       }
+
+      /**
+       * Returns the equality of two objects.
+       * @param {Object} obj1
+       * @param {Object} obj2
+       */
+      _deepEqual(obj1, obj2) {
+        return JSON.stringify(obj1) === JSON.stringify(obj2);
+      }
     };
   });
 </script>

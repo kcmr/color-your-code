@@ -12,8 +12,8 @@
       <input class="sr-only" id="inputColor"
         type="color"
         value="{{_currentThemeProperty.value::input}}"
-        on-input="_updateCSSVars"
-        on-change="_updateCSSVars">
+        on-input="_updateDocumentStyles"
+        on-change="_updateDocumentStyles">
 
       <div class="form-actions">
         <button class="btn" type="reset" title="Discard all changes" disabled="[[!_editHistory.length]]">
