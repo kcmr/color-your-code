@@ -103,9 +103,20 @@
       return this._clone(colors);
     }
 
+    _updateTheme() {
+      this._updateDocumentStyles();
+      this._updateColors();
+    }
+
     _updateDocumentStyles() {
       const {cssVar, value} = this._currentThemeProperty;
       document.documentElement.style.setProperty(cssVar, value);
+    }
+
+    _updateColors() {
+      const {prop, value} = this._currentThemeProperty;
+      const index = this._colors.findIndex((color) => color.prop === prop);
+      this.set(['_colors', index, 'value'], value);
     }
 
     _onFormReset(event) {
@@ -171,7 +182,9 @@
     }
 
     _setLastEditedProperty() {
-      this._lastEditedProperty = this._clone(this._currentThemeProperty);
+      if (this._currentThemeProperty) {
+        this._lastEditedProperty = this._clone(this._currentThemeProperty);
+      }
     }
 
     _editPropertyChanged(editProperty) {
@@ -182,7 +195,7 @@
 
     _undo() {
       this._currentThemeProperty = this.pop('_editHistory');
-      this._updateDocumentStyles();
+      this._updateTheme();
     }
   }
 
