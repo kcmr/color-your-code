@@ -3,58 +3,49 @@
 const gulp = require('gulp');
 const del = require('del');
 const browserSync = require('browser-sync').create();
-const processInline = require('gulp-process-inline');
 const inlineSource = require('gulp-inline-source');
 const postcss = require('gulp-postcss');
 const autoprefixer = require('autoprefixer');
 const pxtorem = require('postcss-pixels-to-rem');
+const eslint = require('gulp-eslint');
+const config = require('./.buildconfig.json');
 
 const BUILD_DIRECTORY = 'dist/';
-const PXTOREM_CONFIG = {
-  exclude: [
-    'border',
-    'box-shadow',
-    'border-radius',
-  ],
-};
+const TMP_DIRECTORY = '.tmp/';
 
-gulp.task('clean', () => del([BUILD_DIRECTORY]));
+gulp.task('clean', () => del.sync([BUILD_DIRECTORY, TMP_DIRECTORY]));
 
-gulp.task('inline-styles', () => {
-  const styles = processInline();
+gulp.task('styles', () => {
+  return gulp.src(['src/**/*.css'])
+    .pipe(postcss([
+      pxtorem(config.pxtorem),
+      autoprefixer(config.autoprefixer),
+    ]))
+    .pipe(gulp.dest(TMP_DIRECTORY));
+});
+
+gulp.task('eslint', () => {
   return gulp.src(['src/**/*.{html,js}'])
+    .pipe(eslint())
+    .pipe(eslint.format())
+    .pipe(gulp.dest(TMP_DIRECTORY));
+});
+
+gulp.task('build:dist', ['clean', 'styles', 'eslint'], () => {
+  return gulp.src(['.tmp/**/*.{html,js}'])
     .pipe(inlineSource({
       compress: false,
       swallowErrors: true,
     }))
-    .pipe(styles.extract('style'))
-    .pipe(postcss([
-      pxtorem(PXTOREM_CONFIG),
-      autoprefixer({
-        flexbox: 'no-2009',
-      }),
-    ]))
-    .pipe(styles.restore())
     .pipe(gulp.dest(BUILD_DIRECTORY));
 });
 
 gulp.task('start-browsersync', () => {
-  return browserSync.init({
-    open: false,
-    notify: false,
-    ghostMode: false,
-    server: {
-      baseDir: ['./'],
-      index: 'index.html',
-      routes: {
-        '/': './bower_components',
-      },
-    },
-  });
+  return browserSync.init(config.browsersync);
 });
 
 gulp.task('watch:sources', () => {
-  gulp.watch(['src/**/*'], ['inline-styles']);
+  gulp.watch(['src/**/*'], ['styles', 'eslint', 'build:dist']);
 });
 
 gulp.task('watch:dist', () => {
@@ -66,14 +57,8 @@ gulp.task('watch:dist', () => {
   ]).on('change', browserSync.reload);
 });
 
-gulp.task('build', [
-  'clean',
-  'inline-styles',
-]);
-
 gulp.task('serve', [
-  'clean',
-  'inline-styles',
+  'build:dist',
   'start-browsersync',
   'watch:sources',
   'watch:dist',

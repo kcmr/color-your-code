@@ -8,12 +8,11 @@
     "del": "^3.0.0",
     "eslint": "^3.19.0",
     "eslint-config-google": "^0.7.0",
-    "eslint-plugin-html": "^2.0.0",
+    "eslint-plugin-html": "^3.0.0",
     "gulp": "^3.9.1",
-    "gulp-html-replace": "^1.6.2",
+    "gulp-eslint": "^4.0.2",
     "gulp-inline-source": "^3.1.0",
     "gulp-postcss": "^7.0.1",
-    "gulp-process-inline": "^0.2.0",
     "nunjucks-scaffold-generator": "^1.0.1",
     "postcss-pixels-to-rem": "^0.8.0",
     "pre-push": "^0.1.1",
@@ -22,16 +21,12 @@
   },
   "scripts": {
     "lint": "npm run lint:javascript && polymer lint",
-    "lint:javascript": "gulp build && eslint . --ext js,html",
-    "test": "gulp build && ./node_modules/web-component-tester/bin/wct",
+    "lint:javascript": "gulp build:dist && eslint . --ext js,html --fix",
+    "test": "gulp build:dist && ./node_modules/web-component-tester/bin/wct",
     "test:integration": "polymer build # test that psk builds without error with the CLI",
     "serve:dev": "gulp serve",
     "create:element": "node tasks/element-generator"
   },
-  "browserslist": [
-    "last 2 versions",
-    "not dead"
-  ],
   "pre-push": [
     "lint"
   ]

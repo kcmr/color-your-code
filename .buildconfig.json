@@ -1,0 +1,25 @@
+{
+  "pxtorem": {
+    "exclude": [
+      "border",
+      "box-shadow",
+      "border-radius"
+    ]
+  },
+  "autoprefixer": {
+    "flexbox": "no-2009"
+  },
+  "browsersync": {
+    "open": false,
+    "notify": false,
+    "ghostMode": false,
+    "reloadOnRestart": true,
+    "server": {
+      "baseDir": ["./"],
+      "index": "index.html",
+      "routes": {
+        "/": "./bower_components"
+      }
+    }
+  }
+}

@@ -3,5 +3,6 @@ build/
 dist/
 node_modules/
 coverage/
+.tmp/
 *.log
 *.todo
