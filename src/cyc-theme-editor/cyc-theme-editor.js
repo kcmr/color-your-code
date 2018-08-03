@@ -79,6 +79,11 @@
           type: Number,
           value: 20,
         },
+
+        _formChanged: {
+          type: Boolean,
+          value: false,
+        },
       };
     }
 
@@ -105,6 +110,7 @@
 
     _onFormReset(event) {
       event.preventDefault();
+      this._formChanged = false;
       this._removeDocumentStyles();
       this._restoreOriginalTheme();
       this._clearEditHistory();
@@ -123,6 +129,7 @@
     }
 
     _onFormChange() {
+      this._formChanged = true;
       this._addLastEditedPropertyToHistory();
     }
 
