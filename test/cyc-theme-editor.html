@@ -180,7 +180,7 @@
               },
             };
 
-            const expectedOuput = 'data:text/json;charset=utf-8,' + JSON.stringify(generatedTheme, null, 4);
+            const expectedOuput = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(generatedTheme, null, 4));
 
             changeFirstProperty();
 
