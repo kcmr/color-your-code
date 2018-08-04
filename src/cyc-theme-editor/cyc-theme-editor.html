@@ -8,17 +8,21 @@
   <template>
     <link rel="stylesheet" href="cyc-theme-editor.css" include="cyc-shared-styles" inline>
 
-    <form class="form" on-change="_enableSubmit" on-reset="_onFormReset" on-submit="_onFormSubmit">
+    <form class="form" on-change="_onFormChange" on-reset="_onFormReset" on-submit="_onFormSubmit">
       <input class="sr-only" id="inputColor"
         type="color"
-        value="{{_currentThemeProperty.value::input}}"
-        on-input="_updateCSSVars">
+        value="{{_currentEditedThemeProperty.value::input}}"
+        on-input="_updateTheme"
+        on-change="_updateTheme">
 
       <div class="form-actions">
-        <button class="btn" type="reset" title="Discard all changes">
+        <button class="btn" type="reset" title="Discard all changes" disabled="[[!_themeChanged]]">
           <iron-icon icon="cyc:trash"></iron-icon>
         </button>
-        <button class="btn" type="submit" disabled="[[!_submitEnabled]]" title="Download theme">
+        <button class="btn" id="btnUndo" type="button" title="Undo" on-click="_undo" disabled="[[!_editHistory.length]]">
+          <iron-icon icon="cyc:undo"></iron-icon>
+        </button>
+        <button class="btn" type="submit" disabled="[[!_themeChanged]]" title="Download theme">
           <iron-icon icon="cyc:download"></iron-icon>
         </button>
         <a download="theme.json" id="downloadLink" hidden></a>

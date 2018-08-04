@@ -1,5 +1,6 @@
 {
   const {Element} = Polymer;
+  const {UtilsMixin} = ColorYourCode;
 
   /**
    * `<cyc-theme-editor>` allows to edit the theme color values and
@@ -7,8 +8,9 @@
    * @polymer
    * @customElement
    * @extends {Polymer.Element}
+   * @extends {ColorYourCode.UtilsMixin}
    */
-  class CycThemeEditor extends Element {
+  class CycThemeEditor extends UtilsMixin(Element) {
     static get is() {
       return 'cyc-theme-editor';
     }
@@ -47,11 +49,6 @@
           computed: '_computeColors(colors)',
         },
 
-        _submitEnabled: {
-          type: Boolean,
-          value: false,
-        },
-
         /**
          * Theme property to be edited.
          */
@@ -63,13 +60,63 @@
         /**
          * Current property edited from _colors.
          */
-        _currentThemeProperty: {
+        _currentEditedThemeProperty: {
           type: Object,
+        },
+
+        /**
+         * History of edited colors for undoing changes.
+         */
+        _editHistory: {
+          type: Array,
+          value: () => [],
+        },
+
+        /**
+         * Number of allowed entries in edit history.
+         */
+        historyLimit: {
+          type: Number,
+          value: 20,
+        },
+
+        /**
+         * True if the original theme colors are changed.
+         * Used to set the disable attribute on download and reset buttons.
+         */
+        _themeChanged: {
+          type: Boolean,
+          value: false,
         },
       };
     }
 
-    get _theme() {
+    static get observers() {
+      return [
+        '_checkThemeChangedAfterUndoingAllChangesInHistory(_editHistory.length, _colors.*)',
+      ];
+    }
+
+    _computeColors(colors) {
+      return this._clone(colors);
+    }
+
+    _editPropertyChanged(editProperty) {
+      this._currentEditedThemeProperty = this._colors.find((color) => {
+        return color.prop === editProperty;
+      });
+    }
+
+    _checkThemeChangedAfterUndoingAllChangesInHistory(editHistoryLength) {
+      if (editHistoryLength === 0) {
+        this._themeChanged = !this._deepEqual(this._colors, this.colors);
+      }
+    }
+
+    /**
+     * Generated theme.
+     */
+    get theme() {
       const type = this.themeType;
       const name = this.themeName;
       const colors = {};
@@ -81,21 +128,28 @@
       return {type, name, colors};
     }
 
-    _computeColors(colors) {
-      return JSON.parse(JSON.stringify(colors));
+    _updateTheme() {
+      this._updateColors();
+      this._updateDocumentStyles();
     }
 
-    _updateCSSVars(event) {
-      const value = event.target.value;
-      const cssVar = this._currentThemeProperty.cssVar;
+    _updateColors() {
+      const {prop, value} = this._currentEditedThemeProperty;
+      const index = this._colors.findIndex((color) => color.prop === prop);
+      this.set(['_colors', index, 'value'], value);
+    }
+
+    _updateDocumentStyles() {
+      const {cssVar, value} = this._currentEditedThemeProperty;
       document.documentElement.style.setProperty(cssVar, value);
     }
 
     _onFormReset(event) {
       event.preventDefault();
-      this._submitEnabled = false;
+      this._themeChanged = false;
       this._removeDocumentStyles();
       this._restoreOriginalTheme();
+      this._clearEditHistory();
     }
 
     _removeDocumentStyles() {
@@ -106,8 +160,30 @@
       this.colors = [...this.colors];
     }
 
-    _enableSubmit() {
-      this._submitEnabled = true;
+    _clearEditHistory() {
+      this._editHistory = [];
+    }
+
+    _onFormChange() {
+      this._themeChanged = true;
+      this._addLastEditedPropertyToHistory();
+    }
+
+    _addLastEditedPropertyToHistory() {
+      if (!this._valueHasChanged()) {
+        return;
+      }
+
+      if (this._editHistory.length === this.historyLimit) {
+        this.shift('_editHistory');
+      }
+
+      this.push('_editHistory', this._lastEditedProperty);
+    }
+
+    _valueHasChanged() {
+      const lastHistoryEntry = this._editHistory[this._editHistory.length - 1];
+      return !this._deepEqual(lastHistoryEntry, this._lastEditedProperty);
     }
 
     _onFormSubmit(event) {
@@ -116,7 +192,7 @@
     }
 
     _downloadTheme() {
-      const formattedTheme = JSON.stringify(this._theme, null, 4);
+      const formattedTheme = encodeURIComponent(JSON.stringify(this.theme, null, 4));
       const output = `data:text/json;charset=utf-8,${formattedTheme}`;
       this.$.downloadLink.href = output;
       this.$.downloadLink.click();
@@ -127,14 +203,18 @@
      */
     openColorPicker() {
       this.$.inputColor.click();
+      this._setLastEditedProperty();
     }
 
-    _editPropertyChanged(editProperty) {
-      this._currentThemeProperty = this._getThemeProperty(editProperty);
+    _setLastEditedProperty() {
+      if (this._currentEditedThemeProperty) {
+        this._lastEditedProperty = this._clone(this._currentEditedThemeProperty);
+      }
     }
 
-    _getThemeProperty(property) {
-      return this._colors.find((color) => color.prop === property);
+    _undo() {
+      this._currentEditedThemeProperty = this.pop('_editHistory');
+      this._updateTheme();
     }
   }
 

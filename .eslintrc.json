@@ -12,7 +12,14 @@
   ],
   "rules": {
     "brace-style": "off",
-    "new-cap": ["error", { "capIsNewExceptions": ["Polymer", "HighlightMixin", "UtilsMixin", "Element"] }],
+    "new-cap": ["error", {
+      "capIsNewExceptions": [
+        "Polymer",
+        "HighlightMixin",
+        "UtilsMixin",
+        "Element"
+      ]
+    }],
     "no-var": "off",
     "require-jsdoc": "off",
     "max-len": 0

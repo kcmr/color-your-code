@@ -31,6 +31,10 @@
     }
 
     _responseDataChanged(data) {
+      if (!data) {
+        return;
+      }
+
       const {type, name, colors} = data;
       const filteredColors = this._getFilteredColors(colors);
 
@@ -50,7 +54,9 @@
     _getFilteredColors(colors) {
       const isSolidColor = (color) => color.value.length === 7;
       const formatColor = ([key, value]) => ({
-        prop: key, value: value, cssVar: this._toCSSVar(key),
+        prop: key,
+        value: value.toLowerCase(),
+        cssVar: this._toCSSVar(key),
       });
 
       return Object.entries(colors)
