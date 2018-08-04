@@ -87,7 +87,10 @@
       };
     }
 
-    get _theme() {
+    /**
+     * Generated theme.
+     */
+    get theme() {
       const type = this.themeType;
       const name = this.themeName;
       const colors = {};
@@ -167,7 +170,7 @@
     }
 
     _downloadTheme() {
-      const formattedTheme = JSON.stringify(this._theme, null, 4);
+      const formattedTheme = JSON.stringify(this.theme, null, 4);
       const output = `data:text/json;charset=utf-8,${formattedTheme}`;
       this.$.downloadLink.href = output;
       this.$.downloadLink.click();
