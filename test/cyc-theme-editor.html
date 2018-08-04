@@ -22,6 +22,7 @@
       suite('<cyc-theme-editor>', () => {
         let el;
         let $inputColor;
+        let $form;
         let changeFirstProperty;
 
         const colors = [
@@ -35,6 +36,7 @@
           el = fixture('default');
           el.colors = colors;
           $inputColor = el.$.inputColor;
+          $form = el.shadowRoot.querySelector('form');
 
           changeFirstProperty = () => {
             // set the property to edit and change a color
@@ -61,49 +63,87 @@
           assert.isTrue(inputColorClickStub.called);
         });
 
-        suite('form', () => {
-          test('the submit button of the form is disabled until a color is changed', () => {
-            const submitBtn = el.shadowRoot.querySelector('button[type="submit"]');
-            assert.isTrue(submitBtn.disabled, 'submit button is disabled');
+        test('the submit button of the form is disabled until a color is changed', () => {
+          const submitBtn = el.shadowRoot.querySelector('button[type="submit"]');
+          assert.isTrue(submitBtn.disabled, 'submit button is disabled');
+        });
+
+        test('changing the form (change event) enables the form submit button', () => {
+          const submitBtn = el.shadowRoot.querySelector('button[type="submit"]');
+          const form = el.shadowRoot.querySelector('form');
+          form.dispatchEvent(new Event('change'));
+          assert.isFalse(submitBtn.disabled);
+        });
+
+        suite('Discard changes', () => {
+          let $submitBtn;
+          let $resetBtn;
+
+
+          setup(() => {
+            $submitBtn = el.shadowRoot.querySelector('button[type="submit"]');
+            $resetBtn = el.shadowRoot.querySelector('button[type="reset"]');
+            $form.dispatchEvent(new Event('change'));
           });
 
-          test('changing the form (change event) enables the form submit button', () => {
-            const submitBtn = el.shadowRoot.querySelector('button[type="submit"]');
-            const form = el.shadowRoot.querySelector('form');
-            form.dispatchEvent(new Event('change'));
-            assert.isFalse(submitBtn.disabled);
+          test('clicking reset button disables the download button after it has been previously enabled', () => {
+            $resetBtn.click();
+            assert.isTrue($submitBtn.disabled);
           });
 
-          suite('Clicking the trash button', () => {
-            let $submitBtn;
-            let $resetBtn;
-            let $form;
-
-            setup(() => {
-              $submitBtn = el.shadowRoot.querySelector('button[type="submit"]');
-              $resetBtn = el.shadowRoot.querySelector('button[type="reset"]');
-              $form = el.shadowRoot.querySelector('form');
-              $form.dispatchEvent(new Event('change'));
-            });
-
-            test('disables the submit button after it has been enabled', () => {
-              $resetBtn.click();
-              assert.isTrue($submitBtn.disabled);
-            });
-
-            test('removes the values applied to CSS vars', () => {
-              $resetBtn.click();
-              assert.equal(document.documentElement.style.getPropertyValue('--activityBar-background'), '');
-            });
-
-            test('restores the original theme', () => {
-              changeFirstProperty();
-              assert.notEqual(el._theme.colors['activityBar.background'], colors[0].value);
-              $resetBtn.click();
-              assert.equal(el._theme.colors['activityBar.background'], colors[0].value);
-            });
+          test('clicking reset button removes the values applied to CSS vars', () => {
+            $resetBtn.click();
+            assert.equal(document.documentElement.style.getPropertyValue('--activityBar-background'), '');
           });
 
+          test('clicking reset button restores the original theme', () => {
+            changeFirstProperty();
+            assert.notEqual(el._theme.colors['activityBar.background'], colors[0].value);
+            $resetBtn.click();
+            assert.equal(el._theme.colors['activityBar.background'], colors[0].value);
+          });
+        });
+
+        suite('Edit history', () => {
+          let $undoButton;
+
+          setup(() => {
+            $undoButton = el.$.btnUndo;
+          });
+
+          test('undo button is disabled until a edition is done', () => {
+            assert.isTrue($undoButton.disabled);
+          });
+
+          test('doing a change in the theme enables undo button', () => {
+            changeFirstProperty();
+            el.openColorPicker();
+            $form.dispatchEvent(new Event('change'));
+            assert.isFalse($undoButton.disabled);
+          });
+
+          test('undo button can be clicked as many times as editions saved in edit history', () => {
+            // first edition
+            changeFirstProperty();
+            el.openColorPicker();
+            $form.dispatchEvent(new Event('change'));
+
+            // second edition
+            el.editProperty = el.colors[1].prop;
+            $inputColor.value = '#f0f0f0';
+            $inputColor.dispatchEvent(new Event('input'));
+            el.openColorPicker();
+            $form.dispatchEvent(new Event('change'));
+
+            $undoButton.click();
+            assert.isFalse($undoButton.disabled, 'undo button is not disabled after the first click');
+
+            $undoButton.click();
+            assert.isTrue($undoButton.disabled, 'undo button is disabled after the second click (last edition in history)');
+          });
+        });
+
+        suite('Download theme', () => {
           test('clicking the download theme button downloads a JSON file with the generated theme', () => {
             const generatedTheme = {
               type: el.themeType,
