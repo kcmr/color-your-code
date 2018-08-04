@@ -11,7 +11,7 @@
     <form class="form" on-change="_onFormChange" on-reset="_onFormReset" on-submit="_onFormSubmit">
       <input class="sr-only" id="inputColor"
         type="color"
-        value="{{_currentThemeProperty.value::input}}"
+        value="{{_currentEditedThemeProperty.value::input}}"
         on-input="_updateDocumentStyles"
         on-change="_updateDocumentStyles">
 

@@ -60,7 +60,7 @@
         /**
          * Current property edited from _colors.
          */
-        _currentThemeProperty: {
+        _currentEditedThemeProperty: {
           type: Object,
         },
 
@@ -104,19 +104,19 @@
     }
 
     _updateTheme() {
-      this._updateDocumentStyles();
       this._updateColors();
-    }
-
-    _updateDocumentStyles() {
-      const {cssVar, value} = this._currentThemeProperty;
-      document.documentElement.style.setProperty(cssVar, value);
+      this._updateDocumentStyles();
     }
 
     _updateColors() {
-      const {prop, value} = this._currentThemeProperty;
+      const {prop, value} = this._currentEditedThemeProperty;
       const index = this._colors.findIndex((color) => color.prop === prop);
       this.set(['_colors', index, 'value'], value);
+    }
+
+    _updateDocumentStyles() {
+      const {cssVar, value} = this._currentEditedThemeProperty;
+      document.documentElement.style.setProperty(cssVar, value);
     }
 
     _onFormReset(event) {
@@ -182,19 +182,19 @@
     }
 
     _setLastEditedProperty() {
-      if (this._currentThemeProperty) {
-        this._lastEditedProperty = this._clone(this._currentThemeProperty);
+      if (this._currentEditedThemeProperty) {
+        this._lastEditedProperty = this._clone(this._currentEditedThemeProperty);
       }
     }
 
     _editPropertyChanged(editProperty) {
-      this._currentThemeProperty = this._colors.find((color) => {
+      this._currentEditedThemeProperty = this._colors.find((color) => {
         return color.prop === editProperty;
       });
     }
 
     _undo() {
-      this._currentThemeProperty = this.pop('_editHistory');
+      this._currentEditedThemeProperty = this.pop('_editHistory');
       this._updateTheme();
     }
   }
