@@ -38,8 +38,8 @@
           $inputColor = el.$.inputColor;
           $form = el.shadowRoot.querySelector('form');
 
+          // sets the property to edit and changes the color
           changeFirstProperty = () => {
-            // set the property to edit and change a color
             el.editProperty = el.colors[0].prop;
             $inputColor.value = '#f0f0f0';
             $inputColor.dispatchEvent(new Event('input'));
@@ -98,17 +98,37 @@
 
           test('clicking reset button restores the original theme', () => {
             changeFirstProperty();
-            assert.notEqual(el._theme.colors['activityBar.background'], colors[0].value);
+            assert.notEqual(el.theme.colors['activityBar.background'], colors[0].value);
             $resetBtn.click();
-            assert.equal(el._theme.colors['activityBar.background'], colors[0].value);
+            assert.equal(el.theme.colors['activityBar.background'], colors[0].value);
           });
         });
 
         suite('Edit history', () => {
           let $undoButton;
+          let firstEdition;
+          let secondEdition;
 
           setup(() => {
             $undoButton = el.$.btnUndo;
+
+            firstEdition = () => {
+              changeFirstProperty();
+              el.openColorPicker();
+              $form.dispatchEvent(new Event('change'));
+            };
+
+            secondEdition = () => {
+              el.editProperty = el.colors[1].prop;
+              $inputColor.value = '#f0f0f0';
+              $inputColor.dispatchEvent(new Event('input'));
+              el.openColorPicker();
+              $form.dispatchEvent(new Event('change'));
+            };
+          });
+
+          teardown(() => {
+            el.shadowRoot.querySelector('button[type="reset"]').click();
           });
 
           test('undo button is disabled until a edition is done', () => {
@@ -116,30 +136,34 @@
           });
 
           test('doing a change in the theme enables undo button', () => {
-            changeFirstProperty();
-            el.openColorPicker();
-            $form.dispatchEvent(new Event('change'));
+            firstEdition();
             assert.isFalse($undoButton.disabled);
           });
 
           test('undo button can be clicked as many times as editions saved in edit history', () => {
-            // first edition
-            changeFirstProperty();
-            el.openColorPicker();
-            $form.dispatchEvent(new Event('change'));
-
-            // second edition
-            el.editProperty = el.colors[1].prop;
-            $inputColor.value = '#f0f0f0';
-            $inputColor.dispatchEvent(new Event('input'));
-            el.openColorPicker();
-            $form.dispatchEvent(new Event('change'));
+            firstEdition();
+            secondEdition();
 
             $undoButton.click();
             assert.isFalse($undoButton.disabled, 'undo button is not disabled after the first click');
 
             $undoButton.click();
             assert.isTrue($undoButton.disabled, 'undo button is disabled after the second click (last edition in history)');
+          });
+
+          test('clicking undo button applies the last value of a edited theme property before beign edited', () => {
+            const {prop, value, cssVar} = colors[0];
+            el.editProperty = prop;
+
+            el.openColorPicker();
+            $inputColor.value = '#000000';
+            $inputColor.dispatchEvent(new Event('input'));
+            $form.dispatchEvent(new Event('change'));
+            $undoButton.click();
+
+            const varValue = getComputedStyle(document.documentElement).getPropertyValue(cssVar);
+            assert.equal(varValue, value);
+            assert.equal(el.theme.colors[prop], value);
           });
         });
 
