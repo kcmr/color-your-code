@@ -51,6 +51,7 @@
 
         test('changing a color sets the resulting value of the corresponding CSS var', () => {
           changeFirstProperty();
+          $inputColor.dispatchEvent(new Event('change'));
           assert.equal(document.documentElement.style.getPropertyValue(el.colors[0].cssVar), $inputColor.value);
         });
 
