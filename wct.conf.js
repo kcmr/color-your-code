@@ -10,9 +10,9 @@ module.exports = {
         chrome: [
           'headless',
           'disable-gpu',
-          'no-sandbox'
-        ]
-      }
+          'no-sandbox',
+        ],
+      },
     },
     istanbulcoverage: {
       dir: './coverage',
