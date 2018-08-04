@@ -16,13 +16,13 @@
         on-change="_updateTheme">
 
       <div class="form-actions">
-        <button class="btn" type="reset" title="Discard all changes" disabled="[[!_formChanged]]">
+        <button class="btn" type="reset" title="Discard all changes" disabled="[[!_themeChanged]]">
           <iron-icon icon="cyc:trash"></iron-icon>
         </button>
         <button class="btn" id="btnUndo" type="button" title="Undo" on-click="_undo" disabled="[[!_editHistory.length]]">
           <iron-icon icon="cyc:undo"></iron-icon>
         </button>
-        <button class="btn" type="submit" disabled="[[!_formChanged]]" title="Download theme">
+        <button class="btn" type="submit" disabled="[[!_themeChanged]]" title="Download theme">
           <iron-icon icon="cyc:download"></iron-icon>
         </button>
         <a download="theme.json" id="downloadLink" hidden></a>

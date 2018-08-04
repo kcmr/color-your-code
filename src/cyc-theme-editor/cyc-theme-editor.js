@@ -80,11 +80,37 @@
           value: 20,
         },
 
-        _formChanged: {
+        /**
+         * True if the original theme colors are changed.
+         * Used to set the disable attribute on download and reset buttons.
+         */
+        _themeChanged: {
           type: Boolean,
           value: false,
         },
       };
+    }
+
+    static get observers() {
+      return [
+        '_checkThemeChangedAfterUndoingAllChangesInHistory(_editHistory.length, _colors.*)',
+      ];
+    }
+
+    _computeColors(colors) {
+      return this._clone(colors);
+    }
+
+    _editPropertyChanged(editProperty) {
+      this._currentEditedThemeProperty = this._colors.find((color) => {
+        return color.prop === editProperty;
+      });
+    }
+
+    _checkThemeChangedAfterUndoingAllChangesInHistory(editHistoryLength) {
+      if (editHistoryLength === 0) {
+        this._themeChanged = !this._deepEqual(this._colors, this.colors);
+      }
     }
 
     /**
@@ -100,10 +126,6 @@
       }
 
       return {type, name, colors};
-    }
-
-    _computeColors(colors) {
-      return this._clone(colors);
     }
 
     _updateTheme() {
@@ -124,7 +146,7 @@
 
     _onFormReset(event) {
       event.preventDefault();
-      this._formChanged = false;
+      this._themeChanged = false;
       this._removeDocumentStyles();
       this._restoreOriginalTheme();
       this._clearEditHistory();
@@ -143,7 +165,7 @@
     }
 
     _onFormChange() {
-      this._formChanged = true;
+      this._themeChanged = true;
       this._addLastEditedPropertyToHistory();
     }
 
@@ -188,12 +210,6 @@
       if (this._currentEditedThemeProperty) {
         this._lastEditedProperty = this._clone(this._currentEditedThemeProperty);
       }
-    }
-
-    _editPropertyChanged(editProperty) {
-      this._currentEditedThemeProperty = this._colors.find((color) => {
-        return color.prop === editProperty;
-      });
     }
 
     _undo() {
