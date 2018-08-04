@@ -31,6 +31,10 @@
     }
 
     _responseDataChanged(data) {
+      if (!data) {
+        return;
+      }
+
       const {type, name, colors} = data;
       const filteredColors = this._getFilteredColors(colors);
 
