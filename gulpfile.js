@@ -33,10 +33,7 @@ gulp.task('eslint', () => {
 
 gulp.task('build:dist', ['clean', 'styles', 'eslint'], () => {
   return gulp.src(['.tmp/**/*.{html,js}'])
-    .pipe(inlineSource({
-      compress: false,
-      swallowErrors: true,
-    }))
+    .pipe(inlineSource(config.inlineSource))
     .pipe(gulp.dest(BUILD_DIRECTORY));
 });
 

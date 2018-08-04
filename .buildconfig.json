@@ -21,5 +21,10 @@
         "/": "./bower_components"
       }
     }
+  },
+  "inlineSource": {
+    "compress": false,
+    "swallowErrors": true,
+    "pretty": true
   }
 }
