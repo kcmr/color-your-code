@@ -1,7 +1,7 @@
 import {dedupingMixin} from '@polymer/polymer/lib/utils/mixin.js';
 
 /**
- * Mixin to highlight elements with the current `highlight` property as `data-prop` attribute value.
+ * Mixin with common utilities.
  * @polymer
  * @mixinFunction
  */
