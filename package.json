@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "license": "MIT",
   "dependencies": {
-    "@polymer/iron-ajax": "^3.0.0-pre.21",
     "@polymer/iron-icon": "^3.0.0-pre.21",
     "@polymer/iron-iconset-svg": "^3.0.0-pre.21",
     "@polymer/polymer": "^3.0.5",
