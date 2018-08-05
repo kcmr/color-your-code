@@ -7,8 +7,8 @@ import '../cyc-icons/cyc-icons.js';
  * `<cyc-editor-activitybar>` displays the editor activity bar.
  * @polymer
  * @customElement
- * @memberof ColorYourCode
  * @extends {highlightMixin}
+ * @extends {PolymerElement}
  */
 class CycEditorActivitybar extends highlightMixin(PolymerElement) {
   static get template() {

@@ -6,8 +6,8 @@ import '../cyc-icons/cyc-icons.js';
  * `<cyc-editor-statusbar>` displays the editor status bar.
  * @polymer
  * @customElement
- * @memberof ColorYourCode
  * @extends {highlightMixin}
+ * @extends {PolymerElement}
  */
 class CycEditorStatusbar extends highlightMixin(PolymerElement) {
   static get template() {

@@ -5,8 +5,8 @@ import {highlightMixin} from '../cyc-mixins/cyc-highlight-mixin.js';
  * `<cyc-editor-sidebar>` displays the editor sidebar.
  * @polymer
  * @customElement
- * @memberof ColorYourCode
  * @extends {highlightMixin}
+ * @extends {PolymerElement}
  */
 class CycEditorSidebar extends highlightMixin(PolymerElement) {
   static get template() {

@@ -6,8 +6,8 @@ import '@polymer/iron-ajax/iron-ajax.js';
  * Formats the theme editor file according to the data expected by the UIs.
  * @polymer
  * @customElement
- * @memberof ColorYourCode
  * @extends {utilsMixin}
+ * @extends {PolymerElement}
  */
 class CycDm extends utilsMixin(PolymerElement) {
   static get template() {

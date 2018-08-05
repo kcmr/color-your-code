@@ -5,8 +5,8 @@ import {highlightMixin} from '../cyc-mixins/cyc-highlight-mixin.js';
  * `<cyc-editor-titlebar>` displays the editor title bar.
  * @polymer
  * @customElement
- * @memberof ColorYourCode
  * @extends {highlightMixin}
+ * @extends {PolymerElement}
  */
 class CycEditorTitlebar extends highlightMixin(PolymerElement) {
   static get template() {

@@ -9,8 +9,8 @@ import '../cyc-editor-statusbar/cyc-editor-statusbar.js';
  * `<cyc-editor-window>` displays the editor window preview.
  * @polymer
  * @customElement
- * @memberof ColorYourCode
  * @extends {highlightMixin}
+ * @extends {PolymerElement}
  */
 class CycEditorWindow extends highlightMixin(PolymerElement) {
   static get template() {

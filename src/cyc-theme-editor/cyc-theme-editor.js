@@ -7,8 +7,8 @@ import '../cyc-icons/cyc-icons.js';
  * download the modified theme.
  * @polymer
  * @customElement
- * @extends {Polymer.Element}
  * @extends {utilsMixin}
+ * @extends {PolymerElement}
  */
 class CycThemeEditor extends utilsMixin(PolymerElement) {
   static get template() {

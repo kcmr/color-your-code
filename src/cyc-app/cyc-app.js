@@ -8,8 +8,8 @@ import '../cyc-dm/cyc-dm.js';
  * CYC App
  * @polymer
  * @customElement
- * @memberof ColorYourCode
  * @extends {utilsMixin}
+ * @extends {PolymerElement}
  */
 class CycApp extends utilsMixin(PolymerElement) {
   static get template() {
