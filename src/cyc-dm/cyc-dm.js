@@ -22,6 +22,10 @@ class CycDm extends utilsMixin(PolymerElement) {
   }
 
   _urlChanged(url) {
+    if (!url) {
+      return;
+    }
+
     fetch(url).then((response) => {
       response.json().then(this._formatData.bind(this));
     });
