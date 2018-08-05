@@ -30,7 +30,7 @@ class CycThemeEditor extends utilsMixin(PolymerElement) {
         <button class="btn" id="btnUndo" type="button" title="Undo" on-click="_undo" disabled="[[!_editHistory.length]]">
           <iron-icon icon="cyc:undo"></iron-icon>
         </button>
-        <button class="btn" type="submit" disabled="[[!_themeChanged]]" title="Download theme">
+        <button class="btn" type="submit" title="Download theme" disabled="[[!_themeChanged]]">
           <iron-icon icon="cyc:download"></iron-icon>
         </button>
         <a download="theme.json" id="downloadLink" hidden></a>
