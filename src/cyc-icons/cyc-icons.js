@@ -1,9 +1,10 @@
 import '@polymer/iron-icon/iron-icon.js';
 import '@polymer/iron-iconset-svg/iron-iconset-svg.js';
 
+const html = (string) => string; // only for highlighting purpuses (editor)
 const $documentContainer = document.createElement('div');
 $documentContainer.setAttribute('style', 'display: none;');
-$documentContainer.innerHTML = `
+$documentContainer.innerHTML = html`
 <iron-iconset-svg name="cyc" size="1792">
   <svg>
     <defs>
