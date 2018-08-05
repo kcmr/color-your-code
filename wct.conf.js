@@ -14,7 +14,7 @@ module.exports = {
         ],
       },
     },
-    istanbulcoverage: {
+    istanbul: {
       dir: './coverage',
       reporters: [
         'text',
@@ -23,7 +23,7 @@ module.exports = {
         'json',
       ],
       include: [
-        'dist/**/*',
+        '**/*.js',
       ],
       exclude: [],
       thresholds: {
