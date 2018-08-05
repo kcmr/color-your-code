@@ -27,7 +27,7 @@ class CycApp extends utilsMixin(PolymerElement) {
       <cyc-editor-window id="editorWindow"
         theme-name="[[_themeName]]"
         on-editor-section-hover="_onEditorWindowSectionHover"
-        on-mouseleave="_onEditorWindowSectionMouseleave"
+        on-mouseleave="_onEditorWindowMouseleave"
         on-click="_onEditorWindowClick">
       </cyc-editor-window>
 
@@ -101,7 +101,7 @@ class CycApp extends utilsMixin(PolymerElement) {
     this._hoveredEditorSection = event.detail;
   }
 
-  _onEditorWindowSectionMouseleave() {
+  _onEditorWindowMouseleave() {
     setTimeout(() => {
       this._hoveredEditorSection = '';
     }, 100);
