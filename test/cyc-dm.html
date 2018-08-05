@@ -21,8 +21,7 @@
     <script>
       suite('<cyc-dm>', () => {
         let el;
-        let $ironAjax;
-        let server;
+        let fetchStub;
 
         const mockTheme = {
           'type': 'dark',
@@ -38,35 +37,24 @@
 
         setup(() => {
           el = fixture('default');
-          $ironAjax = el.shadowRoot.querySelector('iron-ajax');
 
-          server = sinon.fakeServer.create();
-          server.respondWith('GET', '/theme.json',
-            [
-              200,
-              {'Content-Type': 'application/json'},
-              JSON.stringify(mockTheme),
-            ]
-          );
+          const fakeResponse = (body = {}) => {
+            return new window.Response(JSON.stringify(mockTheme), {
+              status: 200,
+              headers: {'Content-type': 'application/json'},
+            });
+          };
+
+          fetchStub = sinon.stub(window, 'fetch');
+          window.fetch.returns(Promise.resolve(fakeResponse()));
         });
 
         teardown(() => {
-          server.restore();
-        });
-
-        test('iron-ajax is properly configured', () => {
-          el.url = 'any';
-
-          assert.isTrue($ironAjax.auto);
-          assert.equal($ironAjax.url, el.url);
-          assert.equal($ironAjax.handleAs, 'json');
+          fetchStub.restore();
         });
 
         test('fires "response-success" event with the theme data formatted as expected', (done) => {
-          $ironAjax.auto = false;
-          el.url = '/theme.json';
-          $ironAjax.generateRequest();
-          server.respond();
+          el.url = 'theme.json';
 
           const colors = [
             {prop: 'activityBar.background', value: '#141820', cssVar: '--activityBar-background'},

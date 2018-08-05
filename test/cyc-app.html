@@ -14,7 +14,7 @@
   <body>
     <test-fixture id="default">
       <template>
-        <cyc-app></cyc-app>
+        <cyc-app theme-file=""></cyc-app>
       </template>
     </test-fixture>
 
@@ -26,7 +26,6 @@
 
         setup(() => {
           el = fixture('default');
-          el.themeFile = ''; // prevent a 404 network request
           $editorWindow = el.$.editorWindow;
           $themeEditor = el.$.themeEditor;
         });

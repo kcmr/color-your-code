@@ -1,6 +1,5 @@
-import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
+import {PolymerElement} from '@polymer/polymer/polymer-element.js';
 import {utilsMixin} from '../cyc-mixins/cyc-utils-mixin.js';
-import '@polymer/iron-ajax/iron-ajax.js';
 
 /**
  * Formats the theme editor file according to the data expected by the UIs.
@@ -10,17 +9,6 @@ import '@polymer/iron-ajax/iron-ajax.js';
  * @extends {PolymerElement}
  */
 class CycDm extends utilsMixin(PolymerElement) {
-  static get template() {
-    return html `
-      <iron-ajax
-        auto
-        url="[[url]]"
-        handle-as="json"
-        last-response="{{_responseData}}">
-      </iron-ajax>
-      `;
-  }
-
   static get properties() {
     return {
       /**
@@ -28,20 +16,22 @@ class CycDm extends utilsMixin(PolymerElement) {
        */
       url: {
         type: String,
-      },
-
-      _responseData: {
-        type: Object,
-        observer: '_responseDataChanged',
+        observer: '_urlChanged',
       },
     };
   }
 
-  _responseDataChanged(data) {
-    if (!data) {
+  _urlChanged(url) {
+    if (!url) {
       return;
     }
 
+    fetch(url).then((response) => {
+      response.json().then(this._formatData.bind(this));
+    });
+  }
+
+  _formatData(data) {
     const {type, name, colors} = data;
     const filteredColors = this._getFilteredColors(colors);
 
