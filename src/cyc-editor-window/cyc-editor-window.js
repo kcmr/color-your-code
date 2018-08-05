@@ -1,31 +1,61 @@
-{
-  const {Element} = Polymer;
-  const {HighlightMixin} = ColorYourCode;
+import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
+import {highlightMixin} from '../cyc-mixins/cyc-highlight-mixin.js';
+import '../cyc-editor-sidebar/cyc-editor-sidebar.js';
+import '../cyc-editor-titlebar/cyc-editor-titlebar.js';
+import '../cyc-editor-activitybar/cyc-editor-activitybar.js';
+import '../cyc-editor-statusbar/cyc-editor-statusbar.js';
 
-  /**
-   * `<cyc-editor-window>` displays the editor window preview.
-   * @polymer
-   * @customElement
-   * @memberof ColorYourCode
-   * @extends {ColorYourCode.HighlightMixin}
-   */
-  class CycEditorWindow extends HighlightMixin(Element) {
-    static get is() {
-      return 'cyc-editor-window';
-    }
+/**
+ * `<cyc-editor-window>` displays the editor window preview.
+ * @polymer
+ * @customElement
+ * @memberof ColorYourCode
+ * @extends {highlightMixin}
+ */
+class CycEditorWindow extends highlightMixin(PolymerElement) {
+  static get template() {
+    return html`
+    <link rel="stylesheet" href="../cyc-styles/cyc-shared-styles.css" inline>
+    <link rel="stylesheet" href="cyc-editor-window.css" inline>
 
-    static get properties() {
-      return {
-        /**
-         * Name of the theme.
-         */
-        themeName: {
-          type: String,
-          value: 'Your Theme Name',
-        },
-      };
-    }
+    <cyc-editor-titlebar class="titleBar"
+      theme-name="[[themeName]]"
+      data-prop="titleBar.activeBackground"
+      on-mouseenter="_onSectionMouseenter"></cyc-editor-titlebar>
+
+    <div class="body">
+      <cyc-editor-activitybar
+        class="activityBar"
+        data-prop="activityBar.background"
+        on-mouseenter="_onSectionMouseenter"></cyc-editor-activitybar>
+      <cyc-editor-sidebar
+        class="sidebar"
+        data-prop="sideBar.background"
+        on-mouseenter="_onSectionMouseenter"></cyc-editor-sidebar>
+      <div
+        class="editor"
+        data-prop="editor.background"
+        on-mouseenter="_onSectionMouseenter"></div>
+    </div>
+
+    <cyc-editor-statusbar
+      class="statusBar"
+      data-prop="statusBar.background"
+      on-mouseenter="_onSectionMouseenter"></cyc-editor-statusbar>
+    `;
   }
 
-  window.customElements.define(CycEditorWindow.is, CycEditorWindow);
+  static get properties() {
+    return {
+      /**
+       * Name of the theme.
+       */
+      themeName: {
+        type: String,
+        value: 'Your Theme Name',
+      },
+    };
+  }
 }
+
+window.customElements.define('cyc-editor-window', CycEditorWindow);

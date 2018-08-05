@@ -14,13 +14,7 @@
     "notify": false,
     "ghostMode": false,
     "reloadOnRestart": true,
-    "server": {
-      "baseDir": ["./"],
-      "index": "index.html",
-      "routes": {
-        "/": "./bower_components"
-      }
-    }
+    "proxy": "localhost:{{port}}"
   },
   "inlineSource": {
     "compress": false,

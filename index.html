@@ -20,11 +20,12 @@
     <meta name="msapplication-tap-highlight" content="no">
 
     <link rel="stylesheet" href="styles.css" inline>
+
+    <script src="/node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="/node_modules/animejs/anime.min.js"></script>
+    <script src="dist/cyc-app/cyc-app.js" type="module"></script>
   </head>
   <body class="loading">
-    <script src="bower_components/webcomponentsjs/webcomponents-loader.js"></script>
-    <script src="bower_components/animejs/anime.min.js"></script>
-
     <div class="loader">
       <svg width="160" height="160" viewBox="0 0 160 160" class="vscode-logo">
         <g>
@@ -69,6 +70,5 @@
         document.body.addEventListener('shell-loaded', onShellLoaded);
       }(document));
     </script>
-    <link rel="import" href="dist/cyc-app/cyc-app.html">
   </body>
 </html>
