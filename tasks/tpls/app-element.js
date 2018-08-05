@@ -1,22 +1,22 @@
-{
-  const {Element} = Polymer;
+import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
 
-  /**
-   * @polymer
-   * @customElement
-   * @extends {Polymer.Element}
-   */
-  class {{titleCase(name)}} extends Element {
-    static get is() {
-      return '{{name}}';
-    }
-
-    static get properties() {
-      return {
-
-      };
-    }
+/**
+ * @polymer
+ * @customElement
+ * @extends {PolymerElement}
+ */
+class {{titleCase(name)}} extends PolymerElement {
+  static get template() {
+    return html`
+    <link rel="stylesheet" href="{{name}}.css" inline>
+    `;
   }
 
-  window.customElements.define({{titleCase(name)}}.is, {{titleCase(name)}});
+  static get properties() {
+    return {
+
+    };
+  }
 }
+
+window.customElements.define('{{name}}', {{titleCase(name)}});
