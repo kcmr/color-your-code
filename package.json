@@ -32,7 +32,7 @@
   "scripts": {
     "lint": "npm run lint:javascript && polymer lint",
     "lint:javascript": "gulp build:dist && eslint . --ext js,html --fix",
-    "test": "gulp build:dist && ./node_modules/web-component-tester/bin/wct --module-resolution=node --npm",
+    "test": "gulp build:dist && wct --module-resolution=node --npm",
     "test:integration": "polymer build # test that psk builds without error with the CLI",
     "serve:dev": "gulp serve",
     "create:element": "node tasks/element-generator"
