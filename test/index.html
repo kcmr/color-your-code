@@ -10,16 +10,32 @@
   </head>
   <body>
     <script>
-      WCT.loadSuites([
-        'cyc-theme-editor.html',
-        'cyc-theme-editor.html?wc-shadydom=true',
-        'cyc-app.html',
-        'cyc-app.html?wc-shadydom=true',
-        'cyc-dm.html',
-        'cyc-dm.html?wc-shadydom=true',
-        'cyc-editor-sidebar.html',
-        'cyc-editor-sidebar.html?wc-shadydom=true',
-      ]);
+      {
+        const url = new URL(location.href);
+        const only = url.searchParams.get('only');
+
+        const files = [
+          'cyc-theme-editor.html',
+          'cyc-app.html',
+          'cyc-dm.html',
+          'cyc-editor-sidebar.html',
+          'cyc-theme-editor.html',
+        ];
+
+        const suites = only ? [only] : files;
+
+        const suitesWithParams = suites.reduce((array, current) => {
+          array.push(current);
+
+          if (!only) {
+            array.push(`${current}?wc-shadydom=true`);
+          }
+
+          return array;
+        }, []);
+
+        WCT.loadSuites(suitesWithParams);
+      }
     </script>
   </body>
 </html>
