@@ -35,6 +35,7 @@
     "test": "gulp build:dist && wct --module-resolution=node --npm",
     "test:integration": "polymer build # test that psk builds without error with the CLI",
     "serve:dev": "gulp serve",
+    "start": "gulp serve",
     "create:element": "node tasks/element-generator"
   },
   "pre-push": [
