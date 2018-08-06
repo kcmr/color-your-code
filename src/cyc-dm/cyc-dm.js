@@ -26,9 +26,10 @@ class CycDm extends utilsMixin(PolymerElement) {
       return;
     }
 
-    fetch(url).then((response) => {
-      response.json().then(this._formatData.bind(this));
-    });
+    fetch(url)
+      .then((response) => response.ok && response.json())
+      .then(this._formatData.bind(this))
+      .catch(this._handleFetchError.bind(this));
   }
 
   _formatData(data) {
@@ -63,6 +64,15 @@ class CycDm extends utilsMixin(PolymerElement) {
 
   _toCSSVar(value) {
     return `--${value.replace('.', '-')}`;
+  }
+
+  _handleFetchError(error) {
+    /**
+     * Fired when the fetch fails.
+     * @event response-error
+     * @param {String} Error message.
+     */
+    this._emit('response-error', error.message);
   }
 }
 
