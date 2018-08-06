@@ -27,7 +27,7 @@
     "pre-push": "^0.1.1",
     "wct-browser-legacy": "^1.0.1",
     "wct-istanbul": "~0.14.3",
-    "web-component-tester": "~6.6.0"
+    "web-component-tester": "^6.7.1"
   },
   "scripts": {
     "lint": "npm run lint:javascript && polymer lint",
