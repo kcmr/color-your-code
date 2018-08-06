@@ -8,7 +8,7 @@
   ```
 - Launch the app:
   ```
-  npm run serve:dev
+  npm start
   ```
 - Create a new element in src folder:
   ```
