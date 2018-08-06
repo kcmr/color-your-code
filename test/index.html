@@ -22,7 +22,7 @@
           'cyc-theme-editor.html',
         ];
 
-        const suites = [only] || files;
+        const suites = only ? [only] : files;
 
         const suitesWithParams = suites.reduce((array, current) => {
           array.push(current);
