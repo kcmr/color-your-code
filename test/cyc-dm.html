@@ -35,18 +35,14 @@
           },
         };
 
+        const responseOk = new window.Response(JSON.stringify(mockTheme), {
+          status: 200,
+          headers: {'Content-type': 'application/json'},
+        });
+
         setup(() => {
           el = fixture('default');
-
-          const fakeResponse = (body = {}) => {
-            return new window.Response(JSON.stringify(mockTheme), {
-              status: 200,
-              headers: {'Content-type': 'application/json'},
-            });
-          };
-
           fetchStub = sinon.stub(window, 'fetch');
-          window.fetch.returns(Promise.resolve(fakeResponse()));
         });
 
         teardown(() => {
@@ -54,7 +50,9 @@
         });
 
         test('fires "response-success" event with the theme data formatted as expected', (done) => {
-          el.url = 'theme.json';
+          fetchStub.returns(Promise.resolve(responseOk));
+
+          el.url = 'request-ok.json';
 
           const colors = [
             {prop: 'activityBar.background', value: '#141820', cssVar: '--activityBar-background'},
@@ -68,6 +66,17 @@
 
           el.addEventListener('response-success', (event) => {
             assert.deepEqual(event.detail, expectedData);
+            done();
+          });
+        });
+
+        test('fires "response-error" event when the fetch fails with the error message as payload', (done) => {
+          fetchStub.returns(Promise.reject(new Error('error message')));
+
+          el.url = 'request-ko.json';
+
+          el.addEventListener('response-error', (event) => {
+            assert.equal(event.detail, 'error message');
             done();
           });
         });
