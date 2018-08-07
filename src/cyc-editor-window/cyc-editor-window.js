@@ -4,6 +4,7 @@ import '../cyc-editor-sidebar/cyc-editor-sidebar.js';
 import '../cyc-editor-titlebar/cyc-editor-titlebar.js';
 import '../cyc-editor-activitybar/cyc-editor-activitybar.js';
 import '../cyc-editor-statusbar/cyc-editor-statusbar.js';
+import '../cyc-editor-content/cyc-editor-content.js';
 
 /**
  * `<cyc-editor-window>` displays the editor window preview.
@@ -32,10 +33,10 @@ class CycEditorWindow extends highlightMixin(PolymerElement) {
         class="sidebar"
         data-prop="sideBar.background"
         on-mouseenter="_onSectionMouseenter"></cyc-editor-sidebar>
-      <div
+      <cyc-editor-content
         class="editor"
         data-prop="editor.background"
-        on-mouseenter="_onSectionMouseenter"></div>
+        on-mouseenter="_onSectionMouseenter"></cyc-editor-content>
     </div>
 
     <cyc-editor-statusbar

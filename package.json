@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "dependencies": {
+    "@kuscamara/code-sample": "^2.0.1",
     "@polymer/iron-icon": "git+https://git@github.com/kcmr/iron-icon.git#6118aae36db7",
     "@polymer/iron-iconset-svg": "^3.0.0-pre.21",
     "@polymer/polymer": "^3.0.5",
