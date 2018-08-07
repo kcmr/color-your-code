@@ -11,4 +11,4 @@ before_script:
   - npm install -g polymer-cli@1.7.2
 script:
   - xvfb-run npm test
-  - istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && codecov
+  - codecov
