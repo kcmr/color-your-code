@@ -1,0 +1,14 @@
+language: node_js
+sudo: required
+node_js:
+  - "8"
+addons:
+  chrome: stable
+install:
+  - npm install
+  - npm install -g codecov
+before_script:
+  - npm install -g polymer-cli@1.7.2
+script:
+  - xvfb-run npm test
+  - codecov
