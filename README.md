@@ -1,5 +1,8 @@
 # Color Your Code (WIP)
 
+[![Build Status](https://img.shields.io/travis/kcmr/color-your-code/master.svg?style=flat-square)](https://travis-ci.org/kcmr/color-your-code) 
+[![codecov](https://codecov.io/gh/kcmr/color-your-code/branch/master/graph/badge.svg)](https://codecov.io/gh/kcmr/color-your-code)
+
 ## Commands for development
 
 - Install dependencies:
