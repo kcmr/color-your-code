@@ -31,18 +31,18 @@ class CycEditorSidebar extends highlightMixin(PolymerElement) {
     return {
       _selectedFileType: {
         type: String,
-        value: 'html',
+        value: 'js',
       },
 
       _openFiles: {
         type: Array,
         value: () => [{
-          name: 'some-file.html',
-          type: 'html',
-          modified: true,
-        }, {
           name: 'some-file.js',
           type: 'js',
+          modified: true,
+        }, {
+          name: 'some-file.html',
+          type: 'html',
           modified: false,
         }, {
           name: 'some-file.css',

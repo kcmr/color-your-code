@@ -64,7 +64,7 @@ class CycEditorWindow extends highlightMixin(PolymerElement) {
        */
       _fileType: {
         type: String,
-        value: 'html',
+        value: 'js',
       },
     };
   }

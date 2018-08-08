@@ -51,7 +51,6 @@ class CycEditorContent extends highlightMixin(PolymerElement) {
        */
       fileType: {
         type: String,
-        value: 'html',
       },
 
       _fileContent: {
