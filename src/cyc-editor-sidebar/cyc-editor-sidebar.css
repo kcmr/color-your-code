@@ -11,7 +11,7 @@
 }
 
 .sidebar-heading {
-  color: white;
+  color: var(--editor-foreground);
   padding: 6px 20px;
   background-color: var(--bg-dark);
   letter-spacing: 0.05ch;
@@ -26,6 +26,7 @@
 }
 
 li {
+  color: var(--editor-foreground);
   padding: 3px 0 3px 35px;
 }
 

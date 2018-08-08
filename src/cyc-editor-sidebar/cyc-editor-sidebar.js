@@ -15,12 +15,12 @@ class CycEditorSidebar extends highlightMixin(PolymerElement) {
     <link rel="stylesheet" href="cyc-editor-sidebar.css" inline>
 
     <div class="heading panel-heading" data-prop="sideBarTitle.foreground" on-mouseenter="_onSectionMouseenter">Explorador</div>
-    <div class="sidebar-panel">
-      <div class="heading sidebar-heading">Editores abiertos</div>
+    <div class="sidebar-panel" data-target-prop="editor.foreground" on-mouseenter="_onSectionMouseenter">
+      <div class="heading sidebar-heading" data-prop="editor.foreground">Editores abiertos</div>
       <ul class="open-files">
         <li class="modified selected">some-file.html</li>
-        <li>some-file.js</li>
-        <li>some-file.scss</li>
+        <li data-prop="editor.foreground">some-file.js</li>
+        <li data-prop="editor.foreground">some-file.scss</li>
       </ul>
     </div>
     `;
