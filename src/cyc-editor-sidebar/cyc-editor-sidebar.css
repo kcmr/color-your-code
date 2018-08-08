@@ -18,16 +18,21 @@
 }
 
 .open-files {
+  color: var(--editor-foreground);
   margin: 0;
   padding: 0;
   list-style: none;
-  color: #818CA7;
   font-size: 13px;
 }
 
 li {
-  color: var(--editor-foreground);
   padding: 3px 0 3px 35px;
+  cursor: pointer;
+}
+
+li[data-prop],
+li[data-prop]:hover {
+  cursor: pointer;
 }
 
 .selected {
