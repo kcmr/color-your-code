@@ -3,11 +3,15 @@
 :host {
   display: flex;
   overflow: hidden;
+  position: relative;
+  --cyc-line-numbers-width: 50px;
 }
 
 code-sample {
   margin-top: -1.4rem;
   letter-spacing: -0.02ch;
+  position: absolute;
+  left: var(--cyc-line-numbers-width);
   --code-sample-background: transparent;
   --code-sample-font-family: dm, monospace;
   --code-sample-font-size: 14px;
@@ -19,9 +23,10 @@ code-sample {
   font-size: 13px;
   text-align: right;
   color: var(--editorLineNumber-foreground);
-  width: 50px;
+  width: var(--cyc-line-numbers-width);
   padding-right: 5px;
   box-sizing: border-box;
+  flex-shrink: 0;
 }
 
 .line-number {
