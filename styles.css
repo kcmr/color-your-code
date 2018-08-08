@@ -60,6 +60,10 @@ html {
   --titleBar-inactiveBackground: #1C212E;
   --titleBar-inactiveForeground: #818CA6;
   --widget-shadow: #11141ab3;
+
+  /* application vars */
+  --cyc-font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+  --cyc-background-gradient: linear-gradient(136deg, #27a0b0 0%, #5477d4 52%, #a85dff 100%);
 }
 
 html,
@@ -68,9 +72,9 @@ body {
 }
 
 body {
-  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--cyc-font-family);
   margin: 0;
-  background-image: linear-gradient(136deg, #27a0b0 0%, #5477d4 52%, #a85dff 100%);
+  background-image: var(--cyc-background-gradient);
   display: flex;
   flex-direction: row;
   flex: 1;
@@ -90,7 +94,7 @@ body {
   top: 0;
   width: 100vw;
   z-index: 3;
-  background-image: linear-gradient(136deg, #27a0b0 0%, #5477d4 52%, #a85dff 100%);
+  background-image: var(--cyc-background-gradient);
 }
 
 .loading .loader,
