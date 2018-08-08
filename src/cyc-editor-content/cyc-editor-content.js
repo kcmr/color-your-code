@@ -1,8 +1,15 @@
 import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
 import {highlightMixin} from '../cyc-mixins/cyc-highlight-mixin.js';
+import {jsFileContent, cssFileContent, htmlFileContent} from './file-contents.js';
 import '@polymer/polymer/lib/elements/dom-repeat.js';
 import '@kuscamara/code-sample/code-sample.js';
 import {kustomDark} from '../../node_modules/@kuscamara/code-sample/themes/kustom-dark.js';
+
+const CONTENT_FOR_FILE_TYPE = {
+  js: jsFileContent,
+  html: htmlFileContent,
+  css: cssFileContent,
+};
 
 /**
  * Contains the code of the selected file.
@@ -17,44 +24,15 @@ class CycEditorContent extends highlightMixin(PolymerElement) {
     <link rel="stylesheet" href="cyc-editor-content.css" inline>
 
     <div class="line-numbers" data-target-prop="editorLineNumber.foreground" on-mouseenter="_onSectionMouseenter">
-      <template is="dom-repeat" items="[[_numberToArray(lines)]]">
+      <template is="dom-repeat" items="[[_numberToArray(_fileLines)]]">
         <div class="line-number" data-prop="editorLineNumber.foreground">[[_computeLineNumber(index)]]</div>
       </template>
     </div>
 
-    <code-sample type="js">
-      <template preserve-content>
-      class MyElement extends PolymerElement {
-        static get template() {
-          return html\`
-            <style>
-              :host {
-                display: block;
-              }
-            </style>
-
-            <p>Hello world!</p>
-          \`;
-        }
-
-        static get properties() {
-          return {
-            // Sets whether the element has super powers.
-            hasPowers: {
-              type: Boolean,
-              observer: '_hasPowersChanged',
-            },
-          };
-        }
-
-        _hasPowersChanged(hasPowers) {
-          if (hasPowers) {
-            this._doAmazingThings();
-          }
-        }
-      }
-      </template>
-    </code-sample>
+    <code-sample
+      type="[[fileType]]"
+      inner-h-t-m-l="[[_codeSampleContent]]"
+    ></code-sample>
     `;
   }
 
@@ -69,13 +47,45 @@ class CycEditorContent extends highlightMixin(PolymerElement) {
       },
 
       /**
-       * Number of lines of the active file in the editor content.
+       * Type (extension) of the current file selected in the editor.
        */
-      lines: {
+      fileType: {
+        type: String,
+        value: 'html',
+      },
+
+      _fileContent: {
+        type: String,
+        computed: '_computeFileContent(fileType)',
+      },
+
+      _fileLines: {
         type: Number,
-        value: 30,
+        computed: '_computeFileContentLines(_fileContent)',
+      },
+
+      _codeSampleContent: {
+        type: String,
+        computed: '_computeCodeSampleContent(_fileContent)',
       },
     };
+  }
+
+  _computeFileContent(fileType) {
+    return CONTENT_FOR_FILE_TYPE[fileType];
+  }
+
+  _computeFileContentLines(fileConent) {
+    const endOfLine = /\r?\n/g;
+    return (fileConent.match(endOfLine) || '').length;
+  }
+
+  _computeCodeSampleContent(fileContent) {
+    return`
+      <template preserve-content>
+        ${fileContent}
+      </template>
+    `;
   }
 
   _computeLineNumber(number) {
