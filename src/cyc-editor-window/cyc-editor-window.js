@@ -32,10 +32,12 @@ class CycEditorWindow extends highlightMixin(PolymerElement) {
       <cyc-editor-sidebar
         class="sidebar"
         data-prop="sideBar.background"
-        on-mouseenter="_onSectionMouseenter"></cyc-editor-sidebar>
+        on-mouseenter="_onSectionMouseenter"
+        on-selected-file="_setFileType"></cyc-editor-sidebar>
       <cyc-editor-content
         class="editor"
         data-prop="editor.background"
+        file-type="[[_fileType]]"
         on-mouseenter="_onSectionMouseenter"></cyc-editor-content>
     </div>
 
@@ -55,7 +57,19 @@ class CycEditorWindow extends highlightMixin(PolymerElement) {
         type: String,
         value: 'Your Theme Name',
       },
+
+      /**
+       * Selected file type.
+       */
+      _fileType: {
+        type: String,
+        value: 'html',
+      },
     };
+  }
+
+  _setFileType(event) {
+    this._fileType = event.detail;
   }
 }
 
