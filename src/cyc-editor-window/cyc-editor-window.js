@@ -19,7 +19,8 @@ class CycEditorWindow extends highlightMixin(PolymerElement) {
     <link rel="stylesheet" href="../cyc-styles/cyc-shared-styles.css" inline>
     <link rel="stylesheet" href="cyc-editor-window.css" inline>
 
-    <cyc-editor-titlebar class="titleBar"
+    <cyc-editor-titlebar
+      class="titleBar"
       theme-name="[[themeName]]"
       data-prop="titleBar.activeBackground"
       on-mouseenter="_onSectionMouseenter"></cyc-editor-titlebar>
