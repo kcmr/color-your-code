@@ -1,6 +1,6 @@
 import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
 import {highlightMixin} from '../cyc-mixins/cyc-highlight-mixin.js';
-import {jsFileContent, cssFileContent, htmlFileContent} from './file-contents.js';
+import {jsFileContent, cssFileContent, htmlFileContent, mdFileContent} from './file-contents.js';
 import '@polymer/polymer/lib/elements/dom-repeat.js';
 import '@kuscamara/code-sample/code-sample.js';
 import {kustomDark} from '../../node_modules/@kuscamara/code-sample/themes/kustom-dark.js';
@@ -9,6 +9,7 @@ const CONTENT_FOR_FILE_TYPE = {
   js: jsFileContent,
   html: htmlFileContent,
   css: cssFileContent,
+  md: mdFileContent,
 };
 
 /**
