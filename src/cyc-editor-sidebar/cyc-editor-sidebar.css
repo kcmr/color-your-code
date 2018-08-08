@@ -26,8 +26,14 @@
 }
 
 li {
-  padding: 3px 0 3px 35px;
+  padding: 3px 12px 3px 35px;
   cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+}
+
+li::after {
+  font-size: 12px;
 }
 
 li:hover:not(.selected) {
@@ -45,4 +51,12 @@ li[data-prop]:hover {
 
 .modified {
   color: var(--gitDecoration-modifiedResourceForeground);
+}
+
+.modified::after {
+  content: "M";
+}
+
+.new::after {
+  content: "N";
 }
