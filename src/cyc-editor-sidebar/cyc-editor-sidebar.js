@@ -15,9 +15,9 @@ class CycEditorSidebar extends highlightMixin(PolymerElement) {
     <link rel="stylesheet" href="../cyc-styles/cyc-shared-styles.css" inline>
     <link rel="stylesheet" href="cyc-editor-sidebar.css" inline>
 
-    <div class="heading panel-heading" data-prop="sideBarTitle.foreground" on-mouseenter="_onSectionMouseenter">Explorador</div>
+    <div class="heading panel-heading" data-prop="sideBarTitle.foreground" on-mouseenter="_onSectionMouseenter">Explorer</div>
     <div class="sidebar-panel">
-      <div class="heading sidebar-heading" data-prop="editor.foreground" on-mouseenter="_onSectionMouseenter">Editores abiertos</div>
+      <div class="heading sidebar-heading" data-prop="editor.foreground" on-mouseenter="_onSectionMouseenter">Open editors</div>
       <ul class="open-files">
         <template is="dom-repeat" items="[[_openFiles]]">
           <li class$="[[_computeClass(_selectedFileType, item)]]" on-click="_selectFile">[[item.name]]</li>
