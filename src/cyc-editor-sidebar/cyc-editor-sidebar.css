@@ -30,15 +30,19 @@ li {
   cursor: pointer;
 }
 
+li:hover:not(.selected) {
+  background-color: var(--list-hoverBackground);
+}
+
 li[data-prop],
 li[data-prop]:hover {
   cursor: pointer;
 }
 
 .selected {
-  background: #303A51;
+  background-color: var(--list-inactiveSelectionBackground);
 }
 
 .modified {
-  color: #E4C286;
+  color: var(--gitDecoration-modifiedResourceForeground);
 }
