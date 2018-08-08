@@ -37,5 +37,14 @@ export const utilsMixin = dedupingMixin((superClass) => {
     _deepEqual(obj1, obj2) {
       return JSON.stringify(obj1) === JSON.stringify(obj2);
     }
+
+    /**
+     * Returns an array of empty items with the specified length.
+     * @param {Number} number
+     * @return {Array} array with the specified length.
+     */
+    _numberToArray(number) {
+      return [...Array(number)];
+    }
   };
 });
