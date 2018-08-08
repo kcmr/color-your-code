@@ -26,13 +26,15 @@
 }
 
 li {
-  padding: 3px 12px 3px 35px;
+  padding: 3px 10px 3px 35px;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
 }
 
 li::after {
+  width: 2ch;
+  text-align: center;
   font-size: 12px;
 }
 
@@ -53,10 +55,14 @@ li[data-prop]:hover {
   color: var(--gitDecoration-modifiedResourceForeground);
 }
 
+.untracked {
+  color: var(--gitDecoration-untrackedResourceForeground);
+}
+
 .modified::after {
   content: "M";
 }
 
-.new::after {
+.untracked::after {
   content: "N";
 }

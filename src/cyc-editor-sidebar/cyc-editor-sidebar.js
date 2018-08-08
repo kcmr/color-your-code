@@ -43,22 +43,25 @@ class CycEditorSidebar extends highlightMixin(PolymerElement) {
         }, {
           name: 'some-file.html',
           type: 'html',
-          modified: false,
         }, {
           name: 'some-file.css',
           type: 'css',
-          modified: false,
+        }, {
+          name: 'README.md',
+          type: 'md',
+          untracked: true,
         }],
       },
     };
   }
 
   _computeClass(selectedFileType, item) {
-    const {type, modified} = item;
+    const {type, modified, untracked} = item;
 
     const modifiedClass = modified ? 'modified' : '';
+    const untrackedClass = untracked ? 'untracked' : '';
     const selectedClass = (selectedFileType === type) ? 'selected' : '';
-    const className = `${modifiedClass} ${selectedClass}`;
+    const className = `${modifiedClass} ${selectedClass} ${untrackedClass}`;
 
     return className;
   }
