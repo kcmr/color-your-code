@@ -11,10 +11,13 @@
 }
 
 .sidebar-heading {
-  color: var(--editor-foreground);
   padding: 6px 20px;
-  background-color: var(--bg-dark);
+  background-color: var(--sideBarSectionHeader-background);
   letter-spacing: 0.05ch;
+}
+
+.sidebar-heading__foreground {
+  color: var(--sideBarSectionHeader-foreground);
 }
 
 .open-files {
