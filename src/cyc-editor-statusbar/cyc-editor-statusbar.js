@@ -15,7 +15,7 @@ class CycEditorStatusbar extends highlightMixin(PolymerElement) {
     <link rel="stylesheet" href="../cyc-styles/cyc-shared-styles.css" inline>
     <link rel="stylesheet" href="cyc-editor-statusbar.css" inline>
 
-    <div class="border" data-prop="statusBar.border"></div>
+    <div class="border" data-prop="statusBar.border" on-mouseenter="_onSectionMouseenter"></div>
     <div class="left">
       <iron-icon icon="cyc:fork" class="icon git-icon"></iron-icon>
       <span data-prop="statusBar.foreground" on-mouseenter="_onSectionMouseenter">master master!</span>
