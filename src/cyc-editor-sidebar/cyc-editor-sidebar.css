@@ -38,7 +38,7 @@
   transform: rotate(135deg);
 }
 
-.open-files {
+.files {
   color: var(--editor-foreground);
   margin: 0;
   padding: 0;

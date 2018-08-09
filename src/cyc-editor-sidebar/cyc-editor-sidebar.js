@@ -25,11 +25,11 @@ class CycEditorSidebar extends highlightMixin(PolymerElement) {
         on-mouseenter="_onSectionMouseenter">
         <span class="sidebar-heading__foreground"
           data-prop="sideBarSectionHeader.foreground"
-          on-mouseenter="_onSectionMouseenter">Open editors</span>
+          on-mouseenter="_onSectionMouseenter">Some project</span>
       </div>
 
-      <ul class="open-files">
-        <template is="dom-repeat" items="[[_openFiles]]">
+      <ul class="files">
+        <template is="dom-repeat" items="[[_files]]">
           <li class$="[[_computeClass(_selectedFileType, item)]]" on-click="_selectFile">[[item.name]]</li>
         </template>
       </ul>
@@ -44,7 +44,7 @@ class CycEditorSidebar extends highlightMixin(PolymerElement) {
         value: 'js',
       },
 
-      _openFiles: {
+      _files: {
         type: Array,
         value: () => [{
           name: 'some-file.js',
