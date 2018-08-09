@@ -29,7 +29,7 @@ class CycEditorSidebar extends highlightMixin(PolymerElement) {
       </div>
 
       <ul class="files">
-        <template is="dom-repeat" items="[[_files]]">
+        <template is="dom-repeat" items="[[files]]">
           <li class$="[[_computeClass(_selectedFileType, item)]]" on-click="_selectFile">[[item.name]]</li>
         </template>
       </ul>
@@ -44,23 +44,11 @@ class CycEditorSidebar extends highlightMixin(PolymerElement) {
         value: 'js',
       },
 
-      _files: {
+      /**
+       * List of files.
+       */
+      files: {
         type: Array,
-        value: () => [{
-          name: 'some-file.js',
-          type: 'js',
-          modified: true,
-        }, {
-          name: 'some-file.html',
-          type: 'html',
-        }, {
-          name: 'some-file.css',
-          type: 'css',
-        }, {
-          name: 'README.md',
-          type: 'md',
-          untracked: true,
-        }],
       },
     };
   }
@@ -79,15 +67,19 @@ class CycEditorSidebar extends highlightMixin(PolymerElement) {
   _selectFile(event) {
     event.stopPropagation();
 
-    const type = event.model.item.type;
+    const {type, name} = event.model.item;
     this._selectedFileType = type;
 
     /**
      * Fired after selecting a file.
      * @event selected-file
-     * @param {String} type file extension (html | js | css).
+     * @param {Object} detail
+     * @param {String} detail.type file extension (html | js | css).
+     * @param {String} detail.name file name.
      */
-    this._emit('selected-file', type);
+    this._emit('selected-file', {
+      type, name,
+    });
   }
 }
 

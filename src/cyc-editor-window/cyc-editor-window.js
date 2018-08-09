@@ -33,12 +33,14 @@ class CycEditorWindow extends highlightMixin(PolymerElement) {
       <cyc-editor-sidebar
         class="sidebar"
         data-prop="sideBar.background"
+        files="[[projectFiles]]"
         on-mouseenter="_onSectionMouseenter"
-        on-selected-file="_setFileType"></cyc-editor-sidebar>
+        on-selected-file="_onEditorSidebarSelectedFile"></cyc-editor-sidebar>
       <cyc-editor-content
         class="editor"
         data-prop="editor.background"
         file-type="[[_fileType]]"
+        file-name="[[_activeFileName]]"
         on-mouseenter="_onSectionMouseenter"></cyc-editor-content>
     </div>
 
@@ -60,6 +62,32 @@ class CycEditorWindow extends highlightMixin(PolymerElement) {
       },
 
       /**
+       * List of project files.
+       */
+      projectFiles: {
+        type: Array,
+        value: () => [{
+          name: 'some-file.js',
+          type: 'js',
+          modified: true,
+        }, {
+          name: 'some-file.html',
+          type: 'html',
+        }, {
+          name: 'some-file.css',
+          type: 'css',
+        }, {
+          name: 'README.md',
+          type: 'md',
+          untracked: true,
+        }],
+      },
+
+      _activeFileName: {
+        type: String,
+      },
+
+      /**
        * Selected file type.
        */
       _fileType: {
@@ -69,8 +97,10 @@ class CycEditorWindow extends highlightMixin(PolymerElement) {
     };
   }
 
-  _setFileType(event) {
-    this._fileType = event.detail;
+  _onEditorSidebarSelectedFile(event) {
+    const {type, name} = event.detail;
+    this._fileType = type;
+    this._activeFileName = name;
   }
 }
 

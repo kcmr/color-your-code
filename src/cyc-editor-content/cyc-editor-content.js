@@ -59,6 +59,14 @@ class CycEditorContent extends highlightMixin(PolymerElement) {
         type: String,
       },
 
+      /**
+       * Name of the current file selected in the editor.
+       */
+      fileName: {
+        type: String,
+        observer: '_fileNameChanged',
+      },
+
       _fileContent: {
         type: String,
         computed: '_computeFileContent(fileType)',
@@ -106,6 +114,10 @@ class CycEditorContent extends highlightMixin(PolymerElement) {
 
   _computeLineNumber(number) {
     return number + 1;
+  }
+
+  _fileNameChanged(fileName) {
+    this.set(['_tabs', 0, 'name'], fileName);
   }
 }
 
