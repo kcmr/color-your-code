@@ -3,12 +3,10 @@ class MyElement extends PolymerElement {
   static get template() {
     return html\`
       <style>
-        :host {
-          display: block;
-        }
+        :host { display: block; }
       </style>
 
-      <p>Hello world!</p>
+      <p>Hello coder!</p>
     \`;
   }
 
