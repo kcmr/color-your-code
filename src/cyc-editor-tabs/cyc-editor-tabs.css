@@ -7,30 +7,26 @@
 
 .tab {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
+  padding: 0 10px;
   min-width: 50px;
   height: 35px;
   font-size: 13px;
   color: var(--tab-inactiveForeground);
   background-color: var(--tab-inactiveBackground);
   border-right: 1px solid var(--tab-border);
+  position: relative;
 }
 
 .tab:hover .icon {
   opacity: 1;
 }
 
-.tab__foreground {
-  padding-left: 10px;
-}
-
 .icon {
   width: 10px;
   height: 10px;
   margin-left: 10px;
-  margin-right: 10px;
   opacity: 0;
   fill: var(--tab-activeForeground);
 }
@@ -45,12 +41,15 @@
 }
 
 .tab__border-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
   height: 1px;
   width: 100%;
   background-color: var(--tab-activeBorder);
-  opacity: 0;
+  visibility: hidden;
 }
 
 .active .tab__border-bottom {
-  opacity: 1;
+  visibility: visible;
 }
