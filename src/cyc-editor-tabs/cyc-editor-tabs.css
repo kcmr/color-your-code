@@ -16,6 +16,7 @@
   color: var(--tab-inactiveForeground);
   background-color: var(--tab-inactiveBackground);
   border-right: 1px solid var(--tab-border);
+  cursor: pointer;
 }
 
 .tab:hover .icon {
