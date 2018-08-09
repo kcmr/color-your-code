@@ -1,5 +1,3 @@
-:host([hidden]), [hidden] { display: none !important; }
-
 :host {
   overflow: hidden;
   --cyc-line-numbers-width: 50px;
