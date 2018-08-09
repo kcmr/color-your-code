@@ -1,3 +1,7 @@
+:host {
+  --cyc-triangle-border-width: 4px;
+}
+
 .heading {
   font-size: 11px;
   font-weight: 600;
@@ -14,10 +18,24 @@
   padding: 6px 20px;
   background-color: var(--sideBarSectionHeader-background);
   letter-spacing: 0.05ch;
+  position: relative;
 }
 
 .sidebar-heading__foreground {
   color: var(--sideBarSectionHeader-foreground);
+}
+
+.sidebar-heading::before {
+  position: absolute;
+  left: 7px;
+  top: 10px;
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: var(--cyc-triangle-border-width) solid transparent;
+  border-right: var(--cyc-triangle-border-width) solid transparent;
+  border-bottom: var(--cyc-triangle-border-width) solid #e8e8e8;
+  transform: rotate(135deg);
 }
 
 .open-files {
