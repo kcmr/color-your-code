@@ -52,6 +52,7 @@
     "statusBar.border": "#1A1F2E",
     "statusBar.foreground": "#818CA6",
     "statusBar.noFolderBackground": "#212836",
+    "tab.activeForeground": "#D5D9E2",
     "tab.activeBackground": "#212836",
     "tab.activeBorder": "#f44747",
     "tab.border": "#1C212E",

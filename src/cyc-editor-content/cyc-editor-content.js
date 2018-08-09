@@ -4,6 +4,7 @@ import {jsFileContent, cssFileContent, htmlFileContent, mdFileContent} from './f
 import '@polymer/polymer/lib/elements/dom-repeat.js';
 import '@kuscamara/code-sample/code-sample.js';
 import {kustomDark} from '../../node_modules/@kuscamara/code-sample/themes/kustom-dark.js';
+import '../cyc-editor-tabs/cyc-editor-tabs.js';
 
 const CONTENT_FOR_FILE_TYPE = {
   js: jsFileContent,
@@ -24,16 +25,20 @@ class CycEditorContent extends highlightMixin(PolymerElement) {
     return html`
     <link rel="stylesheet" href="cyc-editor-content.css" inline>
 
-    <div class="line-numbers" data-target-prop="editorLineNumber.foreground" on-mouseenter="_onSectionMouseenter">
-      <template is="dom-repeat" items="[[_numberToArray(_fileLines)]]">
-        <div class="line-number" data-prop="editorLineNumber.foreground">[[_computeLineNumber(index)]]</div>
-      </template>
-    </div>
+    <cyc-editor-tabs class="tabs" tabs="[[_tabs]]"></cyc-editor-tabs>
 
-    <code-sample
-      type="[[fileType]]"
-      inner-h-t-m-l="[[_codeSampleContent]]"
-    ></code-sample>
+    <div class="content">
+      <div class="line-numbers" data-target-prop="editorLineNumber.foreground" on-mouseenter="_onSectionMouseenter">
+        <template is="dom-repeat" items="[[_numberToArray(_fileLines)]]">
+          <div class="line-number" data-prop="editorLineNumber.foreground">[[_computeLineNumber(index)]]</div>
+        </template>
+      </div>
+
+      <code-sample
+        type="[[fileType]]"
+        inner-h-t-m-l="[[_codeSampleContent]]"
+      ></code-sample>
+    </div>
     `;
   }
 
@@ -67,6 +72,17 @@ class CycEditorContent extends highlightMixin(PolymerElement) {
       _codeSampleContent: {
         type: String,
         computed: '_computeCodeSampleContent(_fileContent)',
+      },
+
+      _tabs: {
+        type: Array,
+        value: () => [{
+          name: 'some-file.js',
+          active: true,
+        }, {
+          name: 'inactive-tab',
+          active: false,
+        }],
       },
     };
   }

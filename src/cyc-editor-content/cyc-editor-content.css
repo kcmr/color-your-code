@@ -1,10 +1,18 @@
 :host([hidden]), [hidden] { display: none !important; }
 
 :host {
-  display: flex;
   overflow: hidden;
-  position: relative;
   --cyc-line-numbers-width: 50px;
+}
+
+.tabs {
+  position: relative;
+  z-index: 1;
+}
+
+.content {
+  display: flex;
+  position: relative;
 }
 
 code-sample {

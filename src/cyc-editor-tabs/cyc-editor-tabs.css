@@ -1,0 +1,40 @@
+:host([hidden]), [hidden] { display: none !important; }
+
+:host {
+  display: flex;
+  background-color: var(--editorGroupHeader-tabsBackground);
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  min-width: 50px;
+  height: 35px;
+  font-size: 13px;
+  color: var(--tab-inactiveForeground);
+  background-color: var(--tab-inactiveBackground);
+  border-right: 1px solid var(--tab-border);
+}
+
+.tab:hover .icon {
+  opacity: 1;
+}
+
+.icon {
+  width: 10px;
+  height: 10px;
+  margin-left: 10px;
+  opacity: 0;
+  fill: var(--tab-activeForeground);
+}
+
+.active {
+  color: var(--tab-activeForeground);
+  background-color: var(--tab-activeBackground);
+}
+
+.active .icon {
+  opacity: 1;
+}
