@@ -66,5 +66,16 @@ export const utilsMixin = dedupingMixin((superClass) => {
 
       return result.join(' ');
     }
+
+    /**
+     * Returns the specified string depending on the condition passed as first param.
+     * @param {Boolean} condition condition to check.
+     * @param {String} valueIfTrue return value if the condition is truthy.
+     * @param {String} valueIfFalse return value if the condition is falsy.
+     * @return {String} resulting value.
+     */
+    _computeValue(condition, valueIfTrue, valueIfFalse = '') {
+      return condition ? valueIfTrue : valueIfFalse;
+    }
   };
 });

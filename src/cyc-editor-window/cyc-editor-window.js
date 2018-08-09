@@ -38,10 +38,8 @@ class CycEditorWindow extends highlightMixin(PolymerElement) {
         on-selected-file="_onEditorSidebarSelectedFile"></cyc-editor-sidebar>
       <cyc-editor-content
         class="editor"
-        data-prop="editor.background"
         file-type="[[_fileType]]"
-        file-name="[[_activeFileName]]"
-        on-mouseenter="_onSectionMouseenter"></cyc-editor-content>
+        file-name="[[_activeFileName]]"></cyc-editor-content>
     </div>
 
     <cyc-editor-statusbar

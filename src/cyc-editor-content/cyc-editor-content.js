@@ -23,11 +23,16 @@ const CONTENT_FOR_FILE_TYPE = {
 class CycEditorContent extends highlightMixin(PolymerElement) {
   static get template() {
     return html`
+    <link rel="stylesheet" href="../cyc-styles/cyc-shared-styles.css" inline>
     <link rel="stylesheet" href="cyc-editor-content.css" inline>
 
-    <cyc-editor-tabs class="tabs" tabs="[[_tabs]]"></cyc-editor-tabs>
+    <cyc-editor-tabs
+      class="tabs"
+      tabs="[[_tabs]]"
+      data-prop="editorGroupHeader.tabsBackground"
+      on-mouseenter="_onSectionMouseenter"></cyc-editor-tabs>
 
-    <div class="content">
+    <div class="content" data-prop="editor.background" on-mouseenter="_onSectionMouseenter">
       <div class="line-numbers" data-target-prop="editorLineNumber.foreground" on-mouseenter="_onSectionMouseenter">
         <template is="dom-repeat" items="[[_numberToArray(_fileLines)]]">
           <div class="line-number" data-prop="editorLineNumber.foreground">[[_computeLineNumber(index)]]</div>
