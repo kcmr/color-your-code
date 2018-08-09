@@ -46,5 +46,25 @@ export const utilsMixin = dedupingMixin((superClass) => {
     _numberToArray(number) {
       return [...Array(number)];
     }
+
+    /**
+     * "Stolen" from lit-element.js
+     * Returns a string of css class names formed by taking the properties
+     * in the `classInfo` object and appending the property name to the string of
+     * class names if the property value is truthy.
+     * @param {Object} classInfo {'class-name': condition}
+     * @return {String} resulting className
+     */
+    _classString(classInfo) {
+      const result = [];
+
+      for (const name in classInfo) {
+        if (classInfo[name]) {
+          result.push(name);
+        }
+      }
+
+      return result.join(' ');
+    }
   };
 });

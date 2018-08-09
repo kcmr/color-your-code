@@ -56,12 +56,11 @@ class CycEditorSidebar extends highlightMixin(PolymerElement) {
   _computeClass(selectedFileType, item) {
     const {type, modified, untracked} = item;
 
-    const modifiedClass = modified ? 'modified' : '';
-    const untrackedClass = untracked ? 'untracked' : '';
-    const selectedClass = (selectedFileType === type) ? 'selected' : '';
-    const className = `${modifiedClass} ${selectedClass} ${untrackedClass}`;
-
-    return className;
+    return this._classString({
+      'modified': modified,
+      'untracked': untracked,
+      'selected': selectedFileType === type,
+    });
   }
 
   _selectFile(event) {
