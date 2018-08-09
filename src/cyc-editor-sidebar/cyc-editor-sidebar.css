@@ -85,5 +85,5 @@ li[data-prop]:hover {
 }
 
 .untracked::after {
-  content: "N";
+  content: "U";
 }
