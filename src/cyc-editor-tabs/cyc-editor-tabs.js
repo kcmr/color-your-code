@@ -17,6 +17,7 @@ class CycEditorTabs extends PolymerElement {
       <div class$="tab [[_computeClass(item.active)]]">
         <span class="tab__foreground">[[item.name]]</span>
         <iron-icon icon="cyc:close" class="icon"></iron-icon>
+        <span class="tab__border-bottom"></span>
       </div>
     </template>
     `;
