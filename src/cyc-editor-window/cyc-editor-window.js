@@ -20,14 +20,14 @@ class CycEditorWindow extends highlightMixin(PolymerElement) {
     <link rel="stylesheet" href="cyc-editor-window.css" inline>
 
     <cyc-editor-titlebar
-      class="titleBar"
+      class="title-bar"
       theme-name="[[themeName]]"
       data-prop="titleBar.activeBackground"
       on-mouseenter="_onSectionMouseenter"></cyc-editor-titlebar>
 
     <div class="body">
       <cyc-editor-activitybar
-        class="activityBar"
+        class="activity-bar"
         data-prop="activityBar.background"
         on-mouseenter="_onSectionMouseenter"></cyc-editor-activitybar>
       <cyc-editor-sidebar
@@ -45,7 +45,7 @@ class CycEditorWindow extends highlightMixin(PolymerElement) {
     </div>
 
     <cyc-editor-statusbar
-      class="statusBar"
+      class="status-bar"
       data-prop="statusBar.background"
       on-mouseenter="_onSectionMouseenter"></cyc-editor-statusbar>
     `;
