@@ -11,6 +11,7 @@
   min-width: 50px;
   height: 35px;
   font-size: 13px;
+  white-space: nowrap;
   color: var(--tab-inactiveForeground);
   background-color: var(--tab-inactiveBackground);
   position: relative;
