@@ -37,7 +37,8 @@
     "test:integration": "polymer build # test that psk builds without error with the CLI",
     "serve:dev": "gulp serve",
     "start": "gulp serve",
-    "create:element": "node tasks/element-generator"
+    "create:element": "node tasks/element-generator",
+    "build": "gulp build:dist && polymer build"
   },
   "pre-push": [
     "lint"
