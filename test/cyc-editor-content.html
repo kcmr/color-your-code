@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>cyc-editor-content</title>
+
+    <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="../node_modules/wct-browser-legacy/browser.js"></script>
+
+    <script type="module" src="../dist/cyc-editor-content/cyc-editor-content.js"></script>
+  </head>
+  <body>
+    <test-fixture id="default">
+      <template>
+        <cyc-editor-content></cyc-editor-content>
+      </template>
+    </test-fixture>
+
+    <script>
+      suite('<cyc-editor-content>', () => {
+        let el;
+
+        setup(() => {
+          el = fixture('default');
+        });
+
+        suite('setting fileType', () => {
+          setup(() => {
+            el.fileType = 'css';
+          });
+
+          test('sets the corresponding content to <code-sample>', () => {
+            const $codeSample = el.$.code;
+            assert.include($codeSample.innerHTML, '.heading {');
+          });
+
+          test('sets the same number of lines as the file content', () => {
+            const cssFileContentLines = 27;
+            const $lines = el.$.lines;
+            assert.equal($lines.items.length, cssFileContentLines);
+          });
+
+          test('line numbers start with 1', (done) => {
+            flush(() => {
+              const $firstLineNumber = el.shadowRoot.querySelector('.line-number');
+              assert.equal($firstLineNumber.textContent, '1');
+              done();
+            });
+          });
+        });
+
+        suite('setting fileName', () => {
+          test('sets the name of the first tab', () => {
+            const $tabs = el.$.tabs;
+            el.fileName = 'any';
+            assert.equal($tabs.tabs[0].name, el.fileName);
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

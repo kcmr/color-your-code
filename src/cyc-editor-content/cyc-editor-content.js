@@ -25,7 +25,7 @@ class CycEditorContent extends highlightMixin(PolymerElement) {
     <link rel="stylesheet" href="../cyc-styles/cyc-shared-styles.css" inline>
     <link rel="stylesheet" href="cyc-editor-content.css" inline>
 
-    <cyc-editor-tabs
+    <cyc-editor-tabs id="tabs"
       class="tabs"
       tabs="[[_tabs]]"
       data-prop="editorGroupHeader.tabsBackground"
@@ -33,12 +33,12 @@ class CycEditorContent extends highlightMixin(PolymerElement) {
 
     <div class="content" data-prop="editor.background" on-mouseenter="_onSectionMouseenter">
       <div class="line-numbers" data-target-prop="editorLineNumber.foreground" on-mouseenter="_onSectionMouseenter">
-        <template is="dom-repeat" items="[[_numberToArray(_fileLines)]]">
+        <template is="dom-repeat" items="[[_numberToArray(_fileLines)]]" id="lines">
           <div class="line-number" data-prop="editorLineNumber.foreground">[[_computeLineNumber(index)]]</div>
         </template>
       </div>
 
-      <code-sample
+      <code-sample id="code"
         type="[[fileType]]"
         inner-h-t-m-l="[[_codeSampleContent]]"
       ></code-sample>
@@ -97,7 +97,7 @@ class CycEditorContent extends highlightMixin(PolymerElement) {
 
   _computeFileContentLines(fileConent) {
     const endOfLine = /\r?\n/g;
-    return (fileConent.match(endOfLine) || '').length;
+    return fileConent.match(endOfLine).length;
   }
 
   _computeCodeSampleContent(fileContent) {
