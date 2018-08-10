@@ -27,6 +27,10 @@ class CycEditorTabs extends highlightMixin(PolymerElement) {
           on-mouseenter="_onSectionMouseenter">[[item.name]]</span>
         <iron-icon icon="cyc:close" class="icon"></iron-icon>
         <span
+          class="tab__border-right"
+          data-prop="tab.border"
+          on-mouseenter="_onSectionMouseenter"></span>
+        <span
           class="tab__border-bottom"
           data-prop="tab.activeBorder"
           on-mouseenter="_onSectionMouseenter"></span>

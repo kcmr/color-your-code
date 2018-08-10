@@ -13,12 +13,15 @@
   font-size: 13px;
   color: var(--tab-inactiveForeground);
   background-color: var(--tab-inactiveBackground);
-  border-right: 1px solid var(--tab-border);
   position: relative;
 }
 
 .tab:not(.active):hover .icon {
   opacity: 0.5;
+}
+
+.tab:not(:first-of-type) {
+  margin-left: 1px;
 }
 
 .icon {
@@ -50,4 +53,13 @@
 
 .active .tab__border-bottom {
   visibility: visible;
+}
+
+.tab__border-right {
+  position: absolute;
+  right: -1px;
+  top: 0;
+  width: 1px;
+  height: 100%;
+  background-color: var(--tab-border);
 }
