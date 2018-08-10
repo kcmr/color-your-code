@@ -9,6 +9,7 @@
 .body {
   display: flex;
   flex: 1;
+  overflow: hidden;
 }
 
 .activity-bar {
