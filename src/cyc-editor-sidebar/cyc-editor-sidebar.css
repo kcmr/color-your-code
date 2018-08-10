@@ -46,25 +46,25 @@
   font-size: 13px;
 }
 
-li {
+.file {
   padding: 3px 10px 3px 35px;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
 }
 
-li::after {
+.file::after {
   width: 2ch;
   text-align: center;
   font-size: 12px;
 }
 
-li:hover:not(.selected) {
+.file:hover:not(.selected) {
   background-color: var(--list-hoverBackground);
 }
 
-li[data-prop],
-li[data-prop]:hover {
+.file[data-prop],
+.file[data-prop]:hover {
   cursor: pointer;
 }
 
@@ -72,11 +72,17 @@ li[data-prop]:hover {
   background-color: var(--list-inactiveSelectionBackground);
 }
 
-.modified {
+.selected .file__foreground {
+  color: var(--list-activeSelectionForeground);
+}
+
+.modified,
+.modified .file__foreground {
   color: var(--gitDecoration-modifiedResourceForeground);
 }
 
-.untracked {
+.untracked,
+.untracked .file__foreground {
   color: var(--gitDecoration-untrackedResourceForeground);
 }
 

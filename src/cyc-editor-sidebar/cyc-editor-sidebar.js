@@ -30,7 +30,12 @@ class CycEditorSidebar extends highlightMixin(PolymerElement) {
 
       <ul class="files">
         <template is="dom-repeat" items="[[files]]">
-          <li class$="[[_computeClass(_selectedFileType, item)]]" on-click="_selectFile">[[item.name]]</li>
+          <li class$="file [[_computeClass(_selectedFileType, item)]]" on-click="_selectFile">
+            <span
+              class="file__foreground"
+              data-prop="list.activeSelectionForeground"
+              on-mouseenter="_onSectionMouseenter">[[item.name]]</span>
+          </li>
         </template>
       </ul>
     </div>
