@@ -3,7 +3,7 @@ import {highlightMixin} from '../cyc-mixins/cyc-highlight-mixin.js';
 import {jsFileContent, cssFileContent, htmlFileContent, mdFileContent} from './file-contents.js';
 import '@polymer/polymer/lib/elements/dom-repeat.js';
 import '@kuscamara/code-sample/code-sample.js';
-import {kustomDark} from '../../node_modules/@kuscamara/code-sample/themes/kustom-dark.js';
+import {kustomDark} from '@kuscamara/code-sample/themes/kustom-dark.js';
 import '../cyc-editor-tabs/cyc-editor-tabs.js';
 
 const CONTENT_FOR_FILE_TYPE = {
