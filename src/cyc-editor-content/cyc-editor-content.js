@@ -3,7 +3,6 @@ import {highlightMixin} from '../cyc-mixins/cyc-highlight-mixin.js';
 import {jsFileContent, cssFileContent, htmlFileContent, mdFileContent} from './file-contents.js';
 import '@polymer/polymer/lib/elements/dom-repeat.js';
 import '@kuscamara/code-sample/code-sample.js';
-import {kustomDark} from '@kuscamara/code-sample/themes/kustom-dark.js';
 import '../cyc-editor-tabs/cyc-editor-tabs.js';
 
 const CONTENT_FOR_FILE_TYPE = {
@@ -49,14 +48,6 @@ class CycEditorContent extends highlightMixin(PolymerElement) {
 
   static get properties() {
     return {
-      /**
-       * Theme used for the code.
-       */
-      codeSampleTheme: {
-        type: Object,
-        value: kustomDark,
-      },
-
       /**
        * Type (extension) of the current file selected in the editor.
        */
