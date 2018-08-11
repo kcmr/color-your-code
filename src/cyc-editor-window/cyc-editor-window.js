@@ -61,6 +61,7 @@ class CycEditorWindow extends highlightMixin(PolymerElement) {
 
       /**
        * List of project files.
+       * @type {Array}
        */
       projectFiles: {
         type: Array,

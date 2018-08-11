@@ -29,7 +29,7 @@ class CycEditorSidebar extends highlightMixin(PolymerElement) {
       </div>
 
       <ul class="files">
-        <template is="dom-repeat" items="[[files]]">
+        <template is="dom-repeat" items="[[files]]" id="files">
           <li class$="file [[_computeClass(_selectedFileType, item)]]" on-click="_selectFile">
             <span
               class="file__foreground"
