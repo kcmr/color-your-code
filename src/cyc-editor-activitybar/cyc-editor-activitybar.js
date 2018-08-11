@@ -17,7 +17,12 @@ class CycEditorActivitybar extends highlightMixin(PolymerElement) {
     <link rel="stylesheet" href="cyc-editor-activitybar.css" inline>
 
     <ul class="icons" on-mouseenter="_onSectionMouseenter" data-target-prop="activityBar.foreground">
-      <li><iron-icon icon="cyc:files" data-prop="activityBar.foreground" class="icon active"></iron-icon></li>
+      <li>
+        <span class="badge" data-prop="activityBarBadge.background" on-mouseenter="_onSectionMouseenter">
+          <span class="bagde-text" data-prop="activityBarBadge.foreground" on-mouseenter="_onSectionMouseenter">1</span>
+        </span>
+        <iron-icon icon="cyc:files" data-prop="activityBar.foreground" class="icon active"></iron-icon>
+      </li>
       <li><iron-icon icon="cyc:search" data-prop="activityBar.foreground" class="icon"></iron-icon></li>
       <li><iron-icon icon="cyc:git" data-prop="activityBar.foreground" class="icon"></iron-icon></li>
       <li><iron-icon icon="cyc:debug" data-prop="activityBar.foreground" class="icon"></iron-icon></li>

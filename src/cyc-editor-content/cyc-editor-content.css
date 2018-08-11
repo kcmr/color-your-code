@@ -1,0 +1,44 @@
+:host {
+  overflow: hidden;
+  --cyc-line-numbers-width: 50px;
+}
+
+.tabs {
+  position: relative;
+  z-index: 1;
+}
+
+.content {
+  display: flex;
+  position: relative;
+  height: 100%;
+}
+
+code-sample {
+  margin-top: -1.4rem;
+  letter-spacing: -0.02ch;
+  position: absolute;
+  left: var(--cyc-line-numbers-width);
+  --code-sample-background: transparent;
+  --code-sample-font-family: dm, monospace;
+  --code-sample-font-size: 14px;
+  --code-sample-line-height: 1.5;
+}
+
+.line-numbers {
+  font-family: dm, monospace;
+  font-size: 13px;
+  text-align: right;
+  color: var(--editorLineNumber-foreground);
+  width: var(--cyc-line-numbers-width);
+  padding-right: 5px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.line-number {
+  line-height: 1.3;
+  padding: 2px 0 3px;
+  height: 21px;
+  box-sizing: border-box;
+}

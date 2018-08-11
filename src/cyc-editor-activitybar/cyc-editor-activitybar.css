@@ -12,6 +12,7 @@
   text-align: center;
   min-height: 26px;
   margin-bottom: 24px;
+  position: relative;
 }
 
 .icon {
@@ -23,4 +24,18 @@
 
 .active {
   opacity: 1;
+}
+
+.badge {
+  position: absolute;
+  top: 12px;
+  right: 7px;
+  z-index: 1;
+  width: 18px;
+  height: 18px;
+  line-height: 18px;
+  border-radius: 50%;
+  background-color: var(--activityBarBadge-background);
+  color: var(--activityBarBadge-foreground);
+  font-size: 11px;
 }

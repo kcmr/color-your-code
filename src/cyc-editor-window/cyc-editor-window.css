@@ -9,9 +9,10 @@
 .body {
   display: flex;
   flex: 1;
+  overflow: hidden;
 }
 
-.activityBar {
+.activity-bar {
   width: 50px;
   background-color: var(--activityBar-background);
 }
@@ -26,12 +27,12 @@
   background-color: var(--editor-background);
 }
 
-.titleBar {
+.title-bar {
   background-color: var(--titleBar-activeBackground);
   color: var(--titleBar-activeForeground);
 }
 
-.statusBar {
+.status-bar {
   background-color: var(--statusBar-background);
   color: var(--statusBar-foreground);
   border-radius: 0 0 5px 5px;

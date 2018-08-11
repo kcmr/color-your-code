@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>cyc-editor-window</title>
+
+    <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="../node_modules/wct-browser-legacy/browser.js"></script>
+
+    <script type="module" src="../dist/cyc-editor-window/cyc-editor-window.js"></script>
+  </head>
+  <body>
+    <test-fixture id="default">
+      <template>
+        <cyc-editor-window></cyc-editor-window>
+      </template>
+    </test-fixture>
+
+    <script>
+      suite('<cyc-editor-window>', () => {
+        let el;
+
+        setup(() => {
+          el = fixture('default');
+        });
+
+        // Integration tests
+        // checks that own properties are properly bound to other components
+        suite('Components configuration', () => {
+          test('setting themeName sets themeName to <cyc-editor-titlebar>', () => {
+            const $titlebar = el.shadowRoot.querySelector('.title-bar');
+            el.themeName = 'any';
+            assert.equal($titlebar.themeName, el.themeName);
+          });
+
+          test('setting projectFiles sets files to <cyc-editor-sidebar>', () => {
+            const $sidebar = el.shadowRoot.querySelector('.sidebar');
+            assert.deepEqual($sidebar.files, el.projectFiles);
+          });
+
+          test('<cyc-editor-content> fileType is set as the type of the first item in projectFiles', () => {
+            const $content = el.shadowRoot.querySelector('.editor');
+            assert.equal($content.fileType, el.projectFiles[0].type);
+          });
+        });
+
+        suite('File selection', () => {
+          test('sets fileType and fileName on <cyc-editor-content> when <cyc-editor-sidebar> fires "selected-file" event', () => {
+            const $sidebar = el.shadowRoot.querySelector('.sidebar');
+            const $content = el.shadowRoot.querySelector('.editor');
+
+            const eventDetail = {type: 'css', name: 'any'};
+
+            $sidebar.dispatchEvent(new CustomEvent('selected-file', {
+              composed: true,
+              detail: eventDetail,
+            }));
+
+            assert.equal($content.fileType, eventDetail.type);
+            assert.equal($content.fileName, eventDetail.name);
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

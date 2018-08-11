@@ -1,3 +1,7 @@
+:host {
+  --cyc-triangle-border-width: 4px;
+}
+
 .heading {
   font-size: 11px;
   font-weight: 600;
@@ -11,28 +15,81 @@
 }
 
 .sidebar-heading {
-  color: white;
   padding: 6px 20px;
-  background-color: var(--bg-dark);
+  background-color: var(--sideBarSectionHeader-background);
   letter-spacing: 0.05ch;
+  position: relative;
 }
 
-.open-files {
+.sidebar-heading__foreground {
+  color: var(--sideBarSectionHeader-foreground);
+}
+
+.sidebar-heading::before {
+  position: absolute;
+  left: 7px;
+  top: 10px;
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: var(--cyc-triangle-border-width) solid transparent;
+  border-right: var(--cyc-triangle-border-width) solid transparent;
+  border-bottom: var(--cyc-triangle-border-width) solid #e8e8e8;
+  transform: rotate(135deg);
+}
+
+.files {
+  color: var(--editor-foreground);
   margin: 0;
   padding: 0;
   list-style: none;
-  color: #818CA7;
   font-size: 13px;
 }
 
-li {
-  padding: 3px 0 3px 35px;
+.file {
+  padding: 3px 10px 3px 35px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+}
+
+.file::after {
+  width: 2ch;
+  text-align: center;
+  font-size: 12px;
+}
+
+.file:hover:not(.selected) {
+  background-color: var(--list-hoverBackground);
+}
+
+.file[data-prop],
+.file[data-prop]:hover {
+  cursor: pointer;
 }
 
 .selected {
-  background: #303A51;
+  background-color: var(--list-inactiveSelectionBackground);
 }
 
-.modified {
-  color: #E4C286;
+.selected .file__foreground {
+  color: var(--list-activeSelectionForeground);
+}
+
+.modified,
+.modified .file__foreground {
+  color: var(--gitDecoration-modifiedResourceForeground);
+}
+
+.untracked,
+.untracked .file__foreground {
+  color: var(--gitDecoration-untrackedResourceForeground);
+}
+
+.modified::after {
+  content: "M";
+}
+
+.untracked::after {
+  content: "U";
 }

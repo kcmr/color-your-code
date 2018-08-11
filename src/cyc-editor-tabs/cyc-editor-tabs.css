@@ -1,0 +1,66 @@
+:host {
+  display: flex;
+  background-color: var(--editorGroupHeader-tabsBackground);
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  min-width: 50px;
+  height: 35px;
+  font-size: 13px;
+  white-space: nowrap;
+  color: var(--tab-inactiveForeground);
+  background-color: var(--tab-inactiveBackground);
+  position: relative;
+}
+
+.tab:not(.active):hover .icon {
+  opacity: 0.5;
+}
+
+.tab:not(:first-of-type) {
+  margin-left: 1px;
+}
+
+.icon {
+  width: 10px;
+  height: 10px;
+  margin-left: 10px;
+  opacity: 0;
+  fill: #c5c5c5;
+}
+
+.active {
+  color: var(--tab-activeForeground);
+  background-color: var(--tab-activeBackground);
+}
+
+.active .icon {
+  opacity: 1;
+}
+
+.tab__border-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  width: 100%;
+  background-color: var(--tab-activeBorder);
+  visibility: hidden;
+}
+
+.active .tab__border-bottom {
+  visibility: visible;
+}
+
+.tab__border-right {
+  position: absolute;
+  right: -1px;
+  top: 0;
+  width: 1px;
+  height: 100%;
+  background-color: var(--tab-border);
+}
