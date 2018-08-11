@@ -99,7 +99,7 @@
 
           test('clicking a file in the list sets the item as selected (has "selected" class)', () => {
             $fileItems[2].click();
-            assert.isTrue($fileItems[2].classList.contains('selected'), 'the selected item has "selected" class');;
+            assert.isTrue($fileItems[2].classList.contains('selected'), 'the selected item has "selected" class');
             assert.isFalse($fileItems[0].classList.contains('selected'), 'the previous selected item does not have "selected" class');
           });
         });
