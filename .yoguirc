@@ -1,0 +1,26 @@
+{
+  "app-element": {
+    "templates": "tasks/templates/element/",
+    "fileNameReplacement": ["element", "name"],
+    "dest": "src/{{name}}",
+    "questions": [
+      {
+        "type": "input",
+        "name": "name",
+        "message": "Element name"
+      }
+    ]
+  },
+  "app-element-test": {
+    "templates": "tasks/templates/element-test/",
+    "fileNameReplacement": ["element", "name"],
+    "dest": "test/",
+    "questions": [
+      {
+        "type": "input",
+        "name": "name",
+        "message": "Element name"
+      }
+    ]
+  }
+}

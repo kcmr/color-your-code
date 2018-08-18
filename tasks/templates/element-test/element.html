@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>{{name}}</title>
+
+    <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="../node_modules/wct-browser-legacy/browser.js"></script>
+
+    <script type="module" src="../dist/{{name}}/{{name}}.js"></script>
+  </head>
+  <body>
+    <test-fixture id="default">
+      <template>
+        <{{name}}></{{name}}>
+      </template>
+    </test-fixture>
+
+    <script>
+      suite('<{{name}}>', () => {
+        let el;
+
+        setup(() => {
+          el = fixture('default');
+        });
+
+        test('');
+      });
+    </script>
+  </body>
+</html>

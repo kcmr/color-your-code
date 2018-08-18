@@ -28,7 +28,8 @@
     "pre-push": "^0.1.1",
     "wct-browser-legacy": "^1.0.1",
     "wct-istanbul": "~0.14.3",
-    "web-component-tester": "^6.7.1"
+    "web-component-tester": "^6.7.1",
+    "yogui": "^0.2.0"
   },
   "scripts": {
     "lint": "npm run lint:javascript && polymer lint",
@@ -37,7 +38,7 @@
     "test:integration": "polymer build # test that psk builds without error with the CLI",
     "serve:dev": "gulp serve",
     "start": "gulp serve",
-    "create:element": "node tasks/element-generator",
+    "create:element": "yogui",
     "build": "gulp build:dist && polymer build"
   },
   "pre-push": [
