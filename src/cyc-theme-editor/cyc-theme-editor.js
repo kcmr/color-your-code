@@ -24,6 +24,15 @@ class CycThemeEditor extends utilsMixin(PolymerElement) {
         on-change="_updateTheme">
 
       <div class="form-actions">
+        <button class="btn" type="button" title="Edit mode">
+          <iron-icon icon="cyc:eyedroper" class="icon-eyedroper"></iron-icon>
+        </button>
+        <button class="btn" type="button" title="Edit mode">
+          <iron-icon icon="cyc:cursor" class="icon-eyedroper"></iron-icon>
+        </button>
+        <button class="btn" type="button" title="Edit mode">
+          <iron-icon icon="cyc:crosshair"></iron-icon>
+        </button>
         <button class="btn" type="reset" title="Discard all changes" disabled="[[!_themeChanged]]">
           <iron-icon icon="cyc:trash"></iron-icon>
         </button>
@@ -226,6 +235,7 @@ class CycThemeEditor extends utilsMixin(PolymerElement) {
    * Opens the color picker to edit the the current `editProperty`.
    */
   openColorPicker() {
+    this.$.inputColor.focus(); // Required for Edge
     this.$.inputColor.click();
     this._setLastEditedProperty();
   }
