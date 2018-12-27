@@ -1,16 +1,9 @@
 import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
 import {highlightMixin} from '../cyc-mixins/cyc-highlight-mixin.js';
-import {jsFileContent, cssFileContent, htmlFileContent, mdFileContent} from './file-contents.js';
+import {readmeContent} from './readme-content.js';
 import '@polymer/polymer/lib/elements/dom-repeat.js';
 import '@kuscamara/code-sample/code-sample.js';
 import '../cyc-editor-tabs/cyc-editor-tabs.js';
-
-const CONTENT_FOR_FILE_TYPE = {
-  js: jsFileContent,
-  html: htmlFileContent,
-  css: cssFileContent,
-  md: mdFileContent,
-};
 
 /**
  * Contains the code of the selected file.
@@ -60,12 +53,11 @@ class CycEditorContent extends highlightMixin(PolymerElement) {
        */
       fileName: {
         type: String,
-        observer: '_fileNameChanged',
       },
 
       _fileContent: {
         type: String,
-        computed: '_computeFileContent(fileType)',
+        value: readmeContent,
       },
 
       _fileLines: {
@@ -81,7 +73,7 @@ class CycEditorContent extends highlightMixin(PolymerElement) {
       _tabs: {
         type: Array,
         value: () => [{
-          name: 'some-file.js',
+          name: 'README.md',
           active: true,
         }, {
           name: 'inactive-tab',
@@ -91,13 +83,9 @@ class CycEditorContent extends highlightMixin(PolymerElement) {
     };
   }
 
-  _computeFileContent(fileType) {
-    return CONTENT_FOR_FILE_TYPE[fileType];
-  }
-
-  _computeFileContentLines(fileConent) {
+  _computeFileContentLines(fileContent) {
     const endOfLine = /\r?\n/g;
-    return fileConent.match(endOfLine).length;
+    return fileContent.match(endOfLine).length;
   }
 
   _computeCodeSampleContent(fileContent) {
@@ -110,10 +98,6 @@ class CycEditorContent extends highlightMixin(PolymerElement) {
 
   _computeLineNumber(number) {
     return number + 1;
-  }
-
-  _fileNameChanged(fileName) {
-    this.set(['_tabs', 0, 'name'], fileName);
   }
 }
 

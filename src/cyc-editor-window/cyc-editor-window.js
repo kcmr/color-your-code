@@ -34,12 +34,11 @@ class CycEditorWindow extends highlightMixin(PolymerElement) {
         class="sidebar"
         data-prop="sideBar.background"
         files="[[projectFiles]]"
-        on-mouseenter="_onSectionMouseenter"
-        on-selected-file="_onEditorSidebarSelectedFile"></cyc-editor-sidebar>
+        on-mouseenter="_onSectionMouseenter"></cyc-editor-sidebar>
       <cyc-editor-content
         class="editor"
-        file-type="[[_fileType]]"
-        file-name="[[_activeFileName]]"></cyc-editor-content>
+        file-type="[[_activeFile.type]]"
+        file-name="[[_activeFile.name]]"></cyc-editor-content>
     </div>
 
     <cyc-editor-statusbar
@@ -79,27 +78,19 @@ class CycEditorWindow extends highlightMixin(PolymerElement) {
           name: 'README.md',
           type: 'md',
           untracked: true,
+          selected: true,
         }],
       },
 
-      _activeFileName: {
-        type: String,
-      },
-
-      /**
-       * Selected file type.
-       */
-      _fileType: {
-        type: String,
-        value: 'js',
+      _activeFile: {
+        type: Object,
+        computed: '_computeActiveFile(projectFiles)',
       },
     };
   }
 
-  _onEditorSidebarSelectedFile(event) {
-    const {type, name} = event.detail;
-    this._fileType = type;
-    this._activeFileName = name;
+  _computeActiveFile(projectFiles) {
+    return projectFiles.filter((file) => file.selected)[0];
   }
 }
 

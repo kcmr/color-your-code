@@ -30,7 +30,7 @@ class CycEditorSidebar extends highlightMixin(PolymerElement) {
 
       <ul class="files">
         <template is="dom-repeat" items="[[files]]" id="files">
-          <li class$="file [[_computeClass(_selectedFileType, item)]]" on-click="_selectFile">
+          <li class$="file [[_computeClass(item)]]">
             <span
               class="file__foreground"
               data-prop="list.activeSelectionForeground"
@@ -44,11 +44,6 @@ class CycEditorSidebar extends highlightMixin(PolymerElement) {
 
   static get properties() {
     return {
-      _selectedFileType: {
-        type: String,
-        value: 'js',
-      },
-
       /**
        * List of files.
        */
@@ -58,31 +53,13 @@ class CycEditorSidebar extends highlightMixin(PolymerElement) {
     };
   }
 
-  _computeClass(selectedFileType, item) {
-    const {type, modified, untracked} = item;
+  _computeClass(item) {
+    const {modified, untracked, selected} = item;
 
     return this._classString({
       'modified': modified,
       'untracked': untracked,
-      'selected': selectedFileType === type,
-    });
-  }
-
-  _selectFile(event) {
-    event.stopPropagation();
-
-    const {type, name} = event.model.item;
-    this._selectedFileType = type;
-
-    /**
-     * Fired after selecting a file.
-     * @event selected-file
-     * @param {Object} detail
-     * @param {String} detail.type file extension (html | js | css).
-     * @param {String} detail.name file name.
-     */
-    this._emit('selected-file', {
-      type, name,
+      'selected': selected,
     });
   }
 }
