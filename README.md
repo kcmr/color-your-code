@@ -15,7 +15,7 @@
   ```
 - Create a new element in src folder:
   ```
-  npm run create:element <element-name>
+  npm run create:element
   ```
 - Run the tests with coverage output:
   ```
