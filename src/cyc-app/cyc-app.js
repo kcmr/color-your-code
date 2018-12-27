@@ -32,7 +32,7 @@ class CycApp extends utilsMixin(PolymerElement) {
       </cyc-editor-window>
 
       <div class="hover-info">
-        <span>[[_hoveredEditorSection]]</span>
+        <span class="editor-section-name">[[_hoveredEditorSection]]</span>
         <span class="color-preview" style$="background-color: var([[_hoveredEditorColor]]);"></span>
       </div>
     </div>
@@ -65,7 +65,7 @@ class CycApp extends utilsMixin(PolymerElement) {
        * Hovered color on the edito window.
        */
       _hoveredEditorColor: {
-        type: String
+        type: String,
       },
 
       /**
@@ -115,7 +115,7 @@ class CycApp extends utilsMixin(PolymerElement) {
   _onEditorWindowMouseleave() {
     setTimeout(() => {
       this._hoveredEditorSection = '';
-      this._hoveredEditorColor = 'transparent';
+      this._hoveredEditorColor = '';
     }, 100);
   }
 

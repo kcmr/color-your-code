@@ -38,7 +38,23 @@
         });
 
         suite('hover editor window', () => {
-          test('displays the editor section hovered', () => {
+          const themeResponseMock = {
+            colors: [{
+              prop: 'activityBar.background',
+              cssVar: '--activityBar-background',
+              value: '#141820'
+            }]
+          };
+
+          setup(() => {
+            const $dm = el.$.dmTheme;
+
+            $dm.dispatchEvent(new CustomEvent('response-success', {
+              detail: themeResponseMock
+            }));
+          });
+
+          test('displays the editor section hovered in the footer', () => {
             let hoveredSection;
 
             $editorWindow.addEventListener('editor-section-hover', (event) => {
@@ -46,25 +62,36 @@
             });
 
             $editorWindow.dispatchEvent(new CustomEvent('editor-section-hover', {
-              detail: 'any',
+              detail: themeResponseMock.colors[0].prop,
             }));
 
-            const $sectionInfo = el.shadowRoot.querySelector('.hover-info');
+            const $sectionInfo = el.shadowRoot.querySelector('.editor-section-name');
             assert.equal($sectionInfo.innerText, hoveredSection);
           });
 
+          test('displays the color hovered in the footer', () => {
+            $editorWindow.dispatchEvent(new CustomEvent('editor-section-hover', {
+              detail: themeResponseMock.colors[0].prop,
+            }));
+
+            const $sectionColor = el.shadowRoot.querySelector('.color-preview');
+            assert.include($sectionColor.style.backgroundColor, `var(${themeResponseMock.colors[0].cssVar})`);
+          });
+
           test('hover info is empty after 100ms when the editor window is not hovered', () => {
-            const $sectionInfo = el.shadowRoot.querySelector('.hover-info');
+            const $sectionInfo = el.shadowRoot.querySelector('.editor-section-name');
+            const $sectionColor = el.shadowRoot.querySelector('.color-preview');
             const timeoutStub = sinon.stub(window, 'setTimeout', function(cb) {
               cb.call(el);
             });
 
             $editorWindow.dispatchEvent(new CustomEvent('editor-section-hover', {
-              detail: 'any',
+              detail: themeResponseMock.colors[0].prop,
             }));
 
             $editorWindow.dispatchEvent(new MouseEvent('mouseleave'));
             assert.equal($sectionInfo.innerText, '');
+            assert.equal($sectionColor.style.backgroundColor, '');
             assert.equal(timeoutStub.getCall(0).args[1], 100);
             timeoutStub.restore();
           });
