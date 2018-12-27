@@ -39,7 +39,7 @@
 }
 
 .files {
-  color: var(--editor-foreground);
+  color: var(--foreground);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -69,20 +69,15 @@
 }
 
 .selected {
+  color: var(--list-activeSelectionForeground);
   background-color: var(--list-inactiveSelectionBackground);
 }
 
-.selected .file__foreground {
-  color: var(--list-activeSelectionForeground);
-}
-
-.modified,
-.modified .file__foreground {
+.modified {
   color: var(--gitDecoration-modifiedResourceForeground);
 }
 
-.untracked,
-.untracked .file__foreground {
+.untracked {
   color: var(--gitDecoration-untrackedResourceForeground);
 }
 

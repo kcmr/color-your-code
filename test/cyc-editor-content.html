@@ -28,18 +28,17 @@
 
         suite('setting fileType', () => {
           setup(() => {
-            el.fileType = 'css';
+            el.fileType = 'md';
           });
 
-          test('sets the corresponding content to <code-sample>', () => {
+          test('sets the corresponding file type to <code-sample>', () => {
             const $codeSample = el.$.code;
-            assert.include($codeSample.innerHTML, '.heading {');
+            assert.equal($codeSample.type, el.fileType);
           });
 
           test('sets the same number of lines as the file content', () => {
-            const cssFileContentLines = 27;
             const $lines = el.$.lines;
-            assert.equal($lines.items.length, cssFileContentLines);
+            assert.equal($lines.items.length, el._fileLines);
           });
 
           test('line numbers start with 1', (done) => {

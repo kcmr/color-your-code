@@ -30,10 +30,11 @@ class CycEditorSidebar extends highlightMixin(PolymerElement) {
 
       <ul class="files">
         <template is="dom-repeat" items="[[files]]" id="files">
-          <li class$="file [[_computeClass(_selectedFileType, item)]]" on-click="_selectFile">
-            <span
-              class="file__foreground"
-              data-prop="list.activeSelectionForeground"
+          <li class$="file [[_computeClass(item)]]"
+            data-prop$="[[_computeFileBackgroundDataProp(item)]]"
+            on-mouseenter="_onSectionMouseenter">
+            <span class="file__foreground"
+              data-prop$="[[_computeFileForegroundDataProp(item)]]"
               on-mouseenter="_onSectionMouseenter">[[item.name]]</span>
           </li>
         </template>
@@ -44,11 +45,6 @@ class CycEditorSidebar extends highlightMixin(PolymerElement) {
 
   static get properties() {
     return {
-      _selectedFileType: {
-        type: String,
-        value: 'js',
-      },
-
       /**
        * List of files.
        */
@@ -58,31 +54,30 @@ class CycEditorSidebar extends highlightMixin(PolymerElement) {
     };
   }
 
-  _computeClass(selectedFileType, item) {
-    const {type, modified, untracked} = item;
+  _computeClass(item) {
+    const {modified, untracked, selected} = item;
 
     return this._classString({
       'modified': modified,
       'untracked': untracked,
-      'selected': selectedFileType === type,
+      'selected': selected,
     });
   }
 
-  _selectFile(event) {
-    event.stopPropagation();
+  _computeFileBackgroundDataProp(item) {
+    return (item.selected)
+      ? 'list.inactiveSelectionBackground'
+      : 'list.hoverBackground';
+  }
 
-    const {type, name} = event.model.item;
-    this._selectedFileType = type;
+  _computeFileForegroundDataProp(item) {
+    const {modified, untracked, selected} = item;
 
-    /**
-     * Fired after selecting a file.
-     * @event selected-file
-     * @param {Object} detail
-     * @param {String} detail.type file extension (html | js | css).
-     * @param {String} detail.name file name.
-     */
-    this._emit('selected-file', {
-      type, name,
+    return this._classString({
+      'gitDecoration.modifiedResourceForeground': modified,
+      'gitDecoration.untrackedResourceForeground': untracked,
+      'list.activeSelectionForeground': selected,
+      'foreground': (!modified && !untracked && !selected),
     });
   }
 }

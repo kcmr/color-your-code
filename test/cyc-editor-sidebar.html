@@ -58,6 +58,7 @@
               name: 'file-3.css',
               type: 'css',
               untracked: true,
+              selected: true,
             }];
 
             flush(() => {
@@ -70,9 +71,15 @@
             assert.equal(el.files.length, el.$.files.items.length);
           });
 
+          test('each file item has the correct name', () => {
+            $fileItems.forEach(($fileItem, index) => {
+              assert.equal($fileItem.innerText.trim(), el.files[index].name);
+            });
+          });
+
           test('each file item has the appropriate class depending on its modified, untracked and/or selected state', () => {
             assert.isTrue($fileItems[0].classList.contains('modified'));
-            assert.isTrue($fileItems[0].classList.contains('selected'));
+            assert.isFalse($fileItems[0].classList.contains('selected'));
             assert.isFalse($fileItems[0].classList.contains('untracked'));
 
             assert.isFalse($fileItems[1].classList.contains('modified'));
@@ -81,26 +88,7 @@
 
             assert.isTrue($fileItems[2].classList.contains('untracked'));
             assert.isFalse($fileItems[2].classList.contains('modified'));
-            assert.isFalse($fileItems[2].classList.contains('selected'));
-          });
-
-          test('clicking a file in the list fires "selected-file" event with the type and name as payload', () => {
-            const eventSpy = sinon.spy();
-            el.addEventListener('selected-file', eventSpy);
-
-            $fileItems[1].click();
-
-            const eventDetail = eventSpy.getCall(0).args[0].detail;
-            assert.deepEqual(eventDetail, {
-              type: el.files[1].type,
-              name: el.files[1].name,
-            });
-          });
-
-          test('clicking a file in the list sets the item as selected (has "selected" class)', () => {
-            $fileItems[2].click();
-            assert.isTrue($fileItems[2].classList.contains('selected'), 'the selected item has "selected" class');
-            assert.isFalse($fileItems[0].classList.contains('selected'), 'the previous selected item does not have "selected" class');
+            assert.isTrue($fileItems[2].classList.contains('selected'));
           });
         });
       });
