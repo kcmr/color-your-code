@@ -50,6 +50,7 @@ class CycEditorContent extends highlightMixin(PolymerElement) {
 
       /**
        * Name of the current file selected in the editor.
+       * Sets the name of the active tab.
        */
       fileName: {
         type: String,
@@ -72,15 +73,19 @@ class CycEditorContent extends highlightMixin(PolymerElement) {
 
       _tabs: {
         type: Array,
-        value: () => [{
-          name: 'README.md',
-          active: true,
-        }, {
-          name: 'inactive-tab',
-          active: false,
-        }],
+        computed: '_computeTabs(fileName)',
       },
     };
+  }
+
+  _computeTabs(fileName) {
+    return [{
+      name: fileName,
+      active: true,
+    }, {
+      name: 'inactive-tab',
+      active: false,
+    }];
   }
 
   _computeFileContentLines(fileContent) {
