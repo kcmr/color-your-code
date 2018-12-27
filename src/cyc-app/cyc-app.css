@@ -36,7 +36,18 @@
 
 .hover-info {
   font-size: 12px;
+  line-height: 1;
   padding: 10px 0;
   color: rgba(255, 255, 255, 0.8);
   text-align: right;
+  display: inline-flex;
+  align-items: center;
+  float: right;
+}
+
+.color-preview {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  margin-left: 8px;
 }
