@@ -42,15 +42,15 @@
             colors: [{
               prop: 'activityBar.background',
               cssVar: '--activityBar-background',
-              value: '#141820'
-            }]
+              value: '#141820',
+            }],
           };
 
           setup(() => {
             const $dm = el.$.dmTheme;
 
             $dm.dispatchEvent(new CustomEvent('response-success', {
-              detail: themeResponseMock
+              detail: themeResponseMock,
             }));
           });
 
