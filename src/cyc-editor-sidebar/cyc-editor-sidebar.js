@@ -31,9 +31,8 @@ class CycEditorSidebar extends highlightMixin(PolymerElement) {
       <ul class="files">
         <template is="dom-repeat" items="[[files]]" id="files">
           <li class$="file [[_computeClass(item)]]">
-            <span
-              class="file__foreground"
-              data-prop="list.activeSelectionForeground"
+            <span class="file__foreground"
+              data-prop$="[[_computeDataProp(item)]]"
               on-mouseenter="_onSectionMouseenter">[[item.name]]</span>
           </li>
         </template>
@@ -60,6 +59,16 @@ class CycEditorSidebar extends highlightMixin(PolymerElement) {
       'modified': modified,
       'untracked': untracked,
       'selected': selected,
+    });
+  }
+
+  _computeDataProp(item) {
+    const {modified, untracked} = item;
+
+    return this._classString({
+      'gitDecoration.modifiedResourceForeground': modified,
+      'gitDecoration.untrackedResourceForeground': untracked,
+      'foreground': (!modified && !untracked),
     });
   }
 }
