@@ -74,10 +74,10 @@ class CycEditorWindow extends highlightMixin(PolymerElement) {
         }, {
           name: 'some-file.css',
           type: 'css',
+          untracked: true,
         }, {
           name: 'README.md',
           type: 'md',
-          untracked: true,
           selected: true,
         }],
       },

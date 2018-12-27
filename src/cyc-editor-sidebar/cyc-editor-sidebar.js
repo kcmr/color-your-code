@@ -71,12 +71,13 @@ class CycEditorSidebar extends highlightMixin(PolymerElement) {
   }
 
   _computeFileForegroundDataProp(item) {
-    const {modified, untracked} = item;
+    const {modified, untracked, selected} = item;
 
     return this._classString({
       'gitDecoration.modifiedResourceForeground': modified,
       'gitDecoration.untrackedResourceForeground': untracked,
-      'foreground': (!modified && !untracked),
+      'list.activeSelectionForeground': selected,
+      'foreground': (!modified && !untracked && !selected),
     });
   }
 }
