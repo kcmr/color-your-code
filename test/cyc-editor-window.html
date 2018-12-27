@@ -40,26 +40,10 @@
             assert.deepEqual($sidebar.files, el.projectFiles);
           });
 
-          test('<cyc-editor-content> fileType is set as the type of the first item in projectFiles', () => {
+          test('<cyc-editor-content> fileType is set as the type of the selected item in projectFiles', () => {
             const $content = el.shadowRoot.querySelector('.editor');
-            assert.equal($content.fileType, el.projectFiles[0].type);
-          });
-        });
-
-        suite('File selection', () => {
-          test('sets fileType and fileName on <cyc-editor-content> when <cyc-editor-sidebar> fires "selected-file" event', () => {
-            const $sidebar = el.shadowRoot.querySelector('.sidebar');
-            const $content = el.shadowRoot.querySelector('.editor');
-
-            const eventDetail = {type: 'css', name: 'any'};
-
-            $sidebar.dispatchEvent(new CustomEvent('selected-file', {
-              composed: true,
-              detail: eventDetail,
-            }));
-
-            assert.equal($content.fileType, eventDetail.type);
-            assert.equal($content.fileName, eventDetail.name);
+            const selectedFile = el.projectFiles.filter((file) => file.selected)[0];
+            assert.equal($content.fileType, selectedFile.type);
           });
         });
       });
