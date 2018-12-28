@@ -1,7 +1,15 @@
 version: 2
 jobs:
-  steps:
-    - checkout
-    - run:
-        name: build-deploy
-        command: npm run deploy
+  deploy:
+    steps:
+      - checkout
+      - run:
+          name: build-deploy
+          command: npm run deploy
+workflows:
+  version: 2
+  deploy:
+    jobs:
+      - deploy:
+          filters:
+            only: release/1.0.0
