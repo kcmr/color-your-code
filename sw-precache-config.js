@@ -1,7 +1,9 @@
 module.exports = {
   staticFileGlobs: [
     'src/**/*',
-    'manifest.json',
+    'dist/**/*',
+    'images/*',
+    'electron-color-theme.json'
   ],
   runtimeCaching: [
     {
