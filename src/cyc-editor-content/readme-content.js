@@ -16,7 +16,7 @@ creating your own theme (optional).
 
 ## Under the hood
 
-This editor is a little experiment made with Web Components using Polymer 3,
+This is a little experiment made with Web Components using Polymer 3,
 Visual Studio Code (obviously), and... ok, Sublime Text ❤ :)
 
 The base theme is [Electron](https://marketplace.visualstudio.com/items?itemName=kuscamara.electron)
