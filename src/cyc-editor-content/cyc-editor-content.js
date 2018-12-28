@@ -31,10 +31,13 @@ class CycEditorContent extends highlightMixin(PolymerElement) {
         </template>
       </div>
 
-      <code-sample id="code"
-        type="[[fileType]]"
-        inner-h-t-m-l="[[_codeSampleContent]]"
-      ></code-sample>
+      <div class="code-wrapper">
+        <code-sample id="code"
+          on-click="_onCodeClick"
+          type="[[fileType]]"
+          inner-h-t-m-l="[[_codeSampleContent]]"
+        ></code-sample>
+      </div>
     </div>
     `;
   }
@@ -103,6 +106,10 @@ class CycEditorContent extends highlightMixin(PolymerElement) {
 
   _computeLineNumber(number) {
     return number + 1;
+  }
+
+  _onCodeClick(event) {
+    event.stopPropagation();
   }
 }
 

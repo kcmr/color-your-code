@@ -18,11 +18,23 @@ code-sample {
   margin-top: -1.4rem;
   letter-spacing: -0.02ch;
   position: absolute;
-  left: var(--cyc-line-numbers-width);
+  top: 0;
+  left: 0;
+  cursor: text;
   --code-sample-background: transparent;
   --code-sample-font-family: dm, monospace;
   --code-sample-font-size: 14px;
   --code-sample-line-height: 1.5;
+  --code-sample-hljs: {
+    padding: 0;
+  };
+}
+
+.code-wrapper {
+  overflow-x: auto;
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
 .line-numbers {
@@ -30,8 +42,8 @@ code-sample {
   font-size: 13px;
   text-align: right;
   color: var(--editorLineNumber-foreground);
-  width: var(--cyc-line-numbers-width);
-  padding-right: 5px;
+  width: 75px;
+  padding-right: 30px;
   box-sizing: border-box;
   flex-shrink: 0;
 }
