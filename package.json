@@ -40,8 +40,7 @@
     "serve:dev": "gulp serve",
     "start": "gulp serve",
     "create:element": "yogui",
-    "build": "gulp build:dist && polymer build",
-    "deploy": "npm run build && surge build/es6-bundled $npm_package_homepage"
+    "build": "gulp build:dist && polymer build"
   },
   "pre-push": [
     "lint"
