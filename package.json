@@ -2,7 +2,7 @@
   "name": "color-your-code",
   "version": "0.0.0",
   "license": "MIT",
-  "homepage": "https://www.coloryourcode.com",
+  "homepage": "https://color-your-code.firebaseapp.com/",
   "dependencies": {
     "@kuscamara/code-sample": "^3.0.0",
     "@polymer/iron-icon": "git+https://git@github.com/kcmr/iron-icon.git#6118aae36db7",
@@ -26,7 +26,6 @@
     "portfinder": "^1.0.13",
     "postcss-pixels-to-rem": "^0.8.0",
     "pre-push": "^0.1.1",
-    "surge": "^0.20.1",
     "wct-browser-legacy": "^1.0.1",
     "wct-istanbul": "~0.14.3",
     "web-component-tester": "^6.7.1",
@@ -40,8 +39,7 @@
     "serve:dev": "gulp serve",
     "start": "gulp serve",
     "create:element": "yogui",
-    "build": "gulp build:dist && polymer build",
-    "deploy": "npm run build && surge build/es6-bundled $npm_package_homepage"
+    "build": "gulp build:dist && polymer build"
   },
   "pre-push": [
     "lint"
