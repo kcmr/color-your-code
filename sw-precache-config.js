@@ -3,7 +3,7 @@ module.exports = {
     'src/**/*',
     'dist/**/*',
     'images/*',
-    'electron-color-theme.json'
+    'electron-color-theme.json',
   ],
   runtimeCaching: [
     {
