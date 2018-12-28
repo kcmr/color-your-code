@@ -10,7 +10,7 @@ jobs:
           command: npm install
       - run:
           name: install-polymer
-          command: npm install polymer-cli@1.7.2
+          command: sudo npm install -g polymer-cli@1.7.2
       - run:
           name: build-deploy
           command: npm run deploy
