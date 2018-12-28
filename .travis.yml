@@ -17,7 +17,7 @@ deploy:
   skip_cleanup: true
   provider: surge
   project: "./build/es6-bundled"
-  domain: coloryourcode.surge.sh
+  domain: www.coloryourcode.com
 env:
   global:
   - secure: THTBePZkmRIE6aiszY838tBIllKjfygONhQ9YEvVfsGZQTZeWNIHU87/82e733RCLK8gl6Xa6JKWqaN7qyVtMaCyq3tPTL+5S7xLJi+Rea4acHfa6MVCpwQZ/BhuiGTOwNCTxIipGH045TthOMD/+nXDsjyaHtE7fYxhhI5ZJMYi7xHsTae/jDcgBJKL3XvzUR1+LtJDgzfO7LbQNy8duxZBYYZHev9Y1W9I5ssnoqQFXLpak5s3m+0Q1Gop/6S7F6wpa7AFKCf7mN2HhsP94+TzoLESIccjpU7M4VDek1tyH75u2KZGHMAnKONQSI/QDOt8ULFdK3BSKWwjYYPEM6RlG+GtaSPoRb3oq4/iahZIg83Gj+2xSCAQGCUY+nnPgEtlnc8E+Y+/wjhGW8xMIU9GvZZAwf2HlDyObrR8Xhn9URk8bd0gbonthmnmKlw1xjvPYc4bM+C8Xc4c5BFRPxtHORcR27ZsP6/Owetc+IuXZbDwA0E2H1WpNwKoBk7gbf7KAsk/TGRrdmcZ1VQ2MmaeKekFjl06fhT/1xwrtCBAYk5crkYf9Hdh6qQDtX2NWxepWyPoDEF71evFI1K82QXBO3XlzjiZamtTuJi1JSdibjU7i5eQaM8ekxyDtlEJjSqPeW4jidPyOzleW1jUx/kdmnJOW0muYdl08EuUz9w=
