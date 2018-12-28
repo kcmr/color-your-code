@@ -6,14 +6,11 @@ jobs:
     steps:
       - checkout
       - run:
+          name: install-deps
+          command: npm install
+      - run:
           name: build-deploy
-          command: |
-          npm install
-          npm install -g codecov
-          npm install -g polymer-cli@1.7.2
-          xvfb-run npm test
-          codecov
-          npm run build
+          command: npm run deploy
 workflows:
   version: 2
   deploy:
