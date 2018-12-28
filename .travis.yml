@@ -1,14 +1,24 @@
 language: node_js
 sudo: required
 node_js:
-  - "8"
+- '8'
 addons:
   chrome: stable
 install:
-  - npm install
-  - npm install -g codecov
+- npm install
+- npm install -g codecov
 before_script:
-  - npm install -g polymer-cli@1.7.2
+- npm install -g polymer-cli@1.7.2
 script:
-  - xvfb-run npm test
-  - codecov
+- xvfb-run npm test
+- codecov
+- npm run build
+deploy:
+  skip_cleanup: true
+  provider: surge
+  project: "./build/es6-bundled"
+  domain: coloryourcode.surge.sh
+env:
+  global:
+  - secure: THTBePZkmRIE6aiszY838tBIllKjfygONhQ9YEvVfsGZQTZeWNIHU87/82e733RCLK8gl6Xa6JKWqaN7qyVtMaCyq3tPTL+5S7xLJi+Rea4acHfa6MVCpwQZ/BhuiGTOwNCTxIipGH045TthOMD/+nXDsjyaHtE7fYxhhI5ZJMYi7xHsTae/jDcgBJKL3XvzUR1+LtJDgzfO7LbQNy8duxZBYYZHev9Y1W9I5ssnoqQFXLpak5s3m+0Q1Gop/6S7F6wpa7AFKCf7mN2HhsP94+TzoLESIccjpU7M4VDek1tyH75u2KZGHMAnKONQSI/QDOt8ULFdK3BSKWwjYYPEM6RlG+GtaSPoRb3oq4/iahZIg83Gj+2xSCAQGCUY+nnPgEtlnc8E+Y+/wjhGW8xMIU9GvZZAwf2HlDyObrR8Xhn9URk8bd0gbonthmnmKlw1xjvPYc4bM+C8Xc4c5BFRPxtHORcR27ZsP6/Owetc+IuXZbDwA0E2H1WpNwKoBk7gbf7KAsk/TGRrdmcZ1VQ2MmaeKekFjl06fhT/1xwrtCBAYk5crkYf9Hdh6qQDtX2NWxepWyPoDEF71evFI1K82QXBO3XlzjiZamtTuJi1JSdibjU7i5eQaM8ekxyDtlEJjSqPeW4jidPyOzleW1jUx/kdmnJOW0muYdl08EuUz9w=
+  - secure: ePQYFy1KotRzk3d+GIPIhZaNnGIcwihF3llLN4jzFZo3yNdioq1n6A2c1erWig0CQuUYbSTeM2FP74TzDa7rvZPPJj7fbvH/T/SW6giCG6DGsg+QV+zG97X6m2oBb9Ym2RDG+aBlFNNOOy31ZrEON11cyHhnKwBSs1ftbb7v+M+rAfp7BJMD6z5digfN+2lV4PTLgWBju6u0AkeCo23QeAyWm8xNHHEjkHKTyzr6qFeWn005WlS+ymMVsOaqlvDmPMY5lKhCr+Sqr26ubrGu8Cu4l55RH+GyyqdbyupIFvoiJre1dzSw3ElUykK8JZM+YCzfEd+kHflmtMRPGQcD2deKfK1TVFKC0re5O1mQWCyYsWunMON1TnheTsO/BZPLcG9GSrRuPBb/oJyhMb7/i482bC5u+uvwFZAF+QarLAepArYFQN9Pu8LnrDDja0OU5/Tt4IVXGAXt/47yYT5KMPqwKSWFWCWTrOi6vhrhVda0y5Wo4Iai4yKdwXUxFEgNvCVUxNtVjObaE5BtNjWH8pt7qqrsXDJ5r88hsl+1qSbz5SDuzHOfSrScPF3RwMRCIQpk0OmoMQiPzPr5iXfZUs0IfJk0aUq8kw6NWfHtukpJmwd3ZTzHpLrMsbxfrUIgM6xqxZcOrHMD4enqs3iBiREUCGL/zAVZrzplR3nyTRA=
