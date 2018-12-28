@@ -11,6 +11,8 @@ For now, only workbench customizations are allowed (not token colors).
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/QcAsFIz4HoU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
+[![Color Your Code in Youtube](https://img.youtube.com/vi/QcAsFIz4HoU/0.jpg)](https://www.youtube.com/embed/QcAsFIz4HoU)
+
 ## Development
 
 - Install dependencies without altering `package-lock.json` contents:
