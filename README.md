@@ -10,7 +10,9 @@ Color Your Code aims to make customizing VSCode themes easier through a native c
 For now, only workbench customizations are allowed (not token colors).
 
 <p align="center">
-[![Color Your Code in Youtube](images/color-your-code-preview-small.png)](https://www.youtube.com/embed/QcAsFIz4HoU)
+  <a href="https://www.youtube.com/embed/QcAsFIz4HoU">
+    <img src="images/color-your-code-preview-small.png" alt="Color Your Code in Youtube">
+  </a>
 </p>
 
 ## Development
