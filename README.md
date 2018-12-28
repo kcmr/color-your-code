@@ -5,15 +5,11 @@
 
 > A visual editor for Visual Studio Code themes
 
+![Color Your Code](images/color-your-code-preview-large.png)
+
 Color Your Code aims to make customizing VSCode themes easier through a native color picker that lets you change the color of the selected area of the editor. It works better in Chrome and OS X due to the inconsistent behavior across browsers and operating systems of the native `<input type="color">`. 
 
 For now, only workbench customizations are allowed (not token colors).
-
-<p align="center">
-  <a href="https://www.youtube.com/embed/QcAsFIz4HoU">
-    <img src="images/color-your-code-preview-small.png" alt="Color Your Code in Youtube">
-  </a>
-</p>
 
 ## Development
 
