@@ -12,4 +12,5 @@ workflows:
     jobs:
       - deploy:
           filters:
-            only: release/1.0.0
+            branches:
+              only: release/1.0.0
