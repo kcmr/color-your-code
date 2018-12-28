@@ -10,6 +10,7 @@
     "styles.css",
     "dank-mono.css",
     "electron-color-theme.json",
+    "favicon.ico",
     "node_modules/animejs/anime.min.js",
     "node_modules/@webcomponents/webcomponentsjs/*.js",
     "!node_modules/@webcomponents/webcomponentsjs/gulpfile.js",
