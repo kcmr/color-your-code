@@ -2,7 +2,7 @@
   "name": "color-your-code",
   "version": "0.0.0",
   "license": "MIT",
-  "homepage": "https://coloryourcode.surge.sh",
+  "homepage": "https://www.coloryourcode.com",
   "dependencies": {
     "@kuscamara/code-sample": "^3.0.0",
     "@polymer/iron-icon": "git+https://git@github.com/kcmr/iron-icon.git#6118aae36db7",
