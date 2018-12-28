@@ -25,6 +25,9 @@ code-sample {
   --code-sample-font-family: dm, monospace;
   --code-sample-font-size: 14px;
   --code-sample-line-height: 1.5;
+  --code-sample-hljs: {
+    padding: 0;
+  };
 }
 
 .code-wrapper {
@@ -39,8 +42,8 @@ code-sample {
   font-size: 13px;
   text-align: right;
   color: var(--editorLineNumber-foreground);
-  width: var(--cyc-line-numbers-width);
-  padding-right: 5px;
+  width: 75px;
+  padding-right: 30px;
   box-sizing: border-box;
   flex-shrink: 0;
 }
