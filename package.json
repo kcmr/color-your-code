@@ -8,7 +8,9 @@
     "@polymer/iron-icon": "git+https://git@github.com/kcmr/iron-icon.git#6118aae36db7",
     "@polymer/iron-iconset-svg": "^3.0.0-pre.21",
     "@polymer/polymer": "^3.0.5",
-    "animejs": "^2.2.0"
+    "animejs": "^2.2.0",
+    "lit-element": "^2.1.0",
+    "lit-html": "^1.0.0"
   },
   "devDependencies": {
     "@webcomponents/webcomponentsjs": "^2.0.4",
