@@ -74,6 +74,10 @@ class CycApp extends utilsMixin {
     this._selectedEditorSection = '';
   }
 
+  firstUpdated() {
+    this.$themeEditor = this.shadowRoot.querySelector('#themeEditor');
+  }
+
   _onEditorWindowSectionHover(event) {
     this._hoveredEditorSection = event.detail;
     this._hoveredEditorColor = this._colors.find((color) => {
@@ -90,7 +94,7 @@ class CycApp extends utilsMixin {
 
   _onEditorWindowClick(event) {
     this._selectedEditorSection = this._getEditorSection(event);
-    this.shadowRoot.querySelector('#themeEditor').openColorPicker();
+    this.$themeEditor.openColorPicker();
   }
 
   _getEditorSection(event) {
