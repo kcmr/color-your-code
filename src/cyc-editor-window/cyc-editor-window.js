@@ -53,6 +53,7 @@ class CycEditorWindow extends HighlightMixin {
        */
       themeName: {
         type: String,
+        attribute: 'theme-name',
       },
 
       /**
