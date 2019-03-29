@@ -1,5 +1,5 @@
-import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
-import {highlightMixin} from '../cyc-mixins/cyc-highlight-mixin.js';
+import {html} from 'lit-element';
+import {HighlightMixin} from '../cyc-mixins/cyc-highlight-mixin.js';
 import '../cyc-editor-sidebar/cyc-editor-sidebar.js';
 import '../cyc-editor-titlebar/cyc-editor-titlebar.js';
 import '../cyc-editor-activitybar/cyc-editor-activitybar.js';
@@ -8,43 +8,41 @@ import '../cyc-editor-content/cyc-editor-content.js';
 
 /**
  * `<cyc-editor-window>` displays the editor window preview.
- * @polymer
  * @customElement
- * @extends {highlightMixin}
- * @extends {PolymerElement}
+ * @extends {HighlightMixin}
  */
-class CycEditorWindow extends highlightMixin(PolymerElement) {
-  static get template() {
+class CycEditorWindow extends HighlightMixin {
+  render() {
     return html`
     <link rel="stylesheet" href="../cyc-styles/cyc-shared-styles.css" inline>
     <link rel="stylesheet" href="cyc-editor-window.css" inline>
 
     <cyc-editor-titlebar
       class="title-bar"
-      theme-name="[[themeName]]"
+      theme-name="${this.themeName}"
       data-prop="titleBar.activeBackground"
-      on-mouseenter="_onSectionMouseenter"></cyc-editor-titlebar>
+      @mouseenter="${this._onSectionMouseenter}"></cyc-editor-titlebar>
 
     <div class="body">
       <cyc-editor-activitybar
         class="activity-bar"
         data-prop="activityBar.background"
-        on-mouseenter="_onSectionMouseenter"></cyc-editor-activitybar>
+        @mouseenter="${this._onSectionMouseenter}"></cyc-editor-activitybar>
       <cyc-editor-sidebar
         class="sidebar"
         data-prop="sideBar.background"
-        files="[[projectFiles]]"
-        on-mouseenter="_onSectionMouseenter"></cyc-editor-sidebar>
+        .files="${this.projectFiles}"
+        @mouseenter="${this._onSectionMouseenter}"></cyc-editor-sidebar>
       <cyc-editor-content
         class="editor"
-        file-type="[[_activeFile.type]]"
-        file-name="[[_activeFile.name]]"></cyc-editor-content>
+        filetype="${this._activeFile.type}"
+        filename="${this._activeFile.name}"></cyc-editor-content>
     </div>
 
     <cyc-editor-statusbar
       class="status-bar"
       data-prop="statusBar.background"
-      on-mouseenter="_onSectionMouseenter"></cyc-editor-statusbar>
+      @mouseenter="${this._onSectionMouseenter}"></cyc-editor-statusbar>
     `;
   }
 
@@ -55,7 +53,7 @@ class CycEditorWindow extends highlightMixin(PolymerElement) {
        */
       themeName: {
         type: String,
-        value: 'Your Theme Name',
+        attribute: 'theme-name',
       },
 
       /**
@@ -64,33 +62,48 @@ class CycEditorWindow extends highlightMixin(PolymerElement) {
        */
       projectFiles: {
         type: Array,
-        value: () => [{
-          name: 'some-file.js',
-          type: 'js',
-          modified: true,
-        }, {
-          name: 'some-file.html',
-          type: 'html',
-        }, {
-          name: 'some-file.css',
-          type: 'css',
-          untracked: true,
-        }, {
-          name: 'README.md',
-          type: 'md',
-          selected: true,
-        }],
       },
 
       _activeFile: {
         type: Object,
-        computed: '_computeActiveFile(projectFiles)',
       },
     };
   }
 
-  _computeActiveFile(projectFiles) {
-    return projectFiles.filter((file) => file.selected)[0];
+  constructor() {
+    super();
+
+    this.themeName = 'Your Theme Name';
+    this._activeFile = {
+      type: '',
+      name: '',
+    };
+    this.projectFiles = [{
+      name: 'some-file.js',
+      type: 'js',
+      modified: true,
+    }, {
+      name: 'some-file.html',
+      type: 'html',
+    }, {
+      name: 'some-file.css',
+      type: 'css',
+      untracked: true,
+    }, {
+      name: 'README.md',
+      type: 'md',
+      selected: true,
+    }];
+  }
+
+  updated(changedProperties) {
+    if (changedProperties.has('projectFiles')) {
+      this._setActiveFile();
+    }
+  }
+
+  _setActiveFile() {
+    this._activeFile = this.projectFiles.filter((file) => file.selected)[0];
   }
 }
 

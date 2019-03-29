@@ -1,41 +1,39 @@
-import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
-import {highlightMixin} from '../cyc-mixins/cyc-highlight-mixin.js';
+import {html} from 'lit-element';
+import {HighlightMixin} from '../cyc-mixins/cyc-highlight-mixin.js';
 import '@polymer/polymer/lib/elements/dom-repeat.js';
 import '../cyc-icons/cyc-icons.js';
 
 /**
  * Contains the editor tabs.
- * @polymer
  * @customElement
- * @extends {highlightMixin}
- * @extends {PolymerElement}
+ * @extends {HighlightMixin}
  */
-class CycEditorTabs extends highlightMixin(PolymerElement) {
-  static get template() {
+class CycEditorTabs extends HighlightMixin {
+  render() {
     return html`
     <link rel="stylesheet" href="../cyc-styles/cyc-shared-styles.css" inline>
     <link rel="stylesheet" href="cyc-editor-tabs.css" inline>
 
-    <template is="dom-repeat" items="[[tabs]]">
+    ${this.tabs.map((item) => html`
       <div
-        class$="tab [[_computeValue(item.active, 'active')]]"
-        data-prop$="[[_computeValue(item.active, 'tab.activeBackground', 'tab.inactiveBackground')]]"
-        on-mouseenter="_onSectionMouseenter">
+        class="tab ${this._computeValue(item.active, 'active')}"
+        data-prop="${this._computeValue(item.active, 'tab.activeBackground', 'tab.inactiveBackground')}"
+        @mouseenter="${this._onSectionMouseenter}">
         <span
           class="tab__foreground"
-          data-prop$="[[_computeValue(item.active, 'tab.activeForeground', 'tab.inactiveForeground')]]"
-          on-mouseenter="_onSectionMouseenter">[[item.name]]</span>
+          data-prop="${this._computeValue(item.active, 'tab.activeForeground', 'tab.inactiveForeground')}"
+          @mouseenter="${this._onSectionMouseenter}">${item.name}</span>
         <iron-icon icon="cyc:close" class="icon"></iron-icon>
         <span
           class="tab__border-right"
           data-prop="tab.border"
-          on-mouseenter="_onSectionMouseenter"></span>
+          @mouseenter="${this._onSectionMouseenter}"></span>
         <span
           class="tab__border-bottom"
           data-prop="tab.activeBorder"
-          on-mouseenter="_onSectionMouseenter"></span>
+          mouseenter="${this._onSectionMouseenter}"></span>
       </div>
-    </template>
+    `)}
     `;
   }
 

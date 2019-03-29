@@ -1,14 +1,12 @@
-import {PolymerElement} from '@polymer/polymer/polymer-element.js';
-import {utilsMixin} from '../cyc-mixins/cyc-utils-mixin.js';
+import {UtilsMixin} from '../cyc-mixins/cyc-utils-mixin.js';
 
 /**
  * Formats the theme editor file according to the data expected by the UIs.
- * @polymer
+ *
  * @customElement
- * @extends {utilsMixin}
- * @extends {PolymerElement}
+ * @extends {UtilsMixin}
  */
-class CycDm extends utilsMixin(PolymerElement) {
+class CycDm extends UtilsMixin {
   static get properties() {
     return {
       /**
@@ -16,17 +14,18 @@ class CycDm extends utilsMixin(PolymerElement) {
        */
       url: {
         type: String,
-        observer: '_urlChanged',
       },
     };
   }
 
-  _urlChanged(url) {
-    if (!url) {
-      return;
+  updated(changedProperties) {
+    if (changedProperties.has('url') && this.url) {
+      this._request();
     }
+  }
 
-    fetch(url)
+  _request() {
+    fetch(this.url)
       .then((response) => response.ok && response.json())
       .then(this._formatData.bind(this))
       .catch(this._handleFetchError.bind(this));

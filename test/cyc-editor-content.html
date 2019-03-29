@@ -22,23 +22,25 @@
       suite('<cyc-editor-content>', () => {
         let el;
 
-        setup(() => {
+        setup(async() => {
           el = fixture('default');
+          await el.updateComplete;
         });
 
         suite('setting fileType', () => {
-          setup(() => {
+          setup(async() => {
             el.fileType = 'md';
+            await el.updateComplete;
           });
 
           test('sets the corresponding file type to <code-sample>', () => {
-            const $codeSample = el.$.code;
+            const $codeSample = el.shadowRoot.querySelector('#code');
             assert.equal($codeSample.type, el.fileType);
           });
 
           test('sets the same number of lines as the file content', () => {
-            const $lines = el.$.lines;
-            assert.equal($lines.items.length, el._fileLines);
+            const $lines = el.shadowRoot.querySelectorAll('.line-number');
+            assert.equal($lines.length, el._fileLines);
           });
 
           test('line numbers start with 1', (done) => {
@@ -51,9 +53,10 @@
         });
 
         suite('setting fileName', () => {
-          test('sets the name of the first tab', () => {
-            const $tabs = el.$.tabs;
+          test('sets the name of the first tab', async() => {
+            const $tabs = el.shadowRoot.querySelector('#tabs');
             el.fileName = 'any';
+            await el.updateComplete;
             assert.equal($tabs.tabs[0].name, el.fileName);
           });
         });

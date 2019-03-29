@@ -1,15 +1,13 @@
-import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
-import {highlightMixin} from '../cyc-mixins/cyc-highlight-mixin.js';
+import {html} from 'lit-element';
+import {HighlightMixin} from '../cyc-mixins/cyc-highlight-mixin.js';
 
 /**
  * `<cyc-editor-titlebar>` displays the editor title bar.
- * @polymer
  * @customElement
- * @extends {highlightMixin}
- * @extends {PolymerElement}
+ * @extends {HighlightMixin}
  */
-class CycEditorTitlebar extends highlightMixin(PolymerElement) {
-  static get template() {
+class CycEditorTitlebar extends HighlightMixin {
+  render() {
     return html`
     <link rel="stylesheet" href="../cyc-styles/cyc-shared-styles.css" inline>
     <link rel="stylesheet" href="cyc-editor-titlebar.css" inline>
@@ -21,7 +19,7 @@ class CycEditorTitlebar extends highlightMixin(PolymerElement) {
     </div>
 
     <div class="title">
-      <span data-prop="titleBar.activeForeground" on-mouseenter="_onSectionMouseenter">[[themeName]] &mdash; Color Your Code</span>
+      <span data-prop="titleBar.activeForeground" @mouseenter="${this._onSectionMouseenter}">${this.themeName} &mdash; Color Your Code</span>
     </div>
     `;
   }
@@ -33,9 +31,15 @@ class CycEditorTitlebar extends highlightMixin(PolymerElement) {
        */
       themeName: {
         type: String,
-        value: 'Your Theme Name',
+        attribute: 'theme-name',
       },
     };
+  }
+
+  constructor() {
+    super();
+
+    this.themeName = 'Your Theme Name';
   }
 }
 

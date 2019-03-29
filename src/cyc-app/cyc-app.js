@@ -1,22 +1,23 @@
-import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
-import {utilsMixin} from '../cyc-mixins/cyc-utils-mixin.js';
+import {html} from 'lit-element';
+import {UtilsMixin} from '../cyc-mixins/cyc-utils-mixin.js';
 import '../cyc-editor-window/cyc-editor-window.js';
 import '../cyc-theme-editor/cyc-theme-editor.js';
 import '../cyc-dm/cyc-dm.js';
 
 /**
  * CYC App
- * @polymer
  * @customElement
- * @extends {utilsMixin}
- * @extends {PolymerElement}
+ * @extends {UtilsMixin}
  */
-class CycApp extends utilsMixin(PolymerElement) {
-  static get template() {
+class CycApp extends UtilsMixin {
+  render() {
     return html`
     <link rel="stylesheet" href="cyc-app.css" inline>
 
-    <cyc-dm id="dmTheme" hidden url="[[themeFile]]" on-response-success="_onDmResponseSuccess"></cyc-dm>
+    <cyc-dm id="dmTheme"
+      hidden
+      .url="${this.themeFile}"
+      @response-success="${this._onDmResponseSuccess}"></cyc-dm>
 
     <div class="preview">
       <h1 class="site-title" role="text">
@@ -25,21 +26,21 @@ class CycApp extends utilsMixin(PolymerElement) {
       </h1>
 
       <cyc-editor-window id="editorWindow"
-        theme-name="[[_themeName]]"
-        on-editor-section-hover="_onEditorWindowSectionHover"
-        on-mouseleave="_onEditorWindowMouseleave"
-        on-click="_onEditorWindowClick">
+        theme-name="${this._themeName}"
+        @editor-section-hover="${this._onEditorWindowSectionHover}"
+        @mouseleave="${this._onEditorWindowMouseleave}"
+        @click="${this._onEditorWindowClick}">
       </cyc-editor-window>
 
       <div class="hover-info">
-        <span class="editor-section-name">[[_hoveredEditorSection]]</span>
-        <span class="color-preview" style$="background-color: var([[_hoveredEditorColor]]);"></span>
+        <span class="editor-section-name">${this._hoveredEditorSection}</span>
+        <span class="color-preview" style="background-color: var(${this._hoveredEditorColor});"></span>
       </div>
     </div>
 
     <cyc-theme-editor class="panel" id="themeEditor"
-      edit-property="[[_selectedEditorSection]]"
-      colors="[[_colors]]">
+      edit-property="${this._selectedEditorSection}"
+      .colors="${this._colors}">
     </cyc-theme-editor>
     `;
   }
@@ -51,58 +52,49 @@ class CycApp extends utilsMixin(PolymerElement) {
        */
       themeFile: {
         type: String,
-        value: 'electron-color-theme.json',
+        attribute: 'theme-file',
       },
 
-      /**
-       * Hovered section on the editor window.
-       */
-      _hoveredEditorSection: {
+      _selectedEditorSection: {
         type: String,
       },
 
-      /**
-       * Hovered color on the edito window.
-       */
-      _hoveredEditorColor: {
-        type: String,
-      },
-
-      /**
-       * Name of the theme.
-       */
-      _themeName: {
-        type: String,
-      },
-
-      /**
-       * Theme type (dark | light).
-       */
-      _themeType: {
-        type: String,
-        value: 'dark',
-      },
-
-      /**
-       * List of theme CSS properties and color values.
-       * @type {Array}
-       */
       _colors: {
         type: Array,
       },
 
-      /**
-       * Clicked theme section.
-       */
-      _selectedEditorSection: {
+      _hoveredEditorSection: {
+        type: String,
+      },
+
+      _hoveredEditorColor: {
+        type: String,
+      },
+
+      _themeName: {
         type: String,
       },
     };
   }
 
-  ready() {
-    super.ready();
+  connectedCallback() {
+    super.connectedCallback();
     this._emit('shell-loaded');
+  }
+
+  constructor() {
+    super();
+
+    this.themeFile = 'electron-color-theme.json';
+    this._themeType = 'dark';
+    this._hoveredEditorSection = '';
+    this._hoveredEditorColor = '';
+    this._themeName = '';
+    this._selectedEditorSection = '';
+  }
+
+  firstUpdated() {
+    this._$themeEditor = this.shadowRoot.querySelector('#themeEditor');
   }
 
   _onEditorWindowSectionHover(event) {
@@ -121,7 +113,7 @@ class CycApp extends utilsMixin(PolymerElement) {
 
   _onEditorWindowClick(event) {
     this._selectedEditorSection = this._getEditorSection(event);
-    this.$.themeEditor.openColorPicker();
+    this._$themeEditor.openColorPicker();
   }
 
   _getEditorSection(event) {

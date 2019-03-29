@@ -24,16 +24,17 @@
         let $editorWindow;
         let $themeEditor;
 
-        setup(() => {
+        setup(async() => {
           el = fixture('default');
-          $editorWindow = el.$.editorWindow;
-          $themeEditor = el.$.themeEditor;
+          await el.updateComplete;
+          $editorWindow = el.shadowRoot.querySelector('#editorWindow');
+          $themeEditor = el.shadowRoot.querySelector('#themeEditor');
         });
 
         test('fires an event "shell-loaded" on ready', () => {
           const spy = sinon.spy();
           el.addEventListener('shell-loaded', spy);
-          el.ready(); // force ready
+          el.connectedCallback(); // force connectedCallback
           assert.isTrue(spy.calledOnce);
         });
 
@@ -46,15 +47,16 @@
             }],
           };
 
-          setup(() => {
-            const $dm = el.$.dmTheme;
+          setup(async() => {
+            await el.updateComplete;
+            const $dm = el.shadowRoot.querySelector('#dmTheme');
 
             $dm.dispatchEvent(new CustomEvent('response-success', {
               detail: themeResponseMock,
             }));
           });
 
-          test('displays the editor section hovered in the footer', () => {
+          test('displays the editor section hovered in the footer', async() => {
             let hoveredSection;
 
             $editorWindow.addEventListener('editor-section-hover', (event) => {
@@ -65,20 +67,22 @@
               detail: themeResponseMock.colors[0].prop,
             }));
 
+            await el.updateComplete;
             const $sectionInfo = el.shadowRoot.querySelector('.editor-section-name');
             assert.equal($sectionInfo.innerText, hoveredSection);
           });
 
-          test('displays the color hovered in the footer', () => {
+          test('displays the color hovered in the footer', async() => {
             $editorWindow.dispatchEvent(new CustomEvent('editor-section-hover', {
               detail: themeResponseMock.colors[0].prop,
             }));
 
+            await el.updateComplete;
             const $sectionColor = el.shadowRoot.querySelector('.color-preview');
             assert.include($sectionColor.style.backgroundColor, `var(${themeResponseMock.colors[0].cssVar})`);
           });
 
-          test('hover info is empty after 100ms when the editor window is not hovered', () => {
+          test('hover info is empty after 100ms when the editor window is not hovered', async() => {
             const $sectionInfo = el.shadowRoot.querySelector('.editor-section-name');
             const $sectionColor = el.shadowRoot.querySelector('.color-preview');
             const timeoutStub = sinon.stub(window, 'setTimeout', function(cb) {
@@ -90,6 +94,7 @@
             }));
 
             $editorWindow.dispatchEvent(new MouseEvent('mouseleave'));
+            await el.updateComplete;
             assert.equal($sectionInfo.innerText, '');
             assert.equal($sectionColor.style.backgroundColor, '');
             assert.equal(timeoutStub.getCall(0).args[1], 100);
@@ -103,8 +108,9 @@
             $themeEditor.colors = [{prop: 'activityBar.background', value: '#141820', cssVar: '--activityBar-background'}];
           });
 
-          test('sets editProperty in theme-editor', () => {
+          test('sets editProperty in theme-editor', async() => {
             $editorWindow.dispatchEvent(new Event('click'));
+            await el.updateComplete;
             assert.equal($themeEditor.editProperty, 'activityBar.background');
           });
 
@@ -129,18 +135,20 @@
           };
 
           setup(() => {
-            $dm = el.$.dmTheme;
+            $dm = el.shadowRoot.querySelector('#dmTheme');
 
             $dm.dispatchEvent(new CustomEvent('response-success', {
               detail: mockPayloadDM,
             }));
           });
 
-          test('sets colors in theme-editor when the DM fires "response-success"', () => {
+          test('sets colors in theme-editor when the DM fires "response-success"', async() => {
+            await el.updateComplete;
             assert.deepEqual($themeEditor.colors, mockPayloadDM.colors);
           });
 
-          test('sets theme-name in editor-window when the DM fires "response-success"', () => {
+          test('sets theme-name in editor-window when the DM fires "response-success"', async() => {
+            await el.updateComplete;
             assert.equal($editorWindow.themeName, mockPayloadDM.name);
           });
         });

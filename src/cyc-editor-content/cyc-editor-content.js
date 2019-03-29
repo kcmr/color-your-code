@@ -1,5 +1,5 @@
-import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
-import {highlightMixin} from '../cyc-mixins/cyc-highlight-mixin.js';
+import {html} from 'lit-element';
+import {HighlightMixin} from '../cyc-mixins/cyc-highlight-mixin.js';
 import {readmeContent} from './readme-content.js';
 import '@polymer/polymer/lib/elements/dom-repeat.js';
 import '@kuscamara/code-sample/code-sample.js';
@@ -7,35 +7,33 @@ import '../cyc-editor-tabs/cyc-editor-tabs.js';
 
 /**
  * Contains the code of the selected file.
- * @polymer
  * @customElement
- * @extends {highlightMixin}
- * @extends {PolymerElement}
+ * @extends {HighlightMixin}
  */
-class CycEditorContent extends highlightMixin(PolymerElement) {
-  static get template() {
+class CycEditorContent extends HighlightMixin {
+  render() {
     return html`
     <link rel="stylesheet" href="../cyc-styles/cyc-shared-styles.css" inline>
     <link rel="stylesheet" href="cyc-editor-content.css" inline>
 
     <cyc-editor-tabs id="tabs"
       class="tabs"
-      tabs="[[_tabs]]"
+      .tabs="${this._tabs}"
       data-prop="editorGroupHeader.tabsBackground"
-      on-mouseenter="_onSectionMouseenter"></cyc-editor-tabs>
+      @mouseenter="${this._onSectionMouseenter}"></cyc-editor-tabs>
 
-    <div class="content" data-prop="editor.background" on-mouseenter="_onSectionMouseenter">
-      <div class="line-numbers" data-target-prop="editorLineNumber.foreground" on-mouseenter="_onSectionMouseenter">
-        <template is="dom-repeat" items="[[_numberToArray(_fileLines)]]" id="lines">
-          <div class="line-number" data-prop="editorLineNumber.foreground">[[_computeLineNumber(index)]]</div>
-        </template>
+    <div class="content" data-prop="editor.background" @mouseenter="${this._onSectionMouseenter}">
+      <div class="line-numbers" data-target-prop="editorLineNumber.foreground" @mouseenter="${this._onSectionMouseenter}">
+      ${this._numberToArray(this._fileLines).map((item, index) => html`
+        <div class="line-number" data-prop="editorLineNumber.foreground">${index + 1}</div>
+      `)}
       </div>
 
       <div class="code-wrapper">
         <code-sample id="code"
-          on-click="_onCodeClick"
-          type="[[fileType]]"
-          inner-h-t-m-l="[[_codeSampleContent]]"
+          @click="${(event) => {event.stopPropagation();}}"
+          type="${this.fileType}"
+          .innerHTML="${this._codeSampleContent}"
         ></code-sample>
       </div>
     </div>
@@ -61,29 +59,19 @@ class CycEditorContent extends highlightMixin(PolymerElement) {
 
       _fileContent: {
         type: String,
-        value: readmeContent,
-      },
-
-      _fileLines: {
-        type: Number,
-        computed: '_computeFileContentLines(_fileContent)',
-      },
-
-      _codeSampleContent: {
-        type: String,
-        computed: '_computeCodeSampleContent(_fileContent)',
-      },
-
-      _tabs: {
-        type: Array,
-        computed: '_computeTabs(fileName)',
       },
     };
   }
 
-  _computeTabs(fileName) {
+  constructor() {
+    super();
+
+    this._fileContent = readmeContent;
+  }
+
+  get _tabs() {
     return [{
-      name: fileName,
+      name: this.fileName,
       active: true,
     }, {
       name: 'inactive-tab',
@@ -91,25 +79,17 @@ class CycEditorContent extends highlightMixin(PolymerElement) {
     }];
   }
 
-  _computeFileContentLines(fileContent) {
+  get _fileLines() {
     const endOfLine = /\r?\n/g;
-    return fileContent.match(endOfLine).length;
+    return this._fileContent.match(endOfLine).length;
   }
 
-  _computeCodeSampleContent(fileContent) {
+  get _codeSampleContent() {
     return`
       <template preserve-content>
-        ${fileContent}
+        ${this._fileContent}
       </template>
     `;
-  }
-
-  _computeLineNumber(number) {
-    return number + 1;
-  }
-
-  _onCodeClick(event) {
-    event.stopPropagation();
   }
 }
 

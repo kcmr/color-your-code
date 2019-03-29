@@ -22,16 +22,18 @@
       suite('<cyc-editor-window>', () => {
         let el;
 
-        setup(() => {
+        setup(async() => {
           el = fixture('default');
+          await el.updateComplete;
         });
 
         // Integration tests
         // checks that own properties are properly bound to other components
         suite('Components configuration', () => {
-          test('setting themeName sets themeName to <cyc-editor-titlebar>', () => {
+          test('setting themeName sets themeName to <cyc-editor-titlebar>', async() => {
             const $titlebar = el.shadowRoot.querySelector('.title-bar');
             el.themeName = 'any';
+            await el.updateComplete;
             assert.equal($titlebar.themeName, el.themeName);
           });
 

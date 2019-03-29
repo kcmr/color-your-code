@@ -1,24 +1,22 @@
-import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
-import {highlightMixin} from '../cyc-mixins/cyc-highlight-mixin.js';
+import {html} from 'lit-element';
+import {HighlightMixin} from '../cyc-mixins/cyc-highlight-mixin.js';
 import '../cyc-icons/cyc-icons.js';
 
 /**
  * `<cyc-editor-statusbar>` displays the editor status bar.
- * @polymer
  * @customElement
- * @extends {highlightMixin}
- * @extends {PolymerElement}
+ * @extends {HighlightMixin}
  */
-class CycEditorStatusbar extends highlightMixin(PolymerElement) {
-  static get template() {
+class CycEditorStatusbar extends HighlightMixin {
+  render() {
     return html`
     <link rel="stylesheet" href="../cyc-styles/cyc-shared-styles.css" inline>
     <link rel="stylesheet" href="cyc-editor-statusbar.css" inline>
 
-    <div class="border" data-prop="statusBar.border" on-mouseenter="_onSectionMouseenter"></div>
+    <div class="border" data-prop="statusBar.border" @mouseenter="${this._onSectionMouseenter}"></div>
     <div class="left">
       <iron-icon icon="cyc:fork" class="icon git-icon"></iron-icon>
-      <span data-prop="statusBar.foreground" on-mouseenter="_onSectionMouseenter">master master!</span>
+      <span data-prop="statusBar.foreground" @mouseenter="${this._onSectionMouseenter}">master master!</span>
       <span class="grayscale"> 🤘</span>
     </div>
     <div class="right"></div>
