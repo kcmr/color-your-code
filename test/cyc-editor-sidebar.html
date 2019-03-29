@@ -27,17 +27,20 @@
         });
 
         suite('an element extending HighlightMixin', () => {
-          test('fires an event "editor-section-hover" when an editor section is hovered with the editor section as payload', () => {
+          test('fires an event "editor-section-hover" when an editor section is hovered with the editor section as payload', async() => {
+            await el.updateComplete;
             const $heading = el.shadowRoot.querySelector('.heading');
 
             const eventSpy = sinon.spy();
             el.addEventListener('editor-section-hover', eventSpy);
 
             $heading.dispatchEvent(new MouseEvent('mouseenter'));
+            await el.updateComplete;
             assert.equal(eventSpy.getCall(0).args[0].detail, $heading.dataset.prop, 'the event detail contains the "data-prop" attribute');
 
             $heading.removeAttribute('data-prop');
             $heading.dataset.targetProp = 'any';
+            await el.updateComplete;
             $heading.dispatchEvent(new MouseEvent('mouseenter'));
             assert.equal(eventSpy.getCall(1).args[0].detail, $heading.dataset.targetProp, 'the event detail contains "data-target-prop" attribute if it does not have "data-prop"');
           });
@@ -68,7 +71,7 @@
           });
 
           test('setting files displays the same number of files', () => {
-            assert.equal(el.files.length, el.$.files.items.length);
+            assert.equal(el.files.length, $fileItems.length);
           });
 
           test('each file item has the correct name', () => {

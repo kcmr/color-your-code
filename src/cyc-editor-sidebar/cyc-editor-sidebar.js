@@ -52,6 +52,12 @@ class CycEditorSidebar extends HighlightMixin {
     };
   }
 
+  constructor() {
+    super();
+
+    this.files = [];
+  }
+
   _computeClass(item) {
     const {modified, untracked, selected} = item;
 
