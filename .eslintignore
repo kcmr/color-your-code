@@ -1,5 +1,6 @@
 build/
 dist/
+test/
 node_modules/
 coverage/
 tasks/templates/
