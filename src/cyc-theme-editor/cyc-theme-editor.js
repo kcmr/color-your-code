@@ -14,7 +14,7 @@ class CycThemeEditor extends UtilsMixin {
     <link rel="stylesheet" href="../cyc-styles/cyc-shared-styles.css" inline>
     <link rel="stylesheet" href="cyc-theme-editor.css" inline>
 
-    <form class="form" @change="${this._onFormChange}" @reset="${this._onFormReset}" submit="${this._onFormSubmit}">
+    <form class="form" @change="${this._onFormChange}" @reset="${this._onFormReset}" @submit="${this._onFormSubmit}">
       <input class="sr-only" id="inputColor"
         type="color"
         value="${this._currentEditedThemeProperty.value}"
