@@ -18,7 +18,8 @@ class CycThemeEditor extends UtilsMixin {
       <input class="sr-only" id="inputColor"
         type="color"
         value="${this._currentEditedThemeProperty.value}"
-        @input="${this._updateTheme}">
+        @change="${this._onColorChanged}"
+        @input="${this._onColorChanged}">
 
       <div class="form-actions">
         <button class="btn" type="reset" title="Discard all changes" ?disabled="${!this._themeChanged}">
@@ -140,9 +141,11 @@ class CycThemeEditor extends UtilsMixin {
     this._currentEditedThemeProperty = this._colors.find((color) => {
       return color.prop === editProperty;
     });
+
+    this._$inputColor.value = this._currentEditedThemeProperty.value;
+    this.openColorPicker();
   }
 
-  // TODO: check if the same color property has changed
   _checkThemeChangedAfterUndoingAllChangesInHistory(editHistoryLength) {
     if (editHistoryLength === 0) {
       this._themeChanged = !this._deepEqual(this._colors, this.colors);
@@ -164,13 +167,15 @@ class CycThemeEditor extends UtilsMixin {
     return {type, name, colors};
   }
 
-  _updateTheme(addPropertyToHistory = true) {
-    if (addPropertyToHistory) {
-      this._currentEditedThemeProperty.value = this._$inputColor.value;
-    }
+  _onColorChanged() {
+    this._currentEditedThemeProperty.value = this._$inputColor.value;
+    this._updateTheme();
+  }
 
+  _updateTheme() {
     this._updateColors();
     this._updateDocumentStyles();
+    this._checkThemeChangedAfterUndoingAllChangesInHistory(this._editHistory.length);
   }
 
   _updateColors() {
@@ -257,7 +262,7 @@ class CycThemeEditor extends UtilsMixin {
 
   _undo() {
     this._currentEditedThemeProperty = this._editHistory.pop();
-    this._updateTheme(false);
+    this._updateTheme();
   }
 }
 
