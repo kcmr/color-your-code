@@ -1,5 +1,5 @@
 import {html} from 'lit-element';
-import {utilsMixin} from '../cyc-mixins/cyc-utils-mixin.js';
+import {UtilsMixin} from '../cyc-mixins/cyc-utils-mixin.js';
 import '../cyc-editor-window/cyc-editor-window.js';
 import '../cyc-theme-editor/cyc-theme-editor.js';
 import '../cyc-dm/cyc-dm.js';
@@ -7,9 +7,9 @@ import '../cyc-dm/cyc-dm.js';
 /**
  * CYC App
  * @customElement
- * @extends {utilsMixin}
+ * @extends {UtilsMixin}
  */
-class CycApp extends utilsMixin {
+class CycApp extends UtilsMixin {
   render() {
     return html`
     <link rel="stylesheet" href="cyc-app.css" inline>
@@ -54,6 +54,26 @@ class CycApp extends utilsMixin {
         type: String,
         attribute: 'theme-file',
       },
+
+      _selectedEditorSection: {
+        type: String,
+      },
+
+      _colors: {
+        type: Array,
+      },
+
+      _hoveredEditorSection: {
+        type: String,
+      },
+
+      _hoveredEditorColor: {
+        type: String,
+      },
+
+      _themeName: {
+        type: String,
+      },
     };
   }
 
@@ -70,12 +90,11 @@ class CycApp extends utilsMixin {
     this._hoveredEditorSection = '';
     this._hoveredEditorColor = '';
     this._themeName = '';
-    this._colors = [];
     this._selectedEditorSection = '';
   }
 
   firstUpdated() {
-    this.$themeEditor = this.shadowRoot.querySelector('#themeEditor');
+    this._$themeEditor = this.shadowRoot.querySelector('#themeEditor');
   }
 
   _onEditorWindowSectionHover(event) {
@@ -94,7 +113,7 @@ class CycApp extends utilsMixin {
 
   _onEditorWindowClick(event) {
     this._selectedEditorSection = this._getEditorSection(event);
-    this.$themeEditor.openColorPicker();
+    this._$themeEditor.openColorPicker();
   }
 
   _getEditorSection(event) {

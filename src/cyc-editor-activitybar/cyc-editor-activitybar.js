@@ -1,14 +1,14 @@
-import {html, LitElement} from 'lit-element';
-import {highlightMixin} from '../cyc-mixins/cyc-highlight-mixin.js';
+import {html} from 'lit-element';
+import {HighlightMixin} from '../cyc-mixins/cyc-highlight-mixin.js';
 import '../cyc-mixins/cyc-utils-mixin.js';
 import '../cyc-icons/cyc-icons.js';
 
 /**
  * `<cyc-editor-activitybar>` displays the editor activity bar.
  * @customElement
- * @extends {highlightMixin}
+ * @extends {HighlightMixin}
  */
-class CycEditorActivitybar extends highlightMixin {
+class CycEditorActivitybar extends HighlightMixin {
   render() {
     return html`
     <link rel="stylesheet" href="../cyc-styles/cyc-shared-styles.css" inline>

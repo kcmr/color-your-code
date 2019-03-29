@@ -1,12 +1,12 @@
-import {utilsMixin} from '../cyc-mixins/cyc-utils-mixin.js';
+import {UtilsMixin} from '../cyc-mixins/cyc-utils-mixin.js';
 
 /**
  * Formats the theme editor file according to the data expected by the UIs.
  *
  * @customElement
- * @extends {utilsMixin}
+ * @extends {UtilsMixin}
  */
-class CycDm extends utilsMixin {
+class CycDm extends UtilsMixin {
   static get properties() {
     return {
       /**

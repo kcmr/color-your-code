@@ -1,36 +1,33 @@
-import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
-import {utilsMixin} from '../cyc-mixins/cyc-utils-mixin.js';
+import {html} from 'lit-element';
+import {UtilsMixin} from '../cyc-mixins/cyc-utils-mixin.js';
 import '../cyc-icons/cyc-icons.js';
 
 /**
  * `<cyc-theme-editor>` allows to edit the theme color values and
  * download the modified theme.
- * @polymer
  * @customElement
- * @extends {utilsMixin}
- * @extends {PolymerElement}
+ * @extends {UtilsMixin}
  */
-class CycThemeEditor extends utilsMixin(PolymerElement) {
-  static get template() {
+class CycThemeEditor extends UtilsMixin {
+  render() {
     return html`
     <link rel="stylesheet" href="../cyc-styles/cyc-shared-styles.css" inline>
     <link rel="stylesheet" href="cyc-theme-editor.css" inline>
 
-    <form class="form" on-change="_onFormChange" on-reset="_onFormReset" on-submit="_onFormSubmit">
+    <form class="form" @change="${this._onFormChange}" @reset="${this._onFormReset}" submit="${this._onFormSubmit}">
       <input class="sr-only" id="inputColor"
         type="color"
-        value="{{_currentEditedThemeProperty.value::input}}"
-        on-input="_updateTheme"
-        on-change="_updateTheme">
+        value="${this._currentEditedThemeProperty.value}"
+        @input="${this._updateTheme}">
 
       <div class="form-actions">
-        <button class="btn" type="reset" title="Discard all changes" disabled="[[!_themeChanged]]">
+        <button class="btn" type="reset" title="Discard all changes" ?disabled="${!this._themeChanged}">
           <iron-icon icon="cyc:trash"></iron-icon>
         </button>
-        <button class="btn" id="btnUndo" type="button" title="Undo" on-click="_undo" disabled="[[!_editHistory.length]]">
+        <button class="btn" id="btnUndo" type="button" title="Undo" @click="${this._undo}" ?disabled="${!this._editHistory.length}">
           <iron-icon icon="cyc:undo"></iron-icon>
         </button>
-        <button class="btn" type="submit" title="Download theme" disabled="[[!_themeChanged]]">
+        <button class="btn" type="submit" title="Download theme" ?disabled="${!this._themeChanged}">
           <iron-icon icon="cyc:download"></iron-icon>
         </button>
         <a download="theme.json" id="downloadLink" hidden></a>
@@ -46,7 +43,6 @@ class CycThemeEditor extends utilsMixin(PolymerElement) {
        */
       themeType: {
         type: String,
-        value: 'dark',
       },
 
       /**
@@ -54,7 +50,6 @@ class CycThemeEditor extends utilsMixin(PolymerElement) {
        */
       themeName: {
         type: String,
-        value: 'Your theme name',
       },
 
       /**
@@ -70,15 +65,14 @@ class CycThemeEditor extends utilsMixin(PolymerElement) {
        */
       _colors: {
         type: Array,
-        computed: '_computeColors(colors)',
       },
 
       /**
        * Theme property to be edited.
        */
       editProperty: {
-        type: Object,
-        observer: '_editPropertyChanged',
+        type: String,
+        attribute: 'edit-property',
       },
 
       /**
@@ -93,7 +87,6 @@ class CycThemeEditor extends utilsMixin(PolymerElement) {
        */
       _editHistory: {
         type: Array,
-        value: () => [],
       },
 
       /**
@@ -101,7 +94,6 @@ class CycThemeEditor extends utilsMixin(PolymerElement) {
        */
       historyLimit: {
         type: Number,
-        value: 20,
       },
 
       /**
@@ -110,19 +102,38 @@ class CycThemeEditor extends utilsMixin(PolymerElement) {
        */
       _themeChanged: {
         type: Boolean,
-        value: false,
       },
     };
   }
 
-  static get observers() {
-    return [
-      '_checkThemeChangedAfterUndoingAllChangesInHistory(_editHistory.length, _colors.*)',
-    ];
+  constructor() {
+    super();
+
+    this.themeType = 'dark';
+    this.themeName = 'Your theme name';
+    this._currentEditedThemeProperty = {};
+    this._editHistory = [];
+    this.historyLimit = 20;
+    this._themeChanged = false;
   }
 
-  _computeColors(colors) {
-    return this._clone(colors);
+  firstUpdated() {
+    this._$downloadLink = this.shadowRoot.querySelector('#downloadLink');
+    this._$inputColor = this.shadowRoot.querySelector('#inputColor');
+  }
+
+  updated(changedProperties) {
+    if (changedProperties.has('colors')) {
+      this._colors = this._clone(this.colors);
+    }
+
+    if (changedProperties.has('_editHistory')) {
+      this._checkThemeChangedAfterUndoingAllChangesInHistory(this._editHistory.length);
+    }
+
+    if (changedProperties.has('editProperty')) {
+      this._editPropertyChanged(this.editProperty);
+    }
   }
 
   _editPropertyChanged(editProperty) {
@@ -131,6 +142,7 @@ class CycThemeEditor extends utilsMixin(PolymerElement) {
     });
   }
 
+  // TODO: check if the same color property has changed
   _checkThemeChangedAfterUndoingAllChangesInHistory(editHistoryLength) {
     if (editHistoryLength === 0) {
       this._themeChanged = !this._deepEqual(this._colors, this.colors);
@@ -152,7 +164,11 @@ class CycThemeEditor extends utilsMixin(PolymerElement) {
     return {type, name, colors};
   }
 
-  _updateTheme() {
+  _updateTheme(addPropertyToHistory = true) {
+    if (addPropertyToHistory) {
+      this._currentEditedThemeProperty.value = this._$inputColor.value;
+    }
+
     this._updateColors();
     this._updateDocumentStyles();
   }
@@ -160,7 +176,9 @@ class CycThemeEditor extends utilsMixin(PolymerElement) {
   _updateColors() {
     const {prop, value} = this._currentEditedThemeProperty;
     const index = this._colors.findIndex((color) => color.prop === prop);
-    this.set(['_colors', index, 'value'], value);
+
+    this._colors = [...this._colors];
+    this._colors[index].value = value;
   }
 
   _updateDocumentStyles() {
@@ -199,10 +217,10 @@ class CycThemeEditor extends utilsMixin(PolymerElement) {
     }
 
     if (this._editHistory.length === this.historyLimit) {
-      this.shift('_editHistory');
+      this._editHistory.shift();
     }
 
-    this.push('_editHistory', this._lastEditedProperty);
+    this._editHistory.push(this._lastEditedProperty);
   }
 
   _valueHasChanged() {
@@ -218,15 +236,16 @@ class CycThemeEditor extends utilsMixin(PolymerElement) {
   _downloadTheme() {
     const formattedTheme = encodeURIComponent(JSON.stringify(this.theme, null, 4));
     const output = `data:text/json;charset=utf-8,${formattedTheme}`;
-    this.$.downloadLink.href = output;
-    this.$.downloadLink.click();
+
+    this._$downloadLink.href = output;
+    this._$downloadLink.click();
   }
 
   /**
    * Opens the color picker to edit the the current `editProperty`.
    */
   openColorPicker() {
-    this.$.inputColor.click();
+    this._$inputColor.click();
     this._setLastEditedProperty();
   }
 
@@ -237,8 +256,8 @@ class CycThemeEditor extends utilsMixin(PolymerElement) {
   }
 
   _undo() {
-    this._currentEditedThemeProperty = this.pop('_editHistory');
-    this._updateTheme();
+    this._currentEditedThemeProperty = this._editHistory.pop();
+    this._updateTheme(false);
   }
 }
 
