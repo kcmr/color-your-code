@@ -31,6 +31,7 @@ class CycEditorTitlebar extends HighlightMixin {
        */
       themeName: {
         type: String,
+        attribute: 'theme-name',
       },
     };
   }
