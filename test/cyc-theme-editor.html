@@ -32,27 +32,31 @@
           {prop: 'activityBarBadge.foreground', value: '#ffffff', cssVar: '--activityBarBadge-foreground'},
         ];
 
-        setup(() => {
+        setup(async() => {
           el = fixture('default');
           el.colors = colors;
-          $inputColor = el.$.inputColor;
+          await el.updateComplete;
+          $inputColor = el.shadowRoot.querySelector('#inputColor');
           $form = el.shadowRoot.querySelector('form');
 
           // sets the property to edit and changes the color
-          changeFirstProperty = () => {
+          changeFirstProperty = async() => {
             el.editProperty = el.colors[0].prop;
+            await el.updateComplete;
             $inputColor.value = '#f0f0f0';
             $inputColor.dispatchEvent(new Event('input'));
           };
         });
 
-        test('setting editProperty sets the corresponding color value to edit of the input[type="color"]', () => {
+        test('setting editProperty sets the corresponding color value to edit of the input[type="color"]', async() => {
           el.editProperty = el.colors[0].prop;
+          await el.updateComplete;
           assert.equal($inputColor.value, el.colors[0].value);
         });
 
-        test('changing a color sets the resulting value of the corresponding CSS var', () => {
+        test('changing a color sets the resulting value of the corresponding CSS var', async() => {
           changeFirstProperty();
+          await el.updateComplete;
           $inputColor.dispatchEvent(new Event('change'));
           assert.equal(document.documentElement.style.getPropertyValue(el.colors[0].cssVar), $inputColor.value);
         });
@@ -68,10 +72,11 @@
           assert.isTrue(submitBtn.disabled, 'submit button is disabled');
         });
 
-        test('changing the form (change event) enables the form submit button', () => {
+        test('changing the form (change event) enables the form submit button', async() => {
           const submitBtn = el.shadowRoot.querySelector('button[type="submit"]');
           const form = el.shadowRoot.querySelector('form');
           form.dispatchEvent(new Event('change'));
+          await el.updateComplete;
           assert.isFalse(submitBtn.disabled);
         });
 
@@ -79,26 +84,31 @@
           let $submitBtn;
           let $resetBtn;
 
-          setup(() => {
+          setup(async() => {
             $submitBtn = el.shadowRoot.querySelector('button[type="submit"]');
             $resetBtn = el.shadowRoot.querySelector('button[type="reset"]');
             $form.dispatchEvent(new Event('change'));
+            await el.updateComplete;
           });
 
-          test('clicking reset button disables the download button after it has been previously enabled', () => {
+          test('clicking reset button disables the download button after it has been previously enabled', async() => {
             $resetBtn.click();
+            await el.updateComplete;
             assert.isTrue($submitBtn.disabled);
           });
 
-          test('clicking reset button removes the values applied to CSS vars', () => {
+          test('clicking reset button removes the values applied to CSS vars', async() => {
             $resetBtn.click();
+            await el.updateComplete;
             assert.equal(document.documentElement.style.getPropertyValue('--activityBar-background'), '');
           });
 
-          test('clicking reset button restores the original theme', () => {
+          test('clicking reset button restores the original theme', async() => {
             changeFirstProperty();
+            await el.updateComplete;
             assert.notEqual(el.theme.colors['activityBar.background'], colors[0].value);
             $resetBtn.click();
+            await el.updateComplete;
             assert.equal(el.theme.colors['activityBar.background'], colors[0].value);
           });
         });
@@ -108,18 +118,20 @@
           let firstEdition;
           let secondEdition;
 
-          setup(() => {
-            $undoButton = el.$.btnUndo;
+          setup(async() => {
+            $undoButton = el.shadowRoot.querySelector('#btnUndo');
 
-            firstEdition = () => {
+            firstEdition = async() => {
               changeFirstProperty();
+              await el.updateComplete;
               el.openColorPicker();
               $form.dispatchEvent(new Event('change'));
             };
 
-            secondEdition = () => {
+            secondEdition = async() => {
               el.editProperty = el.colors[1].prop;
               $inputColor.value = '#f0f0f0';
+              await el.updateComplete;
               $inputColor.dispatchEvent(new Event('input'));
               el.openColorPicker();
               $form.dispatchEvent(new Event('change'));
@@ -134,30 +146,33 @@
             assert.isTrue($undoButton.disabled);
           });
 
-          test('doing a change in the theme enables undo button', () => {
-            firstEdition();
+          test('doing a change in the theme enables undo button', async() => {
+            await firstEdition();
             assert.isFalse($undoButton.disabled);
           });
 
-          test('undo button can be clicked as many times as editions saved in edit history', () => {
-            firstEdition();
-            secondEdition();
+          test('undo button can be clicked as many times as editions saved in edit history', async() => {
+            await firstEdition();
+            await secondEdition();
 
             $undoButton.click();
             assert.isFalse($undoButton.disabled, 'undo button is not disabled after the first click');
 
             $undoButton.click();
+            await el.updateComplete;
             assert.isTrue($undoButton.disabled, 'undo button is disabled after the second click (last edition in history)');
           });
 
-          test('clicking undo button applies the last value of a edited theme property before beign edited', () => {
+          test('clicking undo button applies the last value of a edited theme property before beign edited', async() => {
             const {prop, value, cssVar} = colors[0];
             el.editProperty = prop;
+            await el.updateComplete;
 
             el.openColorPicker();
             $inputColor.value = '#000000';
             $inputColor.dispatchEvent(new Event('input'));
             $form.dispatchEvent(new Event('change'));
+            await el.updateComplete;
             $undoButton.click();
 
             const varValue = getComputedStyle(document.documentElement).getPropertyValue(cssVar);
@@ -165,11 +180,12 @@
             assert.equal(el.theme.colors[prop], value);
           });
 
-          test('setting "historyLimit" limits undoing changes to the specified value', () => {
+          test('setting "historyLimit" limits undoing changes to the specified value', async() => {
             el.historyLimit = 1;
 
             firstEdition();
             secondEdition();
+            await el.updateComplete;
 
             $undoButton.click();
             assert.isTrue($undoButton.disabled, 'undo button is disabled after the first click');
@@ -177,7 +193,7 @@
         });
 
         suite('Download theme', () => {
-          test('clicking the download theme button downloads a JSON file with the generated theme', () => {
+          test('clicking the download theme button downloads a JSON file with the generated theme', async() => {
             const generatedTheme = {
               type: el.themeType,
               name: el.themeName,
@@ -192,6 +208,7 @@
             const expectedOuput = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(generatedTheme, null, 4));
 
             changeFirstProperty();
+            await el.updateComplete;
 
             const submitBtn = el.shadowRoot.querySelector('button[type="submit"]');
             const downloadLink = el.shadowRoot.querySelector('#downloadLink');
@@ -199,6 +216,7 @@
             const downloadLinkClickStub = sinon.stub(downloadLink, 'click');
 
             form.dispatchEvent(new Event('change'));
+            await el.updateComplete;
             submitBtn.click();
 
             assert.isTrue(downloadLinkClickStub.calledOnce);
