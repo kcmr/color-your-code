@@ -5,7 +5,7 @@ import {LitElement} from 'lit-element';
  * @polymer
  * @mixinFunction
  */
- export class UtilsMixin extends LitElement {
+export class UtilsMixin extends LitElement {
   /**
    * Fires an event.
    * @param {String} eventName
