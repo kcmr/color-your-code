@@ -44,7 +44,8 @@
     "build": "gulp build:dist && polymer build"
   },
   "lint-staged": {
-    "src/**/*.js": ["npm run lint:javascript", "git add"]
+    "src/**/*.js": ["npm run lint:javascript", "git add"],
+    "*.html": ["npm run lint:javascript", "git add"]
   },
   "husky": {
     "hooks": {
