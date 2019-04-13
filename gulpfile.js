@@ -11,7 +11,7 @@ const autoprefixer = require('autoprefixer');
 const pxtorem = require('postcss-pixels-to-rem');
 const eslint = require('gulp-eslint');
 const config = require('./.buildconfig.json');
-const through = require('through2');
+const csslit = require('gulp-csslit');
 const rename = require('gulp-rename');
 
 const BUILD_DIRECTORY = 'dist/';
@@ -44,27 +44,13 @@ const getServerConfig = (port) => {
     );
 };
 
-const styleModuleTemplate = [
-  'import {css} from \'lit-element\';',
-  'export const styles = css`',
-  '{{styles}}`;',
-].join('\n');
-
-const stylesToScript = () => through.obj((file, encoding, next) => {
-  const content = file.contents.toString(encoding);
-  const result = styleModuleTemplate.replace(/{{styles}}/g, content);
-  file.contents = new Buffer(result);
-
-  return next(null, file);
-});
-
 gulp.task('styles', () => {
   return gulp.src(['src/**/*.css'])
     .pipe(postcss([
       pxtorem(config.pxtorem),
       autoprefixer(config.autoprefixer),
     ]))
-    .pipe(stylesToScript())
+    .pipe(csslit())
     .pipe(rename({extname: '.css.js'}))
     .pipe(gulp.dest(TMP_DIRECTORY));
 });
