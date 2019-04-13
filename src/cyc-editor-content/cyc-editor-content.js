@@ -3,7 +3,6 @@ import {styles as sharedStyles} from '../cyc-styles/cyc-shared-styles.css.js';
 import {styles} from './cyc-editor-content.css.js';
 import {HighlightMixin} from '../cyc-mixins/cyc-highlight-mixin.js';
 import {readmeContent} from './readme-content.js';
-import '@polymer/polymer/lib/elements/dom-repeat.js';
 import '@kuscamara/code-sample/code-sample.js';
 import '../cyc-editor-tabs/cyc-editor-tabs.js';
 

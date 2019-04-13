@@ -2,7 +2,6 @@ import {html, css} from 'lit-element';
 import {styles as sharedStyles} from '../cyc-styles/cyc-shared-styles.css.js';
 import {styles} from './cyc-editor-sidebar.css.js';
 import {HighlightMixin} from '../cyc-mixins/cyc-highlight-mixin.js';
-import '@polymer/polymer/lib/elements/dom-repeat.js';
 
 /**
  * `<cyc-editor-sidebar>` displays the editor sidebar.
