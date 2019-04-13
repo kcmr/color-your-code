@@ -1,4 +1,6 @@
-import {html} from 'lit-element';
+import {html, css} from 'lit-element';
+import {styles as sharedStyles} from '../cyc-styles/cyc-shared-styles.css.js';
+import {styles} from './cyc-editor-titlebar.css.js';
 import {HighlightMixin} from '../cyc-mixins/cyc-highlight-mixin.js';
 
 /**
@@ -7,11 +9,14 @@ import {HighlightMixin} from '../cyc-mixins/cyc-highlight-mixin.js';
  * @extends {HighlightMixin}
  */
 class CycEditorTitlebar extends HighlightMixin {
+  static get styles() {
+    return css`
+      ${sharedStyles}
+      ${styles}`;
+  }
+
   render() {
     return html`
-    <link rel="stylesheet" href="../cyc-styles/cyc-shared-styles.css" inline>
-    <link rel="stylesheet" href="cyc-editor-titlebar.css" inline>
-
     <div class="buttons" aria-hidden="true">
       <div class="winBtn winBtn--close"></div>
       <div class="winBtn winBtn--minimize"></div>

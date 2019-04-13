@@ -1,4 +1,6 @@
-import {html} from 'lit-element';
+import {html, css} from 'lit-element';
+import {styles as sharedStyles} from '../cyc-styles/cyc-shared-styles.css.js';
+import {styles} from './cyc-editor-sidebar.css.js';
 import {HighlightMixin} from '../cyc-mixins/cyc-highlight-mixin.js';
 import '@polymer/polymer/lib/elements/dom-repeat.js';
 
@@ -8,11 +10,14 @@ import '@polymer/polymer/lib/elements/dom-repeat.js';
  * @extends {HighlightMixin}
  */
 class CycEditorSidebar extends HighlightMixin {
+  static get styles() {
+    return css`
+      ${sharedStyles}
+      ${styles}`;
+  }
+
   render() {
     return html`
-    <link rel="stylesheet" href="../cyc-styles/cyc-shared-styles.css" inline>
-    <link rel="stylesheet" href="cyc-editor-sidebar.css" inline>
-
     <div class="heading panel-heading"
       data-prop="sideBarTitle.foreground"
       @mouseenter="${this._onSectionMouseenter}">Explorer</div>

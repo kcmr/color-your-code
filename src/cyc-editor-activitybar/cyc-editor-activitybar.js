@@ -1,4 +1,6 @@
-import {html} from 'lit-element';
+import {html, css} from 'lit-element';
+import {styles as sharedStyles} from '../cyc-styles/cyc-shared-styles.css.js';
+import {styles} from './cyc-editor-activitybar.css.js';
 import {HighlightMixin} from '../cyc-mixins/cyc-highlight-mixin.js';
 import '../cyc-mixins/cyc-utils-mixin.js';
 import '../cyc-icons/cyc-icons.js';
@@ -9,11 +11,14 @@ import '../cyc-icons/cyc-icons.js';
  * @extends {HighlightMixin}
  */
 class CycEditorActivitybar extends HighlightMixin {
+  static get styles() {
+    return css`
+      ${sharedStyles}
+      ${styles}`;
+  }
+
   render() {
     return html`
-    <link rel="stylesheet" href="../cyc-styles/cyc-shared-styles.css" inline>
-    <link rel="stylesheet" href="cyc-editor-activitybar.css" inline>
-
     <ul class="icons" @mouseenter="${this._onSectionMouseenter}" data-target-prop="activityBar.foreground">
       <li>
         <span class="badge" data-prop="activityBarBadge.background" @mouseenter="${this._onSectionMouseenter}">

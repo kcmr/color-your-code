@@ -1,4 +1,6 @@
-import {html} from 'lit-element';
+import {html, css} from 'lit-element';
+import {styles as sharedStyles} from '../cyc-styles/cyc-shared-styles.css.js';
+import {styles} from './cyc-editor-tabs.css.js';
 import {HighlightMixin} from '../cyc-mixins/cyc-highlight-mixin.js';
 import '@polymer/polymer/lib/elements/dom-repeat.js';
 import '../cyc-icons/cyc-icons.js';
@@ -9,11 +11,14 @@ import '../cyc-icons/cyc-icons.js';
  * @extends {HighlightMixin}
  */
 class CycEditorTabs extends HighlightMixin {
+  static get styles() {
+    return css`
+      ${sharedStyles}
+      ${styles}`;
+  }
+
   render() {
     return html`
-    <link rel="stylesheet" href="../cyc-styles/cyc-shared-styles.css" inline>
-    <link rel="stylesheet" href="cyc-editor-tabs.css" inline>
-
     ${this.tabs.map((item) => html`
       <div
         class="tab ${this._computeValue(item.active, 'active')}"

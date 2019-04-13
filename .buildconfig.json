@@ -15,10 +15,5 @@
     "ghostMode": false,
     "reloadOnRestart": true,
     "proxy": "localhost:{{port}}"
-  },
-  "inlineSource": {
-    "compress": false,
-    "swallowErrors": true,
-    "pretty": true
   }
 }
