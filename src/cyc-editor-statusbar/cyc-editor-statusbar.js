@@ -1,4 +1,6 @@
-import {html} from 'lit-element';
+import {html, css} from 'lit-element';
+import {styles as sharedStyles} from '../cyc-styles/cyc-shared-styles.css.js';
+import {styles} from './cyc-editor-statusbar.css.js';
 import {HighlightMixin} from '../cyc-mixins/cyc-highlight-mixin.js';
 import '../cyc-icons/cyc-icons.js';
 
@@ -8,11 +10,14 @@ import '../cyc-icons/cyc-icons.js';
  * @extends {HighlightMixin}
  */
 class CycEditorStatusbar extends HighlightMixin {
+  static get styles() {
+    return css`
+      ${sharedStyles}
+      ${styles}`;
+  }
+
   render() {
     return html`
-    <link rel="stylesheet" href="../cyc-styles/cyc-shared-styles.css" inline>
-    <link rel="stylesheet" href="cyc-editor-statusbar.css" inline>
-
     <div class="border" data-prop="statusBar.border" @mouseenter="${this._onSectionMouseenter}"></div>
     <div class="left">
       <iron-icon icon="cyc:fork" class="icon git-icon"></iron-icon>

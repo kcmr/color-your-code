@@ -1,4 +1,5 @@
-import {html} from 'lit-element';
+import {html, css} from 'lit-element';
+import {styles} from './cyc-app.css.js';
 import {UtilsMixin} from '../cyc-mixins/cyc-utils-mixin.js';
 import '../cyc-editor-window/cyc-editor-window.js';
 import '../cyc-theme-editor/cyc-theme-editor.js';
@@ -10,10 +11,12 @@ import '../cyc-dm/cyc-dm.js';
  * @extends {UtilsMixin}
  */
 class CycApp extends UtilsMixin {
+  static get styles() {
+    return css`${styles}`;
+  }
+
   render() {
     return html`
-    <link rel="stylesheet" href="cyc-app.css" inline>
-
     <cyc-dm id="dmTheme"
       hidden
       .url="${this.themeFile}"

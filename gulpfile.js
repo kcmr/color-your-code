@@ -6,12 +6,13 @@ const del = require('del');
 const browserSync = require('browser-sync').create();
 const portfinder = require('portfinder');
 const {spawn} = require('child_process');
-const inlineSource = require('gulp-inline-source');
 const postcss = require('gulp-postcss');
 const autoprefixer = require('autoprefixer');
 const pxtorem = require('postcss-pixels-to-rem');
 const eslint = require('gulp-eslint');
 const config = require('./.buildconfig.json');
+const through = require('through2');
+const rename = require('gulp-rename');
 
 const BUILD_DIRECTORY = 'dist/';
 const TMP_DIRECTORY = '.tmp/';
@@ -43,12 +44,28 @@ const getServerConfig = (port) => {
     );
 };
 
+const styleModuleTemplate = [
+  'import {css} from \'lit-element\';',
+  'export const styles = css`',
+  '{{styles}}`;',
+].join('\n');
+
+const stylesToScript = () => through.obj((file, encoding, next) => {
+  const content = file.contents.toString(encoding);
+  const result = styleModuleTemplate.replace(/{{styles}}/g, content);
+  file.contents = new Buffer(result);
+
+  return next(null, file);
+});
+
 gulp.task('styles', () => {
   return gulp.src(['src/**/*.css'])
     .pipe(postcss([
       pxtorem(config.pxtorem),
       autoprefixer(config.autoprefixer),
     ]))
+    .pipe(stylesToScript())
+    .pipe(rename({extname: '.css.js'}))
     .pipe(gulp.dest(TMP_DIRECTORY));
 });
 
@@ -61,7 +78,6 @@ gulp.task('eslint', () => {
 
 gulp.task('build:dist', ['clean', 'styles', 'eslint'], () => {
   return gulp.src(['.tmp/**/*.js'])
-    .pipe(inlineSource(config.inlineSource))
     .pipe(gulp.dest(BUILD_DIRECTORY));
 });
 

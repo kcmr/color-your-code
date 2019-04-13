@@ -1,4 +1,6 @@
-import {html} from 'lit-element';
+import {html, css} from 'lit-element';
+import {styles as sharedStyles} from '../cyc-styles/cyc-shared-styles.css.js';
+import {styles} from './cyc-theme-editor.css.js';
 import {UtilsMixin} from '../cyc-mixins/cyc-utils-mixin.js';
 import '../cyc-icons/cyc-icons.js';
 
@@ -9,11 +11,14 @@ import '../cyc-icons/cyc-icons.js';
  * @extends {UtilsMixin}
  */
 class CycThemeEditor extends UtilsMixin {
+  static get styles() {
+    return css`
+      ${sharedStyles}
+      ${styles}`;
+  }
+
   render() {
     return html`
-    <link rel="stylesheet" href="../cyc-styles/cyc-shared-styles.css" inline>
-    <link rel="stylesheet" href="cyc-theme-editor.css" inline>
-
     <form class="form" @change="${this._onFormChange}" @reset="${this._onFormReset}" @submit="${this._onFormSubmit}">
       <input class="sr-only" id="inputColor"
         type="color"
